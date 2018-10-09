@@ -19,19 +19,19 @@ class PhotoLibraryViewController: SharedImagePickerController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-    
-    @IBAction func PhotoSelectionButtonPressed(_ sender: Any) {
+        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidLoad()
         let sharedImagePickerController = UIImagePickerController()
         sharedImagePickerController.delegate = self
         sharedImagePickerController.allowsEditing = false
         sharedImagePickerController.sourceType = .photoLibrary
         
         present(sharedImagePickerController, animated: true, completion: nil)
-        
+
     }
-    
+        
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sq1-OB-9j9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5o1-rt-dl2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,13 +22,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHc-di-ZWI">
-                                <rect key="frame" x="149" y="454" width="76" height="30"/>
+                                <rect key="frame" x="128" y="600" width="119" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take Photo"/>
+                                <state key="normal" title="Choose an Image"/>
                                 <connections>
-                                    <action selector="takePhoto:" destination="5o1-rt-dl2" eventType="touchUpInside" id="9vz-0g-YcP"/>
+                                    <action selector="chooseImage:" destination="5o1-rt-dl2" eventType="touchUpInside" id="KLP-Ep-fqR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-zr-EAP">
+                                <rect key="frame" x="326" y="32" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Recents"/>
+                                <connections>
+                                    <segue destination="Zsp-CX-Xaf" kind="show" id="MMz-wx-AFL"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J3Q-2B-ob2">
+                                <rect key="frame" x="67" y="67" width="240" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jt6-1e-SYo">
+                                <rect key="frame" x="177" y="133" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="kMK-l7-jGR"/>
@@ -36,167 +55,74 @@
                     <tabBarItem key="tabBarItem" title="" image="snapButton" id="q85-Fa-KIe"/>
                     <connections>
                         <outlet property="CameraPhoto" destination="wcH-HE-ctp" id="dda-Nh-EIM"/>
-                        <segue destination="I5C-V1-2WW" kind="show" identifier="SegueToResults" id="bgK-0f-sUK"/>
+                        <outlet property="activityIndicator" destination="Jt6-1e-SYo" id="R9Y-1k-VNq"/>
+                        <outlet property="landmarkResults" destination="J3Q-2B-ob2" id="TMY-uI-kM5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fL-yE-z24" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-151" y="-216"/>
+            <point key="canvasLocation" x="-151.19999999999999" y="-537.48125937031489"/>
         </scene>
-        <!--Results View Controller-->
-        <scene sceneID="49i-ue-kqz">
-            <objects>
-                <viewController id="I5C-V1-2WW" customClass="ResultsViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ksy-Ur-1j2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="szJ-6q-UPh">
-                                <rect key="frame" x="61" y="251" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POF-mP-RBO">
-                                <rect key="frame" x="16" y="617" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <segue destination="sq1-OB-9j9" kind="show" id="UuK-sN-43z"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jt6-1e-SYo">
-                                <rect key="frame" x="171" y="200" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kny-7j-V3g">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Results" id="xEO-UZ-gC1"/>
-                                </items>
-                            </navigationBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J3Q-2B-ob2">
-                                <rect key="frame" x="61" y="115" width="240" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="FPb-LK-KbO"/>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicator" destination="Jt6-1e-SYo" id="nOE-VA-VOG"/>
-                        <outlet property="image_from_library" destination="szJ-6q-UPh" id="rze-OD-M8E"/>
-                        <outlet property="landmarkResults" destination="J3Q-2B-ob2" id="6Ok-k5-PwE"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rjb-xQ-4B5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="641" y="-537"/>
-        </scene>
-        <!--Photo Library View Controller-->
-        <scene sceneID="7X1-gu-yBe">
-            <objects>
-                <viewController id="pbe-yr-GHB" customClass="PhotoLibraryViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IrT-dZ-Hqe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HU5-q9-QfX">
-                                <rect key="frame" x="87" y="470" width="202" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Choose an image from library"/>
-                                <connections>
-                                    <action selector="PhotoSelectionButtonPressed:" destination="pbe-yr-GHB" eventType="touchUpInside" id="FP2-Hg-lTF"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1uR-bS-1jZ">
-                                <rect key="frame" x="67" y="166" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="4wr-51-amF"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="hna-ft-4da"/>
-                    <connections>
-                        <outlet property="LibraryPhoto" destination="1uR-bS-1jZ" id="ucf-vB-ZGA"/>
-                        <segue destination="I5C-V1-2WW" kind="show" identifier="SegueToResults" id="Fqb-C4-mtg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xcb-kv-vo2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-150" y="-904"/>
-        </scene>
-        <!--First View Controller-->
-        <scene sceneID="1Fq-Uy-dG8">
-            <objects>
-                <tabBarController id="sq1-OB-9j9" customClass="FirstViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Thj-3m-c6t">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="pbe-yr-GHB" kind="relationship" relationship="viewControllers" id="ODD-bX-5Bh"/>
-                        <segue destination="5o1-rt-dl2" kind="relationship" relationship="viewControllers" id="8l9-51-t39"/>
-                        <segue destination="Zsp-CX-Xaf" kind="relationship" relationship="viewControllers" id="1AJ-in-WDh"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bC6-rL-ZTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1279" y="-536"/>
-        </scene>
-        <!--Landmark List View-->
+        <!--Landmark List View Controller-->
         <scene sceneID="uTi-Jh-0Vz">
             <objects>
-                <tableViewController id="siD-L8-8Wt" customClass="LandmarkListView" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="siD-L8-8Wt" customClass="LandmarkListViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zsu-Bw-WlB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="gHg-Ex-SyX">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LandmarkCell" textLabel="PJV-qk-tFy" detailTextLabel="dkz-AL-532" style="IBUITableViewCellStyleSubtitle" id="Shh-xl-DA0">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" textLabel="PJV-qk-tFy" imageView="H1r-CW-FDw" style="IBUITableViewCellStyleDefault" id="Shh-xl-DA0" customClass="ImageDisplayCell" customModule="WhatLandmark_" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Shh-xl-DA0" id="SHf-WH-q0s">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PJV-qk-tFy">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dkz-AL-532">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H1r-CW-FDw">
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="PJV-qk-tFy" id="Oc3-yK-efw"/>
+                                    <outlet property="thumbnailView" destination="H1r-CW-FDw" id="eB9-gr-UrQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="siD-L8-8Wt" id="d4n-Uv-A0R"/>
-                            <outlet property="delegate" destination="siD-L8-8Wt" id="8I2-dM-pH6"/>
-                        </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gAA-Pw-Z2l"/>
+                    <navigationItem key="navigationItem" id="gAA-Pw-Z2l">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="RnF-Y0-4aY"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="twO-Bg-rLX">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="siD-L8-8Wt" id="JDT-2h-CDe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Zsu-Bw-WlB" id="HSy-Hc-2Cp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9T-ZT-NKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="642" y="573"/>
+            <point key="canvasLocation" x="948" y="453"/>
         </scene>
         <!--Landmark Detail View Controller-->
         <scene sceneID="sNT-c8-2ZU">
             <objects>
-                <viewController id="6cK-Vy-6Lq" customClass="LandmarkDetailViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LandmarkDetailViewController" id="6cK-Vy-6Lq" customClass="LandmarkDetailViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u6L-rG-hBy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -218,6 +144,15 @@
                                     <constraint firstAttribute="width" constant="343" id="Z0H-iw-Yqu"/>
                                 </constraints>
                             </stackView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcJ-dA-utB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="Lz8-Ur-Z3U">
+                                        <barButtonItem key="backBarButtonItem" title="Back" id="mj0-Wx-fVI"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -227,33 +162,35 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cGA-wl-Q9q"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="hmG-mo-gbh" id="ffX-8f-XRS"/>
+                        <outlet property="label" destination="VGI-UA-l1i" id="Mo5-DQ-3Ae"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3I-i0-DxB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1420" y="573"/>
+            <point key="canvasLocation" x="2028" y="453"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Recents-->
         <scene sceneID="txo-eU-LLK">
             <objects>
                 <navigationController id="Zsp-CX-Xaf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="oDq-rE-TrB"/>
+                    <tabBarItem key="tabBarItem" title="Recents" image="Recents" landscapeImage="Recents" selectedImage="Recents" id="oDq-rE-TrB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="spc-m1-gxj">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="siD-L8-8Wt" kind="relationship" relationship="rootViewController" id="XOh-3d-xzn"/>
+                        <segue destination="siD-L8-8Wt" kind="relationship" relationship="rootViewController" id="La8-if-CUj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0d4-Qr-NXo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-151" y="573"/>
+            <point key="canvasLocation" x="-151" y="453"/>
         </scene>
     </scenes>
     <resources>
-        <image name="snapButton" width="90" height="90"/>
+        <image name="Recents" width="37.5" height="37.5"/>
+        <image name="snapButton" width="91.267608642578125" height="91.267608642578125"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Fqb-C4-mtg"/>
-    </inferredMetricsTieBreakers>
 </document>

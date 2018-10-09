@@ -21,7 +21,7 @@ class GoogleCloudVision: SharedImagePickerController {
     
 }
 
-extension ResultsViewController {
+extension CameraViewController {
     
     func analyzeResults(_ dataToParse: Data) {
         
@@ -32,7 +32,7 @@ extension ResultsViewController {
             // Use SwiftyJSON to parse results
             let json = try! JSON(data: dataToParse)
             self.activityIndicator.stopAnimating()
-            self.image_from_library.isHidden = true
+            self.CameraPhoto.isHidden = true
             self.landmarkResults.isHidden = false
             
             

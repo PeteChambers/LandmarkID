@@ -35,9 +35,7 @@ class ResultsViewController: SharedImagePickerController {
             image_from_library.contentMode = .scaleAspectFit
             image_from_library.image = pickedImage
             activityIndicator.startAnimating()
-            let binaryImageData = base64EncodeImage(pickedImage)
-            createRequest(with: binaryImageData)
-            
+                        
         }
         
         dismiss(animated: true, completion: nil)

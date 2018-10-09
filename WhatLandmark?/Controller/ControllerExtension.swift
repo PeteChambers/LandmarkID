@@ -6,7 +6,6 @@
 //  Copyright © 2018 Pete Chambers. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SwiftyJSON
 
