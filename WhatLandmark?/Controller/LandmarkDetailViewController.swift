@@ -17,10 +17,6 @@ class LandmarkDetailViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
 
-    
-    
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }

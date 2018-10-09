@@ -21,9 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         dataController.load()
         
-        // let navigationController = window?.rootViewController as! UINavigationController
-        // let landmarkListViewController = navigationController.topViewController as! LandmarkListViewController
-        //  landmarkListViewController.dataController = dataController
         
         return true
     }

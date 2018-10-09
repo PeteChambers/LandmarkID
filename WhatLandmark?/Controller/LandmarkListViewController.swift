@@ -18,9 +18,6 @@ class LandmarkListViewController: UIViewController, UITableViewDelegate {
     var dataController: DataController!
     
     var tableViewDataSource = TableViewDataSource()
-
-   // let allLandmarks = TempLandmark.allLandmarks
-    
     
     
     override func viewDidLoad() {
@@ -77,78 +74,8 @@ class LandmarkListViewController: UIViewController, UITableViewDelegate {
     @IBAction func closeButtonPressed(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.allLandmarks.count
-//    }
 
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "LandmarkCell")!
-//        let landmark = self.allLandmarks[(indexPath as NSIndexPath).row]
-        
-        // Set the name and image
-//        cell.textLabel?.text = landmark.name
-//        cell.imageView?.image = UIImage(named: landmark.image)
-        
-        
-//        return cell
-//  }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let detailController = self.storyboard!.instantiateViewController(withIdentifier:
-    //"LandmarkDetailViewController") as! LandmarkDetailViewController
-//        detailController.tempLandmark = self.allLandmarks[(indexPath as NSIndexPath).row]
-//        self.navigationController!.pushViewController(detailController, animated: true)
-        
- //   }
-//}
-
-
-    // MARK: - Table view data source
-
-
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return fetchedResultsController.sections?.count ?? 1
-//    }
-
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-//    }
-
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let aLandmark = fetchedResultsController.object(at: indexPath)
-//        let cell = tableView.dequeueReusableCell(withIdentifier: LandmarkCell.defaultReuseIdentifier, for: indexPath) as! LandmarkCell
-        
-    
-
-    // Configure cell
- //   cell.nameLabel.text = aLandmark.name
-
- //   if let count = aLandmark.landmarkDetail?.count {
- //       let pageString = count == 1 ? "page" : "pages"
- //       cell.pageCountLabel.text = "\(count) \(pageString)"
-    
-
- //   return cell
 }
-
-
-
-
-    // MARK: - Navigation
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-       // if let vc = segue.destination as? LandmarkDetailViewController {
-        //    if let indexPath = tableView.indexPathForSelectedRow {
-           // vc.imageView = Landmark.image
-                
-//           }
-//       }
 
 
 extension LandmarkListViewController:NSFetchedResultsControllerDelegate {
