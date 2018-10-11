@@ -2,7 +2,7 @@
 //  Cell.swift
 //  WhatLandmark?
 //
-//  Created by Pete Chambers on 02/10/2018.
+//  Created by Pete Chambers on 11/10/2018.
 //  Copyright © 2018 Pete Chambers. All rights reserved.
 //
 
@@ -20,4 +20,3 @@ extension Cell {
         return "\(self)"
     }
 }
-

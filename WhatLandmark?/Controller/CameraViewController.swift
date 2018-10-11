@@ -14,21 +14,41 @@ import CoreData
 class CameraViewController: SharedImagePickerController {
     
     let session = URLSession.shared
-  
-    var landmark: Landmark!
     
     var dataController: DataController!
     
+    var fetchedResultsController:NSFetchedResultsController<Landmark>!
     
-    
-    /// The Core Data managed context
-    var managedContext : NSManagedObjectContext?
 
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var landmarkResults: UITextView!
     @IBOutlet weak var CameraPhoto: UIImageView!
+    @IBOutlet weak var saveButton: UIButton!
     
+    
+    @IBAction func saveTapped(_ sender: Any) {
+        if landmarkResults.text.isEmpty {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
+        }
+        presentNewLandmarkAlert()
+        
+    }
+    
+    fileprivate func setupFetchedResultsController() {
+        let fetchRequest:NSFetchRequest<Landmark> = Landmark.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
     
     @IBAction func chooseImage(_ sender: Any) {
         
@@ -52,29 +72,26 @@ class CameraViewController: SharedImagePickerController {
         self.present(actionSheet, animated: true, completion: nil )
     }
     
- override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector(("imageTapped:")))
         CameraPhoto.addGestureRecognizer(tapGesture)
         CameraPhoto.isUserInteractionEnabled = true
         activityIndicator.hidesWhenStopped = true
-        coreDataSetup()
+        setupFetchedResultsController()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupFetchedResultsController()
         
+    }
     
-    
-  //  override func viewDidAppear(_ animated: Bool) {
-      //  if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-         //   let sharedImagePickerController = UIImagePickerController()
-          //  sharedImagePickerController.delegate = self
-          //  sharedImagePickerController.sourceType = UIImagePickerController.SourceType.camera
-          //  sharedImagePickerController.allowsEditing = false
-         //   self.present(sharedImagePickerController, animated: true, completion: nil)
-       // }
-   // }
-    
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        fetchedResultsController = nil
+    }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -84,32 +101,59 @@ class CameraViewController: SharedImagePickerController {
             activityIndicator.startAnimating()
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
-
+            
+            dismiss(animated: true, completion: nil)
+            
+        }
+    }
+    
+    func presentNewLandmarkAlert() {
+        let alert = UIAlertController(title: "New Landmark", message: nil, preferredStyle: .alert)
         
-    
-        dismiss(animated: true, completion: nil)
-        prepareImageForSaving(pickedImage)
-    
+        // Create actions
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
+            if let name = alert.textFields?.first?.text {
+                self?.addLandmark(name: name)
+            }
         }
+        saveAction.isEnabled = false
+        
+        // Add a text fieldDda
+        alert.addTextField { textField in
+            textField.text = self.landmarkResults.text
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main) { notif in
+                if let text = textField.text, !text.isEmpty {
+                    saveAction.isEnabled = true
+                } else {
+                    saveAction.isEnabled = false
+                }
+                
+            }
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        present(alert, animated: true, completion: nil)
     }
     
-    func saveLandmark(givenName: String) {
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
-        let item = NSManagedObject(entity: entity!, insertInto: dataController.backgroundContext!)
-        item.setValue(givenName, forKey: "name")
-        do {
-            try dataController.backgroundContext!.save()
-        } catch {
-            print("Something went wrong")
-        }
+    func addLandmark(name: String) {
+        let landmark = Landmark(context: dataController.viewContext)
+        landmark.name = landmarkResults.text
+        try? dataController.viewContext.save()
+        
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+        
+        
+    }
 }
-    
-        
 
-    
+
 
 
 

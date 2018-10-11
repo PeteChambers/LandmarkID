@@ -7,27 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4307782B2163A3020046F0C8 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4307782A2163A3020046F0C8 /* Cell.swift */; };
-		4307783821664E5D0046F0C8 /* CoreDataSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4307783721664E5D0046F0C8 /* CoreDataSetup.swift */; };
-		4307783A216650560046F0C8 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43077839216650560046F0C8 /* Threading.swift */; };
-		4307783C216660D00046F0C8 /* SavingImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4307783B216660D00046F0C8 /* SavingImages.swift */; };
-		430778462166715C0046F0C8 /* WhatLandmark?.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 430778442166715C0046F0C8 /* WhatLandmark?.xcdatamodeld */; };
 		4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF75215D32AD00C5B469 /* AppDelegate.swift */; };
 		4372DF7B215D32AD00C5B469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF79215D32AD00C5B469 /* Main.storyboard */; };
 		4372DF80215D32AD00C5B469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF7F215D32AD00C5B469 /* Assets.xcassets */; };
 		4372DF83215D32AD00C5B469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF81215D32AD00C5B469 /* LaunchScreen.storyboard */; };
 		4372DF8E215D32AE00C5B469 /* WhatLandmark_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF8D215D32AE00C5B469 /* WhatLandmark_Tests.swift */; };
 		4372DF99215D32AE00C5B469 /* WhatLandmark_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */; };
-		43732E39216779BF0016A42A /* Landmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E35216779BE0016A42A /* Landmark+CoreDataProperties.swift */; };
-		43732E3A216779BF0016A42A /* Landmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E36216779BF0016A42A /* Landmark+CoreDataClass.swift */; };
-		43732E3B216779BF0016A42A /* LandmarkDetail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E37216779BF0016A42A /* LandmarkDetail+CoreDataProperties.swift */; };
-		43732E3C216779BF0016A42A /* LandmarkDetail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E38216779BF0016A42A /* LandmarkDetail+CoreDataClass.swift */; };
-		43732E402167896F0016A42A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E3F2167896F0016A42A /* Alert.swift */; };
-		43732E42216792FD0016A42A /* LoadingImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E41216792FD0016A42A /* LoadingImages.swift */; };
-		43732E462167A7240016A42A /* DispatchQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E452167A7240016A42A /* DispatchQueues.swift */; };
-		43732E482167B7810016A42A /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E472167B7810016A42A /* TableViewDataSource.swift */; };
-		43732E4A2167B8820016A42A /* ImageDisplayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E492167B8820016A42A /* ImageDisplayCell.swift */; };
-		43732E4C2167BE870016A42A /* Landmark-UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43732E4B2167BE870016A42A /* Landmark-UIImage.swift */; };
+		439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */; };
+		439C31B8216FB24D001214D5 /* LandmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B7216FB24D001214D5 /* LandmarkCell.swift */; };
+		439C31BA216FB26B001214D5 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B9216FB26B001214D5 /* Cell.swift */; };
 		43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */; };
 		43C628CE215D3C1F000D3CDD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CD215D3C1F000D3CDD /* DataController.swift */; };
 		43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */; };
@@ -63,11 +51,6 @@
 		264F2685AFF3F8D15623064B /* Pods_WhatLandmark_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatLandmark_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3299BEACE33DC43567B458BC /* Pods-WhatLandmark?Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatLandmark?Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatLandmark?Tests/Pods-WhatLandmark?Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		3B24271F6E45261088BBB8BB /* Pods-WhatLandmark?.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatLandmark?.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatLandmark?/Pods-WhatLandmark?.release.xcconfig"; sourceTree = "<group>"; };
-		4307782A2163A3020046F0C8 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
-		4307783721664E5D0046F0C8 /* CoreDataSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSetup.swift; sourceTree = "<group>"; };
-		43077839216650560046F0C8 /* Threading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
-		4307783B216660D00046F0C8 /* SavingImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingImages.swift; sourceTree = "<group>"; };
-		430778452166715C0046F0C8 /* WhatLandmark?.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WhatLandmark?.xcdatamodel"; sourceTree = "<group>"; };
 		4372DF72215D32AD00C5B469 /* WhatLandmark?.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhatLandmark?.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4372DF75215D32AD00C5B469 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4372DF7A215D32AD00C5B469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,16 +63,9 @@
 		4372DF94215D32AE00C5B469 /* WhatLandmark?UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WhatLandmark?UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatLandmark_UITests.swift; sourceTree = "<group>"; };
 		4372DF9A215D32AE00C5B469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		43732E35216779BE0016A42A /* Landmark+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Landmark+CoreDataProperties.swift"; path = "/Users/petechambers/xcode-projects/WhatLandmark?/WhatLandmark?/Model/Landmark+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		43732E36216779BF0016A42A /* Landmark+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Landmark+CoreDataClass.swift"; path = "/Users/petechambers/xcode-projects/WhatLandmark?/WhatLandmark?/Model/Landmark+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		43732E37216779BF0016A42A /* LandmarkDetail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LandmarkDetail+CoreDataProperties.swift"; path = "/Users/petechambers/xcode-projects/WhatLandmark?/WhatLandmark?/Model/LandmarkDetail+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		43732E38216779BF0016A42A /* LandmarkDetail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LandmarkDetail+CoreDataClass.swift"; path = "/Users/petechambers/xcode-projects/WhatLandmark?/WhatLandmark?/Model/LandmarkDetail+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		43732E3F2167896F0016A42A /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		43732E41216792FD0016A42A /* LoadingImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImages.swift; sourceTree = "<group>"; };
-		43732E452167A7240016A42A /* DispatchQueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueues.swift; sourceTree = "<group>"; };
-		43732E472167B7810016A42A /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
-		43732E492167B8820016A42A /* ImageDisplayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDisplayCell.swift; sourceTree = "<group>"; };
-		43732E4B2167BE870016A42A /* Landmark-UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Landmark-UIImage.swift"; sourceTree = "<group>"; };
+		439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WhatLandmark?.xcdatamodel"; sourceTree = "<group>"; };
+		439C31B7216FB24D001214D5 /* LandmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkCell.swift; sourceTree = "<group>"; };
+		439C31B9216FB26B001214D5 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudVision.swift; sourceTree = "<group>"; };
 		43C628CD215D3C1F000D3CDD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtension.swift; sourceTree = "<group>"; };
@@ -206,11 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */,
-				430778442166715C0046F0C8 /* WhatLandmark?.xcdatamodeld */,
-				43732E36216779BF0016A42A /* Landmark+CoreDataClass.swift */,
-				43732E35216779BE0016A42A /* Landmark+CoreDataProperties.swift */,
-				43732E38216779BF0016A42A /* LandmarkDetail+CoreDataClass.swift */,
-				43732E37216779BF0016A42A /* LandmarkDetail+CoreDataProperties.swift */,
+				439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */,
 				43C628CD215D3C1F000D3CDD /* DataController.swift */,
 			);
 			path = Model;
@@ -220,16 +192,8 @@
 			isa = PBXGroup;
 			children = (
 				43C628DD215E2DCB000D3CDD /* UIImage+Exntensions.swift */,
-				4307782A2163A3020046F0C8 /* Cell.swift */,
-				4307783721664E5D0046F0C8 /* CoreDataSetup.swift */,
-				43077839216650560046F0C8 /* Threading.swift */,
-				4307783B216660D00046F0C8 /* SavingImages.swift */,
-				43732E41216792FD0016A42A /* LoadingImages.swift */,
-				43732E452167A7240016A42A /* DispatchQueues.swift */,
-				43732E3F2167896F0016A42A /* Alert.swift */,
-				43732E472167B7810016A42A /* TableViewDataSource.swift */,
-				43732E492167B8820016A42A /* ImageDisplayCell.swift */,
-				43732E4B2167BE870016A42A /* Landmark-UIImage.swift */,
+				439C31B7216FB24D001214D5 /* LandmarkCell.swift */,
+				439C31B9216FB26B001214D5 /* Cell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -485,27 +449,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43732E3B216779BF0016A42A /* LandmarkDetail+CoreDataProperties.swift in Sources */,
 				43C628CE215D3C1F000D3CDD /* DataController.swift in Sources */,
-				430778462166715C0046F0C8 /* WhatLandmark?.xcdatamodeld in Sources */,
-				43732E39216779BF0016A42A /* Landmark+CoreDataProperties.swift in Sources */,
+				439C31B8216FB24D001214D5 /* LandmarkCell.swift in Sources */,
 				43C628DE215E2DCB000D3CDD /* UIImage+Exntensions.swift in Sources */,
-				43732E402167896F0016A42A /* Alert.swift in Sources */,
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
-				43732E4C2167BE870016A42A /* Landmark-UIImage.swift in Sources */,
-				43732E482167B7810016A42A /* TableViewDataSource.swift in Sources */,
-				43732E42216792FD0016A42A /* LoadingImages.swift in Sources */,
-				43732E462167A7240016A42A /* DispatchQueues.swift in Sources */,
-				4307782B2163A3020046F0C8 /* Cell.swift in Sources */,
-				43732E3C216779BF0016A42A /* LandmarkDetail+CoreDataClass.swift in Sources */,
 				43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */,
-				4307783821664E5D0046F0C8 /* CoreDataSetup.swift in Sources */,
 				4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */,
-				4307783A216650560046F0C8 /* Threading.swift in Sources */,
-				4307783C216660D00046F0C8 /* SavingImages.swift in Sources */,
+				439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */,
 				43C628DA215E2D58000D3CDD /* LandmarkListViewController.swift in Sources */,
-				43732E3A216779BF0016A42A /* Landmark+CoreDataClass.swift in Sources */,
-				43732E4A2167B8820016A42A /* ImageDisplayCell.swift in Sources */,
+				439C31BA216FB26B001214D5 /* Cell.swift in Sources */,
 				43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */,
 				43C628D4215E2CD8000D3CDD /* CameraViewController.swift in Sources */,
 			);
@@ -842,12 +794,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		430778442166715C0046F0C8 /* WhatLandmark?.xcdatamodeld */ = {
+		439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				430778452166715C0046F0C8 /* WhatLandmark?.xcdatamodel */,
+				439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */,
 			);
-			currentVersion = 430778452166715C0046F0C8 /* WhatLandmark?.xcdatamodel */;
+			currentVersion = 439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */;
 			path = "WhatLandmark?.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
