@@ -127,7 +127,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" textLabel="PJV-qk-tFy" imageView="H1r-CW-FDw" style="IBUITableViewCellStyleDefault" id="Shh-xl-DA0" customClass="ImageDisplayCell" customModule="WhatLandmark_" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LandmarkCell" textLabel="PJV-qk-tFy" imageView="H1r-CW-FDw" style="IBUITableViewCellStyleDefault" id="Shh-xl-DA0" customClass="ImageDisplayCell" customModule="WhatLandmark_" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Shh-xl-DA0" id="SHf-WH-q0s">
@@ -148,7 +148,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="nameLabel" destination="PJV-qk-tFy" id="Oc3-yK-efw"/>
+                                    <outlet property="nameLabel" destination="PJV-qk-tFy" id="goK-nq-IJr"/>
                                     <outlet property="thumbnailView" destination="H1r-CW-FDw" id="eB9-gr-UrQ"/>
                                 </connections>
                             </tableViewCell>
