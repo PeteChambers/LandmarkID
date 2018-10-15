@@ -141,18 +141,24 @@ class CameraViewController: SharedImagePickerController {
         let landmark = Landmark(context: dataController.viewContext)
         landmark.name = landmarkResults.text
         try? dataController.viewContext.save()
+        print("landmark saved")
         
+    }
+        
+    @IBAction func recentsPressed(_ sender: Any) {
+        performSegue(withIdentifier: "SegueToRecents", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
-        
-        
-        
+        let vc = segue.destination as! LandmarkListViewController
+                if let landmark = sender as? Landmark {
+                    vc.landmark.name = landmarkResults.text
+                    vc.dataController = dataController
+                }
     }
-}
 
+}
 
 
 

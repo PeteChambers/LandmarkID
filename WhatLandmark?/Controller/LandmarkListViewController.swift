@@ -42,7 +42,6 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
-        
         setupFetchedResultsController()
         
     }

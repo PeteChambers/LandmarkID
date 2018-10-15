@@ -43,7 +43,8 @@
                                 <rect key="frame" x="316" y="606" width="40" height="38"/>
                                 <state key="normal" image="Recents"/>
                                 <connections>
-                                    <segue destination="Zsp-CX-Xaf" kind="show" id="MMz-wx-AFL"/>
+                                    <action selector="recentsPressed:" destination="5o1-rt-dl2" eventType="touchUpInside" id="ZMf-3l-3eP"/>
+                                    <segue destination="siD-L8-8Wt" kind="show" identifier="SegueToRecents" id="cgv-vn-RT5"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J3Q-2B-ob2">
@@ -117,7 +118,7 @@
         <!--Landmark List View Controller-->
         <scene sceneID="uTi-Jh-0Vz">
             <objects>
-                <tableViewController id="siD-L8-8Wt" customClass="LandmarkListViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SegueToLandmarkListViewController" id="siD-L8-8Wt" customClass="LandmarkListViewController" customModule="WhatLandmark_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zsu-Bw-WlB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,9 +232,6 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="siD-L8-8Wt" kind="relationship" relationship="rootViewController" id="La8-if-CUj"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0d4-Qr-NXo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

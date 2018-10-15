@@ -124,7 +124,6 @@ extension CameraViewController {
             ]
         ]
         let jsonObject = JSON(jsonRequest)
-        print(jsonRequest)
         // Serialize the JSON
         guard let data = try? jsonObject.rawData() else {
             return
