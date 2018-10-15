@@ -152,7 +152,7 @@ class CameraViewController: SharedImagePickerController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let vc = segue.destination as! LandmarkListViewController
-                if let landmark = sender as? Landmark {
+        if (sender as? Landmark) != nil {
                     vc.landmark.name = landmarkResults.text
                     vc.dataController = dataController
                 }
