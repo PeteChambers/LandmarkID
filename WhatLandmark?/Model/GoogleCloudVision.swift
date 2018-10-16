@@ -32,7 +32,6 @@ extension CameraViewController {
             // Use SwiftyJSON to parse results
             let json = try! JSON(data: dataToParse)
             self.activityIndicator.stopAnimating()
-            self.CameraPhoto.isHidden = true
             self.landmarkResults.isHidden = false
             
             

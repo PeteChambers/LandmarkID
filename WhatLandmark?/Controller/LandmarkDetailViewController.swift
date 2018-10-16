@@ -15,9 +15,6 @@ class LandmarkDetailViewController: UIViewController {
     
     // MARK: Properties
     
-    var landmark: Landmark!
-    
-    var dataController: DataController!
     
     // var fetchedResultsController:NSFetchedResultsController<LandmarkDetail>!
     

@@ -9,46 +9,25 @@
 import UIKit
 import CoreData
 
+class LandmarkCell: UITableViewCell {
+    @IBOutlet weak var landmarkName: UILabel!
+}
 
 class LandmarkListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-
+    var userArray = NSMutableArray()
+    
     @IBOutlet var tableView: UITableView!
     
-    
-    @IBAction func closeButtonPressed(_ sender: Any) {
-        navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
-    var dataController: DataController!
-  
-    var landmark: Landmark!
-    
-    var fetchedResultsController: NSFetchedResultsController<Landmark>!
-    
-    fileprivate func setupFetchedResultsController() {
-        let fetchRequest:NSFetchRequest<Landmark> = Landmark.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("The fetch could not be performed: \(error.localizedDescription)")
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
-        setupFetchedResultsController()
-        
+        requestUserData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupFetchedResultsController()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -57,72 +36,80 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        fetchedResultsController = nil
+
         
     }
     
-    
-    
-    func deleteLandmark(at indexPath: IndexPath) {
-        let landmarkToDelete = fetchedResultsController.object(at: indexPath)
-        dataController.viewContext.delete(landmarkToDelete)
-        try? dataController.viewContext.save()
-        
-    }
-    
-    func updateEditButtonState() {
-        if let sections = fetchedResultsController.sections {
-            navigationItem.rightBarButtonItem?.isEnabled = sections[0].numberOfObjects > 0
+    func requestUserData() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Landmark")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context?.fetch(request)
+            print("resultsdata=", result!)
+            for data in result as! [NSManagedObject] {
+                userArray.add(data)
+            }
+            print("userArray!!=", self.userArray)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.reloadData()
+            
+        }
+        catch {
+            print("failed")
+            
         }
     }
+    
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: animated)
     }
     
+    
     // MARK: - Table view data source
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
+        return 1
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
+        return userArray.count    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let aLandmark = fetchedResultsController.object(at: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: LandmarkCell.defaultReuseIdentifier, for: indexPath) as! LandmarkCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LandmarkCell", for: indexPath) as! LandmarkCell
         
         // Configure cell
-        cell.nameLabel.text = aLandmark.name
+         cell.landmarkName.text = (userArray[indexPath.row] as AnyObject).value(forKey: "name") as? String
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete: deleteLandmark(at: indexPath)
-        default: ()        }
-    }
+  //  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+  //      switch editingStyle {
+  //      case .delete: userArray.removeObjects(at: indexPath)
+  //      default: ()        }
+}
     
     
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  //  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let vc = segue.destination as? LandmarkDetailViewController {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                vc.landmark = fetchedResultsController.object(at: indexPath)
-                vc.dataController = dataController
-            }
-        }
-    }
+   //     if let vc = segue.destination as? LandmarkDetailViewController {
+   //         if let indexPath = tableView.indexPathForSelectedRow {
+    //            vc.landmark = fetchedResultsController.object(at: indexPath)
+    //            vc.dataController = dataController
+    //        }
+     //   }
+   // }
     
-}
+
 
 extension LandmarkListViewController: NSFetchedResultsControllerDelegate {
     

@@ -14,10 +14,7 @@
 		4372DF8E215D32AE00C5B469 /* WhatLandmark_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF8D215D32AE00C5B469 /* WhatLandmark_Tests.swift */; };
 		4372DF99215D32AE00C5B469 /* WhatLandmark_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */; };
 		439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */; };
-		439C31B8216FB24D001214D5 /* LandmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B7216FB24D001214D5 /* LandmarkCell.swift */; };
-		439C31BA216FB26B001214D5 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B9216FB26B001214D5 /* Cell.swift */; };
 		43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */; };
-		43C628CE215D3C1F000D3CDD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CD215D3C1F000D3CDD /* DataController.swift */; };
 		43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */; };
 		43C628D4215E2CD8000D3CDD /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628D3215E2CD8000D3CDD /* CameraViewController.swift */; };
 		43C628DA215E2D58000D3CDD /* LandmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */; };
@@ -64,10 +61,7 @@
 		4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatLandmark_UITests.swift; sourceTree = "<group>"; };
 		4372DF9A215D32AE00C5B469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WhatLandmark?.xcdatamodel"; sourceTree = "<group>"; };
-		439C31B7216FB24D001214D5 /* LandmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkCell.swift; sourceTree = "<group>"; };
-		439C31B9216FB26B001214D5 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudVision.swift; sourceTree = "<group>"; };
-		43C628CD215D3C1F000D3CDD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtension.swift; sourceTree = "<group>"; };
 		43C628D3215E2CD8000D3CDD /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListViewController.swift; sourceTree = "<group>"; };
@@ -183,7 +177,6 @@
 			children = (
 				43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */,
 				439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */,
-				43C628CD215D3C1F000D3CDD /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,8 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				43C628DD215E2DCB000D3CDD /* UIImage+Exntensions.swift */,
-				439C31B7216FB24D001214D5 /* LandmarkCell.swift */,
-				439C31B9216FB26B001214D5 /* Cell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,15 +440,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43C628CE215D3C1F000D3CDD /* DataController.swift in Sources */,
-				439C31B8216FB24D001214D5 /* LandmarkCell.swift in Sources */,
 				43C628DE215E2DCB000D3CDD /* UIImage+Exntensions.swift in Sources */,
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
 				43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */,
 				4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */,
 				439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */,
 				43C628DA215E2D58000D3CDD /* LandmarkListViewController.swift in Sources */,
-				439C31BA216FB26B001214D5 /* Cell.swift in Sources */,
 				43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */,
 				43C628D4215E2CD8000D3CDD /* CameraViewController.swift in Sources */,
 			);
