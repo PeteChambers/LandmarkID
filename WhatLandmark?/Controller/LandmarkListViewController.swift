@@ -11,13 +11,16 @@ import CoreData
 
 class LandmarkCell: UITableViewCell {
     @IBOutlet weak var landmarkName: UILabel!
+    @IBOutlet weak var LandmarkPhoto: UIImageView!
 }
 
 class LandmarkListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userArray = NSMutableArray()
     
+    
     @IBOutlet var tableView: UITableView!
+    
     
     
     override func viewDidLoad() {
@@ -85,15 +88,18 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "LandmarkCell", for: indexPath) as! LandmarkCell
         
         // Configure cell
-         cell.landmarkName.text = (userArray[indexPath.row] as AnyObject).value(forKey: "name") as? String
+        cell.landmarkName.text = (userArray[indexPath.row] as AnyObject).value(forKey: "name") as? String
+        cell.LandmarkPhoto.image = (userArray[indexPath.row] as AnyObject).value(forKey: "photo") as? UIImage
         
         return cell
     }
     
-  //  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-  //      switch editingStyle {
-  //      case .delete: userArray.removeObjects(at: indexPath)
-  //      default: ()        }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.userArray.removeObject(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+    }
 }
     
     
@@ -108,44 +114,6 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     //        }
      //   }
    // }
-    
-
-
-extension LandmarkListViewController: NSFetchedResultsControllerDelegate {
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-            break
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-            break
-        case .update:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
-        case .move:
-            tableView.moveRow(at: indexPath!, to: newIndexPath!)
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        let indexSet = IndexSet(integer: sectionIndex)
-        switch type {
-        case .insert: tableView.insertSections(indexSet, with: .fade)
-        case .delete: tableView.deleteSections(indexSet, with: .fade)
-        case .update, .move:
-            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
-        }
-    }
-    
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
     
 }
 

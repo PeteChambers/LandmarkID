@@ -15,6 +15,8 @@ class CameraViewController: SharedImagePickerController {
     
     let session = URLSession.shared
     
+    var managedObjectContext: NSManagedObjectContext!
+    
     @IBOutlet weak var landmarkResults: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var CameraPhoto: UIImageView!
@@ -33,8 +35,7 @@ class CameraViewController: SharedImagePickerController {
         
     }
     
-   
-    
+       
     @IBAction func chooseImage(_ sender: Any) {
         
         let sharedImagePickerController = UIImagePickerController()
@@ -68,6 +69,7 @@ class CameraViewController: SharedImagePickerController {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
         landmarkResults.isEnabled = false
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
     }
     
@@ -88,6 +90,7 @@ class CameraViewController: SharedImagePickerController {
             activityIndicator.startAnimating()
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
+            self.addLandmarkPhoto(with: pickedImage)
             
             dismiss(animated: true, completion: nil)
             
@@ -101,7 +104,7 @@ class CameraViewController: SharedImagePickerController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             if let name = alert.textFields?.first?.text {
-                self?.addLandmark(name: name)
+                self?.addLandmarkName(name: name)
                 self?.saveConfirmation()
                 
             }
@@ -136,14 +139,13 @@ class CameraViewController: SharedImagePickerController {
         
     }
     
-    func addLandmark(name: String) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: context!)
-        let newLandmark = NSManagedObject(entity: entity!, insertInto: context!)
-        newLandmark.setValue(landmarkResults.text, forKey: "name")
+    func addLandmarkName(name: String) {
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: managedObjectContext)
+        let newLandmarkName = NSManagedObject(entity: entity!, insertInto: managedObjectContext)
+        newLandmarkName.setValue(landmarkResults.text, forKey: "name")
         do {
-            try context?.save()
+            try managedObjectContext.save()
             print("save successful")
             
         }
@@ -152,9 +154,23 @@ class CameraViewController: SharedImagePickerController {
         }
     }
     
+    func addLandmarkPhoto(with image: UIImage) {
+        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: managedObjectContext)
+        let newLandmarkPhoto = NSManagedObject(entity: entity!, insertInto: managedObjectContext)
+        let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
+        newLandmarkPhoto.setValue(data, forKey: "photo")
+        do {
+            try managedObjectContext.save()
+            print("save successful")
+            
+        }
+        catch {
+            print("failed to save data")
+        }
+    }
+
+
 }
-
-
 
 
 

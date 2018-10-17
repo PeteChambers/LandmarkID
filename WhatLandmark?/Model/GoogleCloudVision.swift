@@ -46,7 +46,7 @@ extension CameraViewController {
             let numLandmarks: Int = landmarkAnnotations.count
             var landmarks: Array<String> = []
             if numLandmarks > 0 {
-                var landmarkResultsText:String = "Landmarks found: "
+                var landmarkResultsText:String = ""
                 for index in 0..<numLandmarks {
                     let landmark = landmarkAnnotations[index]["description"].stringValue
                     landmarks.append(landmark)

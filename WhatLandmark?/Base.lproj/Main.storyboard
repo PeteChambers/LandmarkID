@@ -66,7 +66,7 @@
                                     <action selector="chooseImage:" destination="5o1-rt-dl2" eventType="touchUpInside" id="KLP-Ep-fqR"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="evl-cd-een">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="evl-cd-een">
                                 <rect key="frame" x="67" y="102" width="241" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -118,28 +118,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LandmarkCell" id="d2Q-bA-ljo" customClass="LandmarkCell" customModule="WhatLandmark_" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LandmarkCell" rowHeight="90" id="d2Q-bA-ljo" customClass="LandmarkCell" customModule="WhatLandmark_" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d2Q-bA-ljo" id="lOk-Ua-I4r">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CvA-zC-DKE">
-                                            <rect key="frame" x="16" y="10.5" width="42" height="22.5"/>
+                                            <rect key="frame" x="101" y="34.5" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tk0-1C-bkK">
+                                            <rect key="frame" x="16" y="9" width="70" height="70"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="ax4-XH-OQO"/>
+                                                <constraint firstAttribute="width" constant="70" id="wgS-TO-GVD"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CvA-zC-DKE" secondAttribute="trailing" constant="20" symbolic="YES" id="K1H-bH-8ba"/>
-                                        <constraint firstItem="CvA-zC-DKE" firstAttribute="bottom" secondItem="lOk-Ua-I4r" secondAttribute="bottomMargin" id="PRM-Km-ugK"/>
-                                        <constraint firstItem="CvA-zC-DKE" firstAttribute="centerY" secondItem="lOk-Ua-I4r" secondAttribute="centerY" id="SGD-PX-vkQ"/>
-                                        <constraint firstItem="CvA-zC-DKE" firstAttribute="leading" secondItem="lOk-Ua-I4r" secondAttribute="leadingMargin" id="tpg-JB-yfq"/>
+                                        <constraint firstItem="tk0-1C-bkK" firstAttribute="top" secondItem="ahO-QG-BIL" secondAttribute="top" constant="9" id="LtT-aE-3WW"/>
+                                        <constraint firstItem="CvA-zC-DKE" firstAttribute="centerY" secondItem="lOk-Ua-I4r" secondAttribute="centerY" id="TSi-Yp-Bbn"/>
+                                        <constraint firstItem="ahO-QG-BIL" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CvA-zC-DKE" secondAttribute="trailing" symbolic="YES" id="ser-98-cw3"/>
+                                        <constraint firstItem="tk0-1C-bkK" firstAttribute="leading" secondItem="ahO-QG-BIL" secondAttribute="leading" constant="16" id="wQY-tr-3iY"/>
+                                        <constraint firstItem="CvA-zC-DKE" firstAttribute="leading" secondItem="lOk-Ua-I4r" secondAttribute="leadingMargin" constant="85" id="wwG-x4-Ra2"/>
                                     </constraints>
+                                    <viewLayoutGuide key="safeArea" id="ahO-QG-BIL"/>
                                 </tableViewCellContentView>
+                                <viewLayoutGuide key="safeArea" id="ntz-Ru-vXG"/>
                                 <connections>
+                                    <outlet property="LandmarkPhoto" destination="tk0-1C-bkK" id="nrq-lk-skI"/>
                                     <outlet property="landmarkName" destination="CvA-zC-DKE" id="SiO-T4-IhW"/>
                                 </connections>
                             </tableViewCell>
@@ -154,7 +165,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9T-ZT-NKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-151" y="397"/>
+            <point key="canvasLocation" x="693.60000000000002" y="-537.48125937031489"/>
         </scene>
         <!--Landmark Detail View Controller-->
         <scene sceneID="sNT-c8-2ZU">
@@ -206,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3I-i0-DxB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="839" y="396"/>
+            <point key="canvasLocation" x="1594" y="-537"/>
         </scene>
     </scenes>
     <resources>
