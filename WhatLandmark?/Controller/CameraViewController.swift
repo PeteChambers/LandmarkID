@@ -15,7 +15,8 @@ class CameraViewController: SharedImagePickerController {
     
     let session = URLSession.shared
     
-    var managedObjectContext: NSManagedObjectContext!
+    var dataController: DataController!
+    
     
     @IBOutlet weak var landmarkResults: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -69,7 +70,7 @@ class CameraViewController: SharedImagePickerController {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
         landmarkResults.isEnabled = false
-        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+       
         
     }
     
@@ -141,11 +142,11 @@ class CameraViewController: SharedImagePickerController {
     
     func addLandmarkName(name: String) {
         
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: managedObjectContext)
-        let newLandmarkName = NSManagedObject(entity: entity!, insertInto: managedObjectContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
+        let newLandmarkName = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
         newLandmarkName.setValue(landmarkResults.text, forKey: "name")
         do {
-            try managedObjectContext.save()
+            try dataController.viewContext.save()
             print("save successful")
             
         }
@@ -155,12 +156,12 @@ class CameraViewController: SharedImagePickerController {
     }
     
     func addLandmarkPhoto(with image: UIImage) {
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: managedObjectContext)
-        let newLandmarkPhoto = NSManagedObject(entity: entity!, insertInto: managedObjectContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
+        let newLandmarkPhoto = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
         let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
         newLandmarkPhoto.setValue(data, forKey: "photo")
         do {
-            try managedObjectContext.save()
+            try dataController.viewContext.save()
             print("save successful")
             
         }

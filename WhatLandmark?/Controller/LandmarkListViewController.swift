@@ -18,6 +18,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     var userArray = NSMutableArray()
     
+    var dataContoller: DataController!
     
     @IBOutlet var tableView: UITableView!
     
@@ -44,13 +45,11 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func requestUserData() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Landmark")
         request.returnsObjectsAsFaults = false
         do {
-            let result = try context?.fetch(request)
-            print("resultsdata=", result!)
+            let result = try dataContoller.viewContext.fetch(request)
+            print("resultsdata=", result)
             for data in result as! [NSManagedObject] {
                 userArray.add(data)
             }
