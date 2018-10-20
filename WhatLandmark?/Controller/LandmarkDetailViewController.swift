@@ -13,10 +13,13 @@ import UIKit
 class LandmarkDetailViewController: UIViewController {
     
     
-    // MARK: Properties
+    var userArray: [Landmark] = []
     
+    var dataController: DataController!
     
-    // var fetchedResultsController:NSFetchedResultsController<LandmarkDetail>!
+    var fetchedResultsController: NSFetchedResultsController<LandmarkDetail>!
+    
+
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!

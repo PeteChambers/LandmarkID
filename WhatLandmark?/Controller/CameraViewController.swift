@@ -18,6 +18,7 @@ class CameraViewController: SharedImagePickerController {
     var dataController: DataController!
     
     
+    
     @IBOutlet weak var landmarkResults: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var CameraPhoto: UIImageView!
@@ -25,14 +26,30 @@ class CameraViewController: SharedImagePickerController {
     
     
     @IBAction func saveTapped(_ sender: Any) {
-        if landmarkResults.text == "" {
-         
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
+        addLandmarkName()
+        addLandmarkPhoto(with: CameraPhoto.image!)
+        
+        do {
+    
+            try dataController.viewContext.save()
+            saveConfirmation()
+            
         }
+        catch {
+            print("failed to save data")
+        }
+    
+        
+        
+        
+//        if landmarkResults.text == "" {
+//
+//            saveButton.isEnabled = false
+//        } else {
+//            saveButton.isEnabled = true
+//        }
 
-        presentNewLandmarkAlert()
+//        presentNewLandmarkAlert()
         
     }
     
@@ -63,6 +80,7 @@ class CameraViewController: SharedImagePickerController {
     @IBAction func recentsButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LandmarkListViewController") as! LandmarkListViewController
+        vc.dataController = dataController
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -91,44 +109,11 @@ class CameraViewController: SharedImagePickerController {
             activityIndicator.startAnimating()
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
-            self.addLandmarkPhoto(with: pickedImage)
-            
             dismiss(animated: true, completion: nil)
             
         }
     }
     
-    func presentNewLandmarkAlert() {
-        let alert = UIAlertController(title: "New Landmark", message: nil, preferredStyle: .alert)
-        
-        // Create actions
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
-            if let name = alert.textFields?.first?.text {
-                self?.addLandmarkName(name: name)
-                self?.saveConfirmation()
-                
-            }
-        }
-        saveAction.isEnabled = false
-        
-      
-        alert.addTextField { textField in
-            textField.text = self.landmarkResults.text
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main) { notif in
-                if let text = textField.text, !text.isEmpty {
-                    saveAction.isEnabled = true
-                } else {
-                    saveAction.isEnabled = false
-                }
-                
-            }
-        }
-        
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        present(alert, animated: true, completion: nil)
-    }
     
     func saveConfirmation() {
         
@@ -140,19 +125,11 @@ class CameraViewController: SharedImagePickerController {
         
     }
     
-    func addLandmarkName(name: String) {
+    func addLandmarkName() {
         
         let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
         let newLandmarkName = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
         newLandmarkName.setValue(landmarkResults.text, forKey: "name")
-        do {
-            try dataController.viewContext.save()
-            print("save successful")
-            
-        }
-        catch {
-            print("failed to save data")
-        }
     }
     
     func addLandmarkPhoto(with image: UIImage) {
@@ -160,18 +137,8 @@ class CameraViewController: SharedImagePickerController {
         let newLandmarkPhoto = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
         let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
         newLandmarkPhoto.setValue(data, forKey: "photo")
-        do {
-            try dataController.viewContext.save()
-            print("save successful")
-            
-        }
-        catch {
-            print("failed to save data")
-        }
-    }
-
 
 }
 
-
+}
 

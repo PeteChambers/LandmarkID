@@ -9,29 +9,38 @@
 import UIKit
 import CoreData
 
-class LandmarkCell: UITableViewCell {
-    @IBOutlet weak var landmarkName: UILabel!
-    @IBOutlet weak var LandmarkPhoto: UIImageView!
-}
 
 class LandmarkListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var userArray = NSMutableArray()
+    var userArray: [Landmark] = []
+//    {
+//        didSet {
+//            updateView()
+//        }
+//    }
     
-    var dataContoller: DataController!
+    
+    
+    
+    var dataController: DataController!
     
     @IBOutlet var tableView: UITableView!
     
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    var fetchedResultsController:NSFetchedResultsController<Landmark>!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
         requestUserData()
+      //  setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        requestUserData()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -40,79 +49,140 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
+        fetchedResultsController = nil
+        
         
     }
     
-    func requestUserData() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Landmark")
-        request.returnsObjectsAsFaults = false
+    fileprivate func requestUserData() {
+        let fetchRequest:NSFetchRequest<Landmark> = Landmark.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        let NameSortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+        let PhotoSortDescriptor = NSSortDescriptor(key: "photo", ascending: false)
+        fetchRequest.sortDescriptors = [NameSortDescriptor, PhotoSortDescriptor]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
         do {
-            let result = try dataContoller.viewContext.fetch(request)
-            print("resultsdata=", result)
-            for data in result as! [NSManagedObject] {
-                userArray.add(data)
-            }
-            print("userArray!!=", self.userArray)
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.reloadData()
-            
-        }
-        catch {
-            print("failed")
-            
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
         }
     }
     
+//    private func updateView() {
+//        let hasLandmarks = userArray.count > 0
+//
+//        tableView.isHidden = !hasLandmarks
+//        messageLabel.isHidden = hasLandmarks
+//    }
+//
+//    private func setupView() {
+//        setupMessageLabel()
+//
+//        updateView()
+//    }
+//
+//    private func setupMessageLabel() {
+//        messageLabel.text = "No saved landmarks."
+//    }
+
+   
+    
+    func deleteLandmark(at indexPath: IndexPath) {
+        let landmarkToDelete = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(landmarkToDelete)
+        try? dataController.viewContext.save()
+    }
+    
+    func updateEditButtonState() {
+        if let sections = fetchedResultsController.sections {
+            navigationItem.rightBarButtonItem?.isEnabled = sections[0].numberOfObjects > 0
+        }
+    }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: animated)
     }
     
-    
+    // -------------------------------------------------------------------------
     // MARK: - Table view data source
     
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-        
+        return fetchedResultsController.sections?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userArray.count    }
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let alandmark = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "LandmarkCell", for: indexPath) as! LandmarkCell
         
         // Configure cell
-        cell.landmarkName.text = (userArray[indexPath.row] as AnyObject).value(forKey: "name") as? String
-        cell.LandmarkPhoto.image = (userArray[indexPath.row] as AnyObject).value(forKey: "photo") as? UIImage
+        cell.landmarkName.text = alandmark.name
+        if let data = alandmark.photo {
+        cell.landmarkImage.image = UIImage(data: data)
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.userArray.removeObject(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        
+        switch editingStyle {
+        case .delete: deleteLandmark(at: indexPath)
+        default: ()         }
     }
-}
     
-    
+    // -------------------------------------------------------------------------
     // MARK: - Navigation
     
-  //  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-   //     if let vc = segue.destination as? LandmarkDetailViewController {
-   //         if let indexPath = tableView.indexPathForSelectedRow {
-    //            vc.landmark = fetchedResultsController.object(at: indexPath)
-    //            vc.dataController = dataController
-    //        }
-     //   }
-   // }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If this is a NotesListViewController, we'll configure its `Notebook`
+        if let vc = segue.destination as? LandmarkDetailViewController {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.userArray = [fetchedResultsController.object(at: indexPath)]
+                vc.dataController = dataController
+            }
+        }
+    }
 }
 
+extension LandmarkListViewController: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+            break
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            break
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        let indexSet = IndexSet(integer: sectionIndex)
+        switch type {
+        case .insert: tableView.insertSections(indexSet, with: .fade)
+        case .delete: tableView.deleteSections(indexSet, with: .fade)
+        case .update, .move:
+            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+        }
+    }
+    
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+}

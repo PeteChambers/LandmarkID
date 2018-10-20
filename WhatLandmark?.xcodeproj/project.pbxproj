@@ -13,13 +13,13 @@
 		4372DF83215D32AD00C5B469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF81215D32AD00C5B469 /* LaunchScreen.storyboard */; };
 		4372DF8E215D32AE00C5B469 /* WhatLandmark_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF8D215D32AE00C5B469 /* WhatLandmark_Tests.swift */; };
 		4372DF99215D32AE00C5B469 /* WhatLandmark_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */; };
+		437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */; };
 		439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */; };
 		43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */; };
 		43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */; };
 		43C628D4215E2CD8000D3CDD /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628D3215E2CD8000D3CDD /* CameraViewController.swift */; };
 		43C628DA215E2D58000D3CDD /* LandmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */; };
 		43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628DB215E2D85000D3CDD /* LandmarkDetailViewController.swift */; };
-		43C628DE215E2DCB000D3CDD /* UIImage+Exntensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628DD215E2DCB000D3CDD /* UIImage+Exntensions.swift */; };
 		43C628E2215E40B4000D3CDD /* WhatLandmark?.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43C628E1215E40B4000D3CDD /* WhatLandmark?.plist */; };
 		43D9E0A92178D45D009363CB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D9E0A82178D45D009363CB /* DataController.swift */; };
 		6DC378985323690B7AB1A7C2 /* Pods_WhatLandmark__WhatLandmark_UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7F40085BAAB41066860500 /* Pods_WhatLandmark__WhatLandmark_UITests.framework */; };
@@ -61,13 +61,13 @@
 		4372DF94215D32AE00C5B469 /* WhatLandmark?UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WhatLandmark?UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatLandmark_UITests.swift; sourceTree = "<group>"; };
 		4372DF9A215D32AE00C5B469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkCell.swift; sourceTree = "<group>"; };
 		439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WhatLandmark?.xcdatamodel"; sourceTree = "<group>"; };
 		43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudVision.swift; sourceTree = "<group>"; };
 		43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtension.swift; sourceTree = "<group>"; };
 		43C628D3215E2CD8000D3CDD /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListViewController.swift; sourceTree = "<group>"; };
 		43C628DB215E2D85000D3CDD /* LandmarkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkDetailViewController.swift; sourceTree = "<group>"; };
-		43C628DD215E2DCB000D3CDD /* UIImage+Exntensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Exntensions.swift"; sourceTree = "<group>"; };
 		43C628E1215E40B4000D3CDD /* WhatLandmark?.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WhatLandmark?.plist"; sourceTree = "<group>"; };
 		43D9E0A82178D45D009363CB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		55C3B8C476293B358FB37C68 /* Pods_WhatLandmark_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatLandmark_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,7 +187,7 @@
 		43C628C6215D3A9B000D3CDD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				43C628DD215E2DCB000D3CDD /* UIImage+Exntensions.swift */,
+				437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -443,8 +443,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43C628DE215E2DCB000D3CDD /* UIImage+Exntensions.swift in Sources */,
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
+				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
 				43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */,
 				4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */,
 				43D9E0A92178D45D009363CB /* DataController.swift in Sources */,
