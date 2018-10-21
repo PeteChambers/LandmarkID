@@ -13,12 +13,6 @@ import CoreData
 class LandmarkListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userArray: [Landmark] = []
-//    {
-//        didSet {
-//            updateView()
-//        }
-//    }
-    
     
     
     
@@ -35,12 +29,13 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
         requestUserData()
-      //  setupView()
+        setupView()
+     
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestUserData()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -49,7 +44,6 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        fetchedResultsController = nil
         
         
     }
@@ -69,22 +63,28 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-//    private func updateView() {
-//        let hasLandmarks = userArray.count > 0
-//
-//        tableView.isHidden = !hasLandmarks
-//        messageLabel.isHidden = hasLandmarks
-//    }
-//
-//    private func setupView() {
-//        setupMessageLabel()
-//
-//        updateView()
-//    }
-//
-//    private func setupMessageLabel() {
-//        messageLabel.text = "No saved landmarks."
-//    }
+    private func updateView() {
+        var hasLandmarks = false
+        
+        if let landmark = fetchedResultsController.fetchedObjects {
+            hasLandmarks = landmark.count > 0
+        }
+        
+        tableView.isHidden = !hasLandmarks
+        messageLabel.isHidden = hasLandmarks
+        
+    }
+
+
+    private func setupView() {
+        setupMessageLabel()
+
+        updateView()
+    }
+
+    private func setupMessageLabel() {
+        messageLabel.text = "No saved landmarks."
+    }
 
    
     
@@ -142,13 +142,19 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         // If this is a NotesListViewController, we'll configure its `Notebook`
         if let vc = segue.destination as? LandmarkDetailViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
-                vc.userArray = [fetchedResultsController.object(at: indexPath)]
+                vc.landmark = fetchedResultsController.object(at: indexPath)
                 vc.dataController = dataController
+                vc.onDelete = { [weak self] in
+                    if let indexPath = self?.tableView.indexPathForSelectedRow {
+                        self?.deleteLandmark(at: indexPath)
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
             }
         }
     }
 }
-
+        
 extension LandmarkListViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -183,6 +189,9 @@ extension LandmarkListViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        
+        updateView()
+
     }
     
 }

@@ -26,9 +26,7 @@ class CameraViewController: SharedImagePickerController {
     
     
     @IBAction func saveTapped(_ sender: Any) {
-        addLandmarkName()
-        addLandmarkPhoto(with: CameraPhoto.image!)
-        
+        addLandmarkPhoto(named: landmarkResults.text!, with: CameraPhoto.image!)
         do {
     
             try dataController.viewContext.save()
@@ -40,22 +38,11 @@ class CameraViewController: SharedImagePickerController {
         }
     
         
-        
-        
-//        if landmarkResults.text == "" {
-//
-//            saveButton.isEnabled = false
-//        } else {
-//            saveButton.isEnabled = true
-//        }
-
-//        presentNewLandmarkAlert()
-        
     }
     
        
     @IBAction func chooseImage(_ sender: Any) {
-        
+
         let sharedImagePickerController = UIImagePickerController()
         sharedImagePickerController.delegate = self
         
@@ -125,18 +112,18 @@ class CameraViewController: SharedImagePickerController {
         
     }
     
-    func addLandmarkName() {
-        
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
-        let newLandmarkName = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
-        newLandmarkName.setValue(landmarkResults.text, forKey: "name")
-    }
     
-    func addLandmarkPhoto(with image: UIImage) {
-        let entity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
-        let newLandmarkPhoto = NSManagedObject(entity: entity!, insertInto: dataController.viewContext)
+    
+    
+    func addLandmarkPhoto(named: String, with image: UIImage) {
+        let landmarkPhotoEntity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
+        let newLandmarkPhoto = NSManagedObject(entity: landmarkPhotoEntity!, insertInto: dataController.viewContext)
         let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
         newLandmarkPhoto.setValue(data, forKey: "photo")
+        let landmarkNameEntity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
+        let newLandmarkName = NSManagedObject(entity: landmarkNameEntity!, insertInto: dataController.viewContext)
+        newLandmarkName.setValue(landmarkResults.text, forKey: "name")
+        
 
 }
 

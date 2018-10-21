@@ -14,6 +14,7 @@
 		4372DF8E215D32AE00C5B469 /* WhatLandmark_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF8D215D32AE00C5B469 /* WhatLandmark_Tests.swift */; };
 		4372DF99215D32AE00C5B469 /* WhatLandmark_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */; };
 		437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */; };
+		437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D6354217CAF5400AB0A9A /* WebViewController.swift */; };
 		439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 439C31B4216FAF34001214D5 /* WhatLandmark?.xcdatamodeld */; };
 		43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */; };
 		43C628D0215E2C4F000D3CDD /* ControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */; };
@@ -62,6 +63,7 @@
 		4372DF98215D32AE00C5B469 /* WhatLandmark_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatLandmark_UITests.swift; sourceTree = "<group>"; };
 		4372DF9A215D32AE00C5B469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkCell.swift; sourceTree = "<group>"; };
+		437D6354217CAF5400AB0A9A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		439C31B5216FAF34001214D5 /* WhatLandmark?.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WhatLandmark?.xcdatamodel"; sourceTree = "<group>"; };
 		43C628C8215D3AD9000D3CDD /* GoogleCloudVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudVision.swift; sourceTree = "<group>"; };
 		43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtension.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				43C628D3215E2CD8000D3CDD /* CameraViewController.swift */,
 				43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */,
 				43C628DB215E2D85000D3CDD /* LandmarkDetailViewController.swift */,
+				437D6354217CAF5400AB0A9A /* WebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
 				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
 				43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */,
+				437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */,
 				4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */,
 				43D9E0A92178D45D009363CB /* DataController.swift in Sources */,
 				439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */,

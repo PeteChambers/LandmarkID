@@ -13,62 +13,107 @@ import UIKit
 class LandmarkDetailViewController: UIViewController {
     
     
-    var userArray: [Landmark] = []
+    var landmark: Landmark!
     
     var dataController: DataController!
     
-    var fetchedResultsController: NSFetchedResultsController<LandmarkDetail>!
+    var fetchedResultsController:NSFetchedResultsController<Landmark>!
     
+    var onDelete: (() -> Void)?
+    
+    var saveObserverToken: Any?
+
 
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    //fileprivate func setupFetchedResultsController() {
-    //    let fetchRequest:NSFetchRequest<LandmarkDetail> = LandmarkDetail.fetchRequest()
-    //    let predicate = NSPredicate(format: "landmark == %@", landmark)
-    //    fetchRequest.predicate = predicate
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        label.text = landmark.name
+        if let data = landmark.photo {
+            imageView.image = UIImage(data: data)
+        }
+        
+        
+        //  setupView()
+    }
     
-    
-    // fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-    // fetchedResultsController.delegate = self as! NSFetchedResultsControllerDelegate
-    
-    // do {
-    // try fetchedResultsController.performFetch()
-    // } catch {
-    // fatalError("The fetch could not be performed: \(error.localizedDescription)")
-    // }
-    // }
-    
-    
-    // MARK: Life Cycle
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
     
-    // override func viewWillDisappear(_ animated: Bool) {
-    // super.viewWillDisappear(animated)
-    // self.tabBarController?.tabBar.isHidden = false
-    //}
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+    }
     
-    // override func viewDidDisappear(_ animated: Bool) {
-    // super.viewDidDisappear(animated)
-    // fetchedResultsController = nil
-    // }
+    @IBAction func deleteLandmark(sender: Any) {
+        presentDeleteNotebookAlert()
+    }
     
-    //}
     
-    //extension LandmarkDetailViewController: UITextViewDelegate {
-    // func textViewDidEndEditing(_ textView: UITextView) {
-    // try? dataController.viewContext.save()
-    // }
     
+    @IBAction func webSearchTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        vc.text = label.text!
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+extension LandmarkDetailViewController {
+    func presentDeleteNotebookAlert() {
+        let alert = UIAlertController(title: "Delete Landmark", message: "Do you want to delete this landmark?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteHandler))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func deleteHandler(alertAction: UIAlertAction) {
+        onDelete?()
+    }
+    
+    
+}
+
+extension LandmarkDetailViewController {
+    func makeToolbarItems() -> [UIBarButtonItem] {
+        let trash = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteLandmark(sender:)))
+        return [trash]
+    }
+
+    
+    /// Configure the current toolbar
+    func configureToolbarItems() {
+        toolbarItems = makeToolbarItems()
+        navigationController?.setToolbarHidden(false, animated: false)
 }
 
 
 
+}
 
+extension LandmarkDetailViewController {
+    
+    func addSaveNotificationObserver() {
+        removeSaveNotificationObserver()
+        saveObserverToken = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: dataController?.viewContext, queue: nil, using: handleSaveNotification(notification:))
+    }
+    
+    func removeSaveNotificationObserver() {
+        if let token = saveObserverToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
+    func handleSaveNotification(notification:Notification) {
+        DispatchQueue.main.async {
+        }
+    }
 
-
+}
