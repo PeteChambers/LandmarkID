@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftSpinner
 
 
 class GoogleCloudVision: SharedImagePickerController {
@@ -31,7 +32,8 @@ extension CameraViewController {
             
             // Use SwiftyJSON to parse results
             let json = try! JSON(data: dataToParse)
-            self.activityIndicator.stopAnimating()
+            SwiftSpinner.hide()
+        
             self.landmarkResults.isHidden = false
             
             

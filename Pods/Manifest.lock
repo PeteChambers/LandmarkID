@@ -1,16 +1,20 @@
 PODS:
+  - SwiftSpinner (1.6.2)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
+  - SwiftSpinner
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - SwiftSpinner
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  SwiftSpinner: 3a4c6dea425e5a31b908a8b1dd5dcd1ad4d96340
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 0845caa898e89a5e346114612e86e91d74cdaf58
+PODFILE CHECKSUM: 3c0d7be58c6953c57f0ca49cb7ba8403fe850383
 
 COCOAPODS: 1.5.2

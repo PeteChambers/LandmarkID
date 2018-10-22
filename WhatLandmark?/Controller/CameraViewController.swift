@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SwiftyJSON
 import CoreData
+import SwiftSpinner
 
 class CameraViewController: SharedImagePickerController {
     
@@ -17,14 +18,15 @@ class CameraViewController: SharedImagePickerController {
     
     var dataController: DataController!
     
-    
+    var backgroundImage: UIImageView!
     
     @IBOutlet weak var landmarkResults: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var CameraPhoto: UIImageView!
     @IBOutlet weak var saveButton: UIButton!
     
+    @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var textLabel: UILabel!
     @IBAction func saveTapped(_ sender: Any) {
         addLandmarkPhoto(named: landmarkResults.text!, with: CameraPhoto.image!)
         do {
@@ -73,14 +75,18 @@ class CameraViewController: SharedImagePickerController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.hidesWhenStopped = true
         landmarkResults.isEnabled = false
+        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "londonBackground")
+        backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
     }
     
@@ -93,12 +99,15 @@ class CameraViewController: SharedImagePickerController {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             CameraPhoto.contentMode = .scaleAspectFit
             CameraPhoto.image = pickedImage
-            activityIndicator.startAnimating()
+            SwiftSpinner.show("Analysing Image...")
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
             dismiss(animated: true, completion: nil)
             
         }
+        backgroundImage.isHidden = true
+        titleLabel.isHidden = true
+        textLabel.isHidden = true
     }
     
     
