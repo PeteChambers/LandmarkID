@@ -26,11 +26,14 @@ class LandmarkDetailViewController: UIViewController {
 
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var textLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = landmark.name
+        titleLabel.text = landmark.name
+        textLabel.text = landmark.result
         if let data = landmark.photo {
             imageView.image = UIImage(data: data)
         }
@@ -60,7 +63,7 @@ class LandmarkDetailViewController: UIViewController {
     @IBAction func webSearchTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-        vc.text = label.text!
+        vc.text = titleLabel.text!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

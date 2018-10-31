@@ -62,6 +62,7 @@ extension CameraViewController {
                     }
                 }
                 self.landmarkResults.text = landmarkResultsText
+                self.LandmarkSearch()
             } else {
                 self.landmarkResults.text = "No landmarks found"
             }

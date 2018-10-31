@@ -28,6 +28,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
+        tableView.separatorColor = UIColor(white: 0.95, alpha: 1.0)
         requestUserData()
         setupView()
      
@@ -48,6 +49,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
+        
     fileprivate func requestUserData() {
         let fetchRequest:NSFetchRequest<Landmark> = Landmark.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
@@ -121,6 +123,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "LandmarkCell", for: indexPath) as! LandmarkCell
         
         // Configure cell
+        cell.contentView.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         cell.landmarkName.text = alandmark.name
         if let data = alandmark.photo {
         cell.landmarkImage.image = UIImage(data: data)

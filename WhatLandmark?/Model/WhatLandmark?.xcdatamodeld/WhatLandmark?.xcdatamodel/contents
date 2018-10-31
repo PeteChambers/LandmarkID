@@ -3,8 +3,9 @@
     <entity name="Landmark" representedClassName="Landmark" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="result" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Landmark" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Landmark" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

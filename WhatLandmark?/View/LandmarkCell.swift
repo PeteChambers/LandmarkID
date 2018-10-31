@@ -8,9 +8,14 @@
 
 import UIKit
 
-internal final class LandmarkCell: UITableViewCell {
+class LandmarkCell: UITableViewCell {
     // Outlets
-
+   
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        landmarkImage.alpha = 0.5
+            }
+    
     @IBOutlet weak var landmarkName: UILabel!
     @IBOutlet weak var landmarkImage: UIImageView!
     
@@ -20,4 +25,5 @@ internal final class LandmarkCell: UITableViewCell {
         landmarkImage.image = nil
     }
     
+   
 }

@@ -21,14 +21,16 @@ class CameraViewController: SharedImagePickerController {
     var backgroundImage: UIImageView!
     
     @IBOutlet weak var landmarkResults: UITextField!
+    @IBOutlet weak var wikiResults: UILabel!
     @IBOutlet weak var CameraPhoto: UIImageView!
     @IBOutlet weak var saveButton: UIButton!
-    
+    @IBOutlet weak var chooseImage: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var textLabel: UILabel!
+    
+    
     @IBAction func saveTapped(_ sender: Any) {
-        addLandmarkPhoto(named: landmarkResults.text!, with: CameraPhoto.image!)
+        addLandmarkEntity(name: landmarkResults.text!, result: wikiResults.text!, with: CameraPhoto.image!)
         do {
     
             try dataController.viewContext.save()
@@ -42,7 +44,9 @@ class CameraViewController: SharedImagePickerController {
         
     }
     
-       
+
+    
+    
     @IBAction func chooseImage(_ sender: Any) {
 
         let sharedImagePickerController = UIImagePickerController()
@@ -65,6 +69,7 @@ class CameraViewController: SharedImagePickerController {
         self.present(actionSheet, animated: true, completion: nil )
     }
     
+   
     
     @IBAction func recentsButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -86,12 +91,23 @@ class CameraViewController: SharedImagePickerController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if backgroundImage.isHidden {
+            chooseImage.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        } else {
+            chooseImage.backgroundColor = UIColor.white
+        }
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            CameraPhoto.isHidden = true
+            landmarkResults.isHidden = true
+            wikiResults.isEnabled = true
+            backgroundImage.isHidden = false
+        }
+        
     }
     
     
@@ -103,12 +119,15 @@ class CameraViewController: SharedImagePickerController {
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
             dismiss(animated: true, completion: nil)
+            backgroundImage.isHidden = true
+            titleLabel.isHidden = true
+            textLabel.isHidden = true
             
         }
-        backgroundImage.isHidden = true
-        titleLabel.isHidden = true
-        textLabel.isHidden = true
+       
     }
+    
+   
     
     
     func saveConfirmation() {
@@ -120,21 +139,15 @@ class CameraViewController: SharedImagePickerController {
         self.present(alert, animated: true)
         
     }
+
     
-    
-    
-    
-    func addLandmarkPhoto(named: String, with image: UIImage) {
-        let landmarkPhotoEntity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
-        let newLandmarkPhoto = NSManagedObject(entity: landmarkPhotoEntity!, insertInto: dataController.viewContext)
+    func addLandmarkEntity(name: String, result: String, with image: UIImage) {
+        let landmarkEntity = NSEntityDescription.insertNewObject(forEntityName: "Landmark", into: dataController.viewContext) as! Landmark
+        landmarkEntity.setValue(landmarkResults.text, forKey: "name")
+        landmarkEntity.setValue(wikiResults.text, forKey: "result")
         let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
-        newLandmarkPhoto.setValue(data, forKey: "photo")
-        let landmarkNameEntity = NSEntityDescription.entity(forEntityName: "Landmark", in: dataController.viewContext)
-        let newLandmarkName = NSManagedObject(entity: landmarkNameEntity!, insertInto: dataController.viewContext)
-        newLandmarkName.setValue(landmarkResults.text, forKey: "name")
-        
+        landmarkEntity.setValue(data, forKey: "photo")
 
 }
 
 }
-
