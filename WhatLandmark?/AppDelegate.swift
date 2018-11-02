@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         cameraViewController.dataController = dataController
         
         return true
+        
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

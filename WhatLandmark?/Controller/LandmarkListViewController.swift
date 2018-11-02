@@ -21,7 +21,9 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
     
+    @IBOutlet weak var placeHolderImage: UIImageView!
     var fetchedResultsController:NSFetchedResultsController<Landmark>!
     
     
@@ -74,18 +76,21 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         
         tableView.isHidden = !hasLandmarks
         messageLabel.isHidden = hasLandmarks
-        
+        textLabel.isHidden = hasLandmarks
+        placeHolderImage.isHidden = hasLandmarks
+        placeHolderImage.alpha = 0.2
     }
 
 
     private func setupView() {
-        setupMessageLabel()
+        setupLabels()
 
         updateView()
     }
 
-    private func setupMessageLabel() {
-        messageLabel.text = "No saved landmarks."
+    private func setupLabels() {
+        messageLabel.text = "No saved landmarks"
+        textLabel.text = "You can save your landmarks on the previous page using the Save button"
     }
 
    

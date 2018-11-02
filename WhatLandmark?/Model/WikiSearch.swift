@@ -25,7 +25,6 @@ extension CameraViewController {
         
         let language = WikipediaLanguage("en")
         
-        
         let title = landmarkResults.text
         
         let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title!) { (article, error) in
@@ -37,6 +36,7 @@ extension CameraViewController {
             self.wikiResults.text = article.displayText
             
         }
+
     }
     
 }

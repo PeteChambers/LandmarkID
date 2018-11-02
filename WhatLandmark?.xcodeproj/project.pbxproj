@@ -10,10 +10,8 @@
 		43008D542189E23F00AE6256 /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43008D532189E23F00AE6256 /* DesignView.swift */; };
 		43008D5B218A173500AE6256 /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4332387621887CA200F7A43D /* WikipediaKit.framework */; };
 		43008D5C218A173500AE6256 /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4332387621887CA200F7A43D /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		43008D61218A1A1000AE6256 /* LandmarkLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43008D60218A1A1000AE6256 /* LandmarkLocationsViewController.swift */; };
 		4332386A21887BD000F7A43D /* WikiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332386921887BD000F7A43D /* WikiSearch.swift */; };
 		4332387D21887CB500F7A43D /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4332387621887CA200F7A43D /* WikipediaKit.framework */; };
-		4332387F21888AED00F7A43D /* CustomNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332387E21888AED00F7A43D /* CustomNavController.swift */; };
 		4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372DF75215D32AD00C5B469 /* AppDelegate.swift */; };
 		4372DF7B215D32AD00C5B469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF79215D32AD00C5B469 /* Main.storyboard */; };
 		4372DF80215D32AD00C5B469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF7F215D32AD00C5B469 /* Assets.xcassets */; };
@@ -112,10 +110,8 @@
 		264F2685AFF3F8D15623064B /* Pods_WhatLandmark_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatLandmark_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B24271F6E45261088BBB8BB /* Pods-WhatLandmark?.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatLandmark?.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatLandmark?/Pods-WhatLandmark?.release.xcconfig"; sourceTree = "<group>"; };
 		43008D532189E23F00AE6256 /* DesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
-		43008D60218A1A1000AE6256 /* LandmarkLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkLocationsViewController.swift; sourceTree = "<group>"; };
 		4332386921887BD000F7A43D /* WikiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiSearch.swift; sourceTree = "<group>"; };
 		4332386B21887CA200F7A43D /* WikipediaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WikipediaKit.xcodeproj; path = "../../Downloads/WikipediaKit-master-2/WikipediaKit.xcodeproj"; sourceTree = "<group>"; };
-		4332387E21888AED00F7A43D /* CustomNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavController.swift; sourceTree = "<group>"; };
 		4372DF72215D32AD00C5B469 /* WhatLandmark?.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhatLandmark?.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4372DF75215D32AD00C5B469 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4372DF7A215D32AD00C5B469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -275,11 +271,9 @@
 		43C628C7215D3AA5000D3CDD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4332387E21888AED00F7A43D /* CustomNavController.swift */,
 				43C628CF215E2C4F000D3CDD /* ControllerExtension.swift */,
 				43C628D3215E2CD8000D3CDD /* CameraViewController.swift */,
 				43C628D9215E2D58000D3CDD /* LandmarkListViewController.swift */,
-				43008D60218A1A1000AE6256 /* LandmarkLocationsViewController.swift */,
 				43C628DB215E2D85000D3CDD /* LandmarkDetailViewController.swift */,
 				437D6354217CAF5400AB0A9A /* WebViewController.swift */,
 			);
@@ -531,10 +525,8 @@
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
 				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
 				43C628C9215D3AD9000D3CDD /* GoogleCloudVision.swift in Sources */,
-				43008D61218A1A1000AE6256 /* LandmarkLocationsViewController.swift in Sources */,
 				437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */,
 				43008D542189E23F00AE6256 /* DesignView.swift in Sources */,
-				4332387F21888AED00F7A43D /* CustomNavController.swift in Sources */,
 				4372DF76215D32AD00C5B469 /* AppDelegate.swift in Sources */,
 				43D9E0A92178D45D009363CB /* DataController.swift in Sources */,
 				439C31B6216FAF34001214D5 /* WhatLandmark?.xcdatamodeld in Sources */,

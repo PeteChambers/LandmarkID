@@ -23,30 +23,11 @@ class CameraViewController: SharedImagePickerController {
     @IBOutlet weak var landmarkResults: UITextField!
     @IBOutlet weak var wikiResults: UILabel!
     @IBOutlet weak var CameraPhoto: UIImageView!
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var chooseImage: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
-    
-    @IBAction func saveTapped(_ sender: Any) {
-        addLandmarkEntity(name: landmarkResults.text!, result: wikiResults.text!, with: CameraPhoto.image!)
-        do {
-    
-            try dataController.viewContext.save()
-            saveConfirmation()
-            
-        }
-        catch {
-            print("failed to save data")
-        }
-    
-        
-    }
-    
 
-    
-    
     @IBAction func chooseImage(_ sender: Any) {
 
         let sharedImagePickerController = UIImagePickerController()
@@ -76,6 +57,7 @@ class CameraViewController: SharedImagePickerController {
         let vc = storyboard.instantiateViewController(withIdentifier: "LandmarkListViewController") as! LandmarkListViewController
         vc.dataController = dataController
         self.navigationController?.pushViewController(vc, animated: true)
+        resetView()
     }
     
     override func viewDidLoad() {
@@ -113,7 +95,6 @@ class CameraViewController: SharedImagePickerController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            CameraPhoto.contentMode = .scaleAspectFit
             CameraPhoto.image = pickedImage
             SwiftSpinner.show("Analysing Image...")
             let binaryImageData = base64EncodeImage(pickedImage)
@@ -124,21 +105,57 @@ class CameraViewController: SharedImagePickerController {
             textLabel.isHidden = true
             
         }
-       
+
     }
     
+    func saveToHistory() {
+        addLandmarkEntity(name: landmarkResults.text!, result: wikiResults.text!, with: CameraPhoto.image!)
+        do {
+            
+            try dataController.viewContext.save()
+            saveConfirmation()
+            
+        }
+        catch {
+            print("failed to save data")
+        }
+        
+    }
+    
+    func resetView() {
+        backgroundImage.isHidden = false
+        titleLabel.isHidden = false
+        textLabel.isHidden = false
+        CameraPhoto.isHidden = true
+        landmarkResults.isHidden = true
+        wikiResults.isHidden = true
+        
+    }
    
     
     
     func saveConfirmation() {
         
-        let alert = UIAlertController(title: "Success", message: "Landmark saved to Recents.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Success", message: "Landmark saved to History", preferredStyle: .alert)
     
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
     
         self.present(alert, animated: true)
         
     }
+    
+    func noLandmarksFound() {
+        
+        let alert = UIAlertController(title: "No Landmarks Found!", message: "please use a different image and try again", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true)
+        
+        
+    }
+    
+    
 
     
     func addLandmarkEntity(name: String, result: String, with image: UIImage) {

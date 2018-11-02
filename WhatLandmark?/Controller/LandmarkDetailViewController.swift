@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class LandmarkDetailViewController: UIViewController {
+class LandmarkDetailViewController: SharedImagePickerController {
     
     
     var landmark: Landmark!
