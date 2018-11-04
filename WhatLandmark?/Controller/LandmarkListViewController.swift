@@ -90,7 +90,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
 
     private func setupLabels() {
         messageLabel.text = "No saved landmarks"
-        textLabel.text = "You can save your landmarks on the previous page using the Save button"
+        textLabel.text = "Your landmarks will be automatically saved here"
     }
 
    

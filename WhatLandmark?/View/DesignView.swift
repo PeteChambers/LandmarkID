@@ -14,7 +14,7 @@ import UIKit
     @IBInspectable var cornerRadius: CGFloat = 0
     @IBInspectable var shadowColor: UIColor? = UIColor.black
     
-    @IBInspectable let shadowOffsetWidth: Int = 0
+    @IBInspectable let shadowOffsetWidth: Int = 1
     @IBInspectable let shadowOffsetHeight: Int = 1
     
     @IBInspectable var shadowOpacity: Float = 0.2

@@ -26,7 +26,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = URL(string: "https://en.wikipedia.org/wiki/\(String(describing: text.replacingOccurrences(of: " ", with: "_")))")!
-        print(url)
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         

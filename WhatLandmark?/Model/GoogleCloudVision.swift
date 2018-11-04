@@ -35,7 +35,6 @@ extension CameraViewController {
             SwiftSpinner.hide()
         
             self.landmarkResults.isHidden = false
-            self.wikiResults.isHidden = false
             
             
             // Check for errors
@@ -64,7 +63,7 @@ extension CameraViewController {
                 }
                 self.landmarkResults.text = landmarkResultsText
                 self.LandmarkSearch()
-                self.saveToHistory()
+                
             } else {
                 self.noLandmarksFound()
                 

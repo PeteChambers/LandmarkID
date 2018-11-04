@@ -26,6 +26,7 @@ class CameraViewController: SharedImagePickerController {
     @IBOutlet weak var chooseImage: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var webSearch: UIButton!
     
 
     @IBAction func chooseImage(_ sender: Any) {
@@ -57,7 +58,14 @@ class CameraViewController: SharedImagePickerController {
         let vc = storyboard.instantiateViewController(withIdentifier: "LandmarkListViewController") as! LandmarkListViewController
         vc.dataController = dataController
         self.navigationController?.pushViewController(vc, animated: true)
-        resetView()
+    }
+    
+    
+    @IBAction func webSearchTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        vc.text = landmarkResults.text!
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLoad() {
@@ -67,6 +75,7 @@ class CameraViewController: SharedImagePickerController {
         backgroundImage.image = UIImage(named: "londonBackground")
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
+        webSearch.isHidden = true
        
         
     }
@@ -83,12 +92,6 @@ class CameraViewController: SharedImagePickerController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.isMovingFromParent {
-            CameraPhoto.isHidden = true
-            landmarkResults.isHidden = true
-            wikiResults.isEnabled = true
-            backgroundImage.isHidden = false
-        }
         
     }
     
@@ -103,6 +106,7 @@ class CameraViewController: SharedImagePickerController {
             backgroundImage.isHidden = true
             titleLabel.isHidden = true
             textLabel.isHidden = true
+            webSearch.isHidden = false
             
         }
 
@@ -136,7 +140,7 @@ class CameraViewController: SharedImagePickerController {
     
     func saveConfirmation() {
         
-        let alert = UIAlertController(title: "Success", message: "Landmark saved to History", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Success!", message: "Landmark saved to History", preferredStyle: .alert)
     
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
     
@@ -151,8 +155,10 @@ class CameraViewController: SharedImagePickerController {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         
         self.present(alert, animated: true)
-        
-        
+        CameraPhoto.isHidden = true
+        backgroundImage.isHidden = false
+        titleLabel.isHidden = false
+        textLabel.isHidden = false
     }
     
     
@@ -167,4 +173,8 @@ class CameraViewController: SharedImagePickerController {
 
 }
 
+    
+    
+
+    
 }

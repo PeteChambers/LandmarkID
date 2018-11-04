@@ -34,9 +34,9 @@ extension CameraViewController {
             
             print(article.displayText)
             self.wikiResults.text = article.displayText
-            
+            self.saveToHistory()
         }
-
+    
     }
     
 }
