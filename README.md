@@ -33,7 +33,7 @@ Update your Podfile to include the following:
 
 ### Running the app
 
-Open stalkerapp.xcodeproj with xcode 9.0. you can either install in an iOS device or running the project in the simulator.
+Open LandmarkID.xcodeproj with xcode. you can either install in an iOS device or running the project in the simulator.
 
 ### User Interface
 
