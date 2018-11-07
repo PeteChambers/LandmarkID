@@ -53,7 +53,8 @@ The user interface is made up of 4 viewcontrollers:
 
 - Once the image is selected the Google Vision API will start analysing the image, this will only take a few seconds
 
-![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48146089-2bafe480-e2ac-11e8-8453-6e805e29ac84.jpeg)
+![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48146203-5c901980-e2ac-11e8-8601-838011f417a6.jpeg)
+
 
 
 ##### Automatic saving
