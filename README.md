@@ -11,7 +11,8 @@ Download the libraries displayed below from CocoaPods to use this app.
 
 ##### CocoaPods
 
-1. Make sure CocoaPods is installed.
+-  Make sure CocoaPods is installed.
+
 - CocoaPods - The application level dependency manager used
 Update your Podfile to include the following:
 
@@ -20,7 +21,7 @@ Update your Podfile to include the following:
 
 `pod "SwiftSpinner"`
 
-3. Run pod install.
+- Run pod install.
 
 ##### Google Cloud API
 
