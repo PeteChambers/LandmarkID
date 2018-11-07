@@ -47,14 +47,9 @@ The user interface is made up of 4 viewcontrollers:
 
 - Use the 'Choose an Image' button at the bottom of the screen to select an image from the photo library or take one using the inbuilt camera
 
-
-![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48145769-7715c300-e2ab-11e8-87ef-c1fb768d14bf.jpeg)
-
 ##### Image Analysis
 
 - Once the image is selected the Google Vision API will start analysing the image, this will only take a few seconds
-
-![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48145769-7715c300-e2ab-11e8-87ef-c1fb768d14bf.jpeg)
 
 ##### Automatic saving
 
