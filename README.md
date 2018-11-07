@@ -47,19 +47,20 @@ The user interface is made up of 4 viewcontrollers:
 
 - Use the 'Choose an Image' button at the bottom of the screen to select an image from the photo library or take one using the inbuilt camera
 
-<img width="300" alt="screenshot 2018-11-07 at 15 40 06" src="https://user-images.githubusercontent.com/28652344/48142842-7c700f00-e2a5-11e8-8ba8-1cac99002935.png">
+
+![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48145769-7715c300-e2ab-11e8-87ef-c1fb768d14bf.jpeg)
 
 ##### Image Analysis
 
 - Once the image is selected the Google Vision API will start analysing the image, this will only take a few seconds
 
-![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48143300-631b9280-e2a6-11e8-8ae0-c3c214de5f7f.jpeg)
+![screenshot 2018-11-07 at 15 42 09](https://user-images.githubusercontent.com/28652344/48145769-7715c300-e2ab-11e8-87ef-c1fb768d14bf.jpeg)
 
 ##### Automatic saving
 
 - Once the image has been analysed and a match found, the name of the landmark and its descroption will appear including a prompt to tell the user that the information has been saved to History located in LandmarkListViewController
 
-![screenshot 2018-11-07 at 15 41 34](https://user-images.githubusercontent.com/28652344/48143485-cc030a80-e2a6-11e8-8d74-63ceb8e6bf09.jpeg)
+<img width="296" alt="screenshot 2018-11-07 at 15 41 34" src="https://user-images.githubusercontent.com/28652344/48143485-cc030a80-e2a6-11e8-8d74-63ceb8e6bf09.jpeg">
 
 #### LandmarkListViewController
 
