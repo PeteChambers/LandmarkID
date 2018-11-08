@@ -30,19 +30,19 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard (text as? String) != nil else {
-            print("something went wrong, element.Name can not be cast to String")
+            print("something went wrong, text can not be cast to String")
             return
         }
+        var appendString = String(describing: text.replacingOccurrences(of: " ", with: "_"))
+        appendString = appendString.folding(options: .diacriticInsensitive, locale: NSLocale.current)
+        if let url = URL(string: "https://en.wikipedia.org/wiki/\(appendString)") {
+            webView.load(URLRequest(url: url))
+            webView.allowsBackForwardNavigationGestures = true
+        } else {
+            print("could not open url, it was nil")
+        }
         
-        if let url = URL(string: "https://en.wikipedia.org/wiki/\(String(describing: text.replacingOccurrences(of: " ", with: "_")))") {
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
-    } else {
-    print("could not open url, it was nil")
     }
-        
-    }
-    
     
     
 }

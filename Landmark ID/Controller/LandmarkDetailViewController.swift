@@ -52,10 +52,18 @@ class LandmarkDetailViewController: SharedImagePickerController {
     
     
     @IBAction func webSearchTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-        vc.text = titleLabel.text!
-        self.navigationController?.pushViewController(vc, animated: true)
+        if Reachability.isConnectedToNetwork() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            vc.text = titleLabel.text!
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let alert = UIAlertController(title: "No internet connection", message: "Please check your connection and try again.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+        }
     }
     
 }
