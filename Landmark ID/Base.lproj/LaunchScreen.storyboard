@@ -17,15 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StPauls" translatesAutoresizingMaskIntoConstraints="NO" id="Ocr-8A-7ge">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LS1" translatesAutoresizingMaskIntoConstraints="NO" id="OKS-Nz-JT7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.56422978639602661" green="0.077530883252620697" blue="0.99607580900192261" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Ocr-8A-7ge" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="abz-se-rQI"/>
-                            <constraint firstItem="Ocr-8A-7ge" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="i7G-wn-uo8"/>
-                            <constraint firstItem="Ocr-8A-7ge" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="kzb-ne-Cld"/>
-                            <constraint firstItem="Ocr-8A-7ge" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lW0-i1-QXa"/>
+                            <constraint firstItem="OKS-Nz-JT7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3Cn-ic-9Ek"/>
+                            <constraint firstAttribute="trailing" secondItem="OKS-Nz-JT7" secondAttribute="trailing" id="fTu-aW-f2b"/>
+                            <constraint firstAttribute="bottom" secondItem="OKS-Nz-JT7" secondAttribute="bottom" id="s7A-BL-538"/>
+                            <constraint firstItem="OKS-Nz-JT7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="yVJ-qb-7C2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -36,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="StPauls" width="928" height="1650"/>
+        <image name="LS1" width="928" height="1650"/>
     </resources>
 </document>
