@@ -31,7 +31,6 @@ extension ImageSourceViewController {
             guard error == nil else { return }
             guard let article = article else { return }
             
-            
             print(article.displayText)
             self.wikiResults.text = article.displayText
             self.saveToHistory()

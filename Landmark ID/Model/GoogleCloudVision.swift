@@ -56,6 +56,7 @@ extension ImageSourceViewController {
                         landmarkResultsText += "\(landmark)"
                     }
                 }
+                landmarkResultsText = landmarkResultsText.components(separatedBy: ",")[0]
                 self.landmarkResults.text = landmarkResultsText
                 self.LandmarkSearch()
                 

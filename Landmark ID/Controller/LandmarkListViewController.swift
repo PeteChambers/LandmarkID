@@ -53,9 +53,8 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     fileprivate func requestUserData() {
         let fetchRequest:NSFetchRequest<Landmark> = Landmark.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
-        let NameSortDescriptor = NSSortDescriptor(key: "name", ascending: false)
-        let PhotoSortDescriptor = NSSortDescriptor(key: "photo", ascending: false)
-        fetchRequest.sortDescriptors = [NameSortDescriptor, PhotoSortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         do {
