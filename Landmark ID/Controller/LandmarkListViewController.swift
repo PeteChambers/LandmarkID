@@ -15,6 +15,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: IBOutlets
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var placeholderView: UIView!
     @IBOutlet weak var messageTitle: UILabel!
     @IBOutlet weak var messageText: UILabel!
     @IBOutlet weak var placeHolderImage: UIImageView!
@@ -34,8 +35,19 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         tableView.separatorColor = UIColor(white: 0.95, alpha: 1.0)
         requestUserData()
         setupView()
+        setTexts()
      
 
+    }
+    
+    func setTexts() {
+        messageTitle.text = "No saved landmarks"
+        messageTitle.font = .systemFont(ofSize: 24, weight: .regular)
+        messageTitle.textColor = .lightGray
+        
+        messageText.text = "You can save your landmarks on the previous page using the Save button"
+        messageText.font = .systemFont(ofSize: 17, weight: .regular)
+        messageText.textColor = .lightGray
     }
     
     // MARK: Lifecycle Methods

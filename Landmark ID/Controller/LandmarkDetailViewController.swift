@@ -17,6 +17,7 @@ class LandmarkDetailViewController: SharedImagePickerController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var webSearchButton: UIButton!
     
     
     // MARK: Properties
@@ -35,19 +36,31 @@ class LandmarkDetailViewController: SharedImagePickerController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = landmark.name
-        textLabel.text = landmark.result
+        setTexts()
         if let data = landmark.photo {
             imageView.image = UIImage(data: data)
         }
         
     }
     
+    func setTexts() {
+        titleLabel.text = landmark.name
+        titleLabel.font = .preferredFont(forTextStyle: .title1)
+        
+        textLabel.text = landmark.result
+        textLabel.font = .systemFont(ofSize: 17, weight: .regular)
+        textLabel.textColor = .darkGray
+        
+        webSearchButton.setTitle("More...", for: .normal)
+        webSearchButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        webSearchButton.setTitleColor(.systemBlue, for: .normal)
+    }
+    
 
      // MARK: Actions
   
     @IBAction func deleteLandmark(sender: Any) {
-        presentDeleteNotebookAlert()
+        presentDeleteLandmarkAlert()
     }
     
     
@@ -71,7 +84,7 @@ class LandmarkDetailViewController: SharedImagePickerController {
 /// Modal alert for deleting a landmark entity
 
 extension LandmarkDetailViewController {
-    func presentDeleteNotebookAlert() {
+    func presentDeleteLandmarkAlert() {
         let alert = UIAlertController(title: "Delete Landmark", message: "Do you want to delete this landmark?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteHandler))

@@ -1,6 +1,0 @@
-framework module Pods_WhatLandmark_ {
-  umbrella header "Pods-WhatLandmark?-umbrella.h"
-
-  export *
-  module * { export * }
-}

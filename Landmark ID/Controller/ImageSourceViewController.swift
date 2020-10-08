@@ -6,8 +6,8 @@
 //  Copyright © 2018 Pete Chambers. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import AVFoundation
 import SwiftyJSON
 import CoreData
 import SwiftSpinner
@@ -19,7 +19,7 @@ class ImageSourceViewController: SharedImagePickerController {
     @IBOutlet weak var landmarkResults: UITextField!
     @IBOutlet weak var wikiResults: UILabel!
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var chooseImage: UIButton!
+    @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var webSearch: UIButton!
@@ -40,22 +40,41 @@ class ImageSourceViewController: SharedImagePickerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         landmarkResults.isEnabled = false
-        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "StPauls")
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         backgroundImage.backgroundColor = UIColor.black.withAlphaComponent(1)
         self.view.insertSubview(backgroundImage, at: 0)
         webSearch.isHidden = true
+        setTexts()
+    }
+    
+    func setTexts() {
+        titleLabel.text = "Landmark ID"
+        titleLabel.font = UIFont(name: "Avenir Next Heavy", size: 20)
+        titleLabel.textColor = .white
         
+        textLabel.text = "Start analysing your images and let Landmark ID's photo recognition software descover the landmarks within them"
+        textLabel.font = UIFont(name: "Avenir Next Regular", size: 18)
+        textLabel.textColor = .white
+        
+        webSearch.setTitle("More...", for: .normal)
+        webSearch.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        webSearch.setTitleColor(.systemBlue, for: .normal)
+        
+        chooseImageButton.setTitle("Choose an Image", for: .normal)
+        chooseImageButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        chooseImageButton.setTitleColor(.systemBlue, for: .normal)
+        
+        backgroundImage.image = UIImage(named: "StPauls")
+        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if backgroundImage.isHidden {
-            chooseImage.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+            chooseImageButton.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         } else {
-            chooseImage.backgroundColor = UIColor.white
+            chooseImageButton.backgroundColor = UIColor.white
         }
         
     }
@@ -121,13 +140,13 @@ class ImageSourceViewController: SharedImagePickerController {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             userImage.image = pickedImage
             SwiftSpinner.show("Analysing Image...")
-            SwiftSpinner.sharedInstance.outerColor = UIColor.white;  SwiftSpinner.setTitleColor(UIColor.white)
+            SwiftSpinner.shared.outerColor = UIColor.white;  SwiftSpinner.setTitleColor(UIColor.white)
             if Reachability.isConnectedToNetwork() {
                 print("Internet connection available")
             }
             else {
                 delay(seconds: 10.0, completion: {
-                    SwiftSpinner.sharedInstance.outerColor = UIColor.red.withAlphaComponent(0.5)
+                    SwiftSpinner.shared.outerColor = UIColor.red.withAlphaComponent(0.5)
                     SwiftSpinner.setTitleColor(UIColor.red)
                     SwiftSpinner.show("Failed to connect, please try again...", animated: false)
                 })
@@ -193,9 +212,6 @@ class ImageSourceViewController: SharedImagePickerController {
         landmarkResults.isHidden = false
         wikiResults.isHidden = false
         webSearch.isHidden = false
-        
-        
-        
     }
     
     /// Modal alert confirming that landmark's have been saved
