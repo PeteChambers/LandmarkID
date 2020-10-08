@@ -24,7 +24,7 @@ Landmark ID is a photo recongnition app that uses the Google Cloud Vision API to
 
 ##### Google Cloud API
 
-- Obtain your own Google API key and add it to "GoogleCloudVision.swift":
+- Obtain your own Google Clould API key from https://cloud.google.com and add it to "GoogleCloudVision.swift":
 
 `static var googleAPIKey = "YOUR_API_HERE"`
 
