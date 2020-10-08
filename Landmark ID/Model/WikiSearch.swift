@@ -21,23 +21,21 @@ class WikiSearch: SharedImagePickerController {
     
 extension ImageSourceViewController {
     
-    func LandmarkSearch() {
+    func landmarkSearch() {
         
         let language = WikipediaLanguage("en")
         
         let title = landmarkResults.text
         
         let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title!) { (article, error) in
-            guard error == nil else { return }
-            guard let article = article else { return }
-            
-            print(article.displayText)
-            self.wikiResults.text = article.displayText
+            if error == nil, let article = article {
+                self.wikiResults.text = article.displayText
+            } else {
+                self.wikiResults.text = "No description available"
+            }
             self.saveToHistory()
         }
-    
     }
-    
 }
 
 

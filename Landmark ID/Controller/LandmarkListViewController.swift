@@ -45,7 +45,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         messageTitle.font = .systemFont(ofSize: 24, weight: .regular)
         messageTitle.textColor = .lightGray
         
-        messageText.text = "You can save your landmarks on the previous page using the Save button"
+        messageText.text = "All your tagged landmarks will be automatically saved here"
         messageText.font = .systemFont(ofSize: 17, weight: .regular)
         messageText.textColor = .lightGray
     }
@@ -148,9 +148,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         tableView.isHidden = !hasLandmarks
-        messageTitle.isHidden = hasLandmarks
-        messageText.isHidden = hasLandmarks
-        placeHolderImage.isHidden = hasLandmarks
+        placeholderView.isHidden = hasLandmarks
         placeHolderImage.alpha = 0.2
     }
     

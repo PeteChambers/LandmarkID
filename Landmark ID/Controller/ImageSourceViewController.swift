@@ -22,7 +22,7 @@ class ImageSourceViewController: SharedImagePickerController {
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var webSearch: UIButton!
+    @IBOutlet weak var webSearchButton: UIButton!
     
     
     // MARK: Properties
@@ -40,43 +40,37 @@ class ImageSourceViewController: SharedImagePickerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         landmarkResults.isEnabled = false
+        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "StPauls")
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         backgroundImage.backgroundColor = UIColor.black.withAlphaComponent(1)
         self.view.insertSubview(backgroundImage, at: 0)
-        webSearch.isHidden = true
+        webSearchButton.isHidden = true
         setTexts()
     }
     
     func setTexts() {
         titleLabel.text = "Landmark ID"
-        titleLabel.font = UIFont(name: "Avenir Next Heavy", size: 20)
+        titleLabel.font = UIFont(name: "AvenirNext-Heavy", size: 20)
         titleLabel.textColor = .white
         
         textLabel.text = "Start analysing your images and let Landmark ID's photo recognition software descover the landmarks within them"
-        textLabel.font = UIFont(name: "Avenir Next Regular", size: 18)
+        textLabel.font = UIFont(name: "AvenirNext-Regular", size: 18)
         textLabel.textColor = .white
         
-        webSearch.setTitle("More...", for: .normal)
-        webSearch.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-        webSearch.setTitleColor(.systemBlue, for: .normal)
+        landmarkResults.font = .preferredFont(forTextStyle: .title1)
+        landmarkResults.textColor = .darkGray
+        
+        wikiResults.font = .systemFont(ofSize: 17, weight: .regular)
+        wikiResults.textColor = .darkGray
+        
+        webSearchButton.setTitle("More...", for: .normal)
+        webSearchButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        webSearchButton.setTitleColor(.systemBlue, for: .normal)
         
         chooseImageButton.setTitle("Choose an Image", for: .normal)
         chooseImageButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         chooseImageButton.setTitleColor(.systemBlue, for: .normal)
-        
-        backgroundImage.image = UIImage(named: "StPauls")
-        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if backgroundImage.isHidden {
-            chooseImageButton.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
-        } else {
-            chooseImageButton.backgroundColor = UIColor.white
-        }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -191,27 +185,22 @@ class ImageSourceViewController: SharedImagePickerController {
     /// Resets view to origiginal state
     
     func resetView() {
-        backgroundImage.isHidden = false
-        titleLabel.isHidden = false
-        textLabel.isHidden = false
-        userImage.isHidden = true
-        landmarkResults.isHidden = true
-        wikiResults.isHidden = true
-        webSearch.isHidden = true
-        
+        [backgroundImage, titleLabel, textLabel].forEach({ $0.isHidden = false})
+        [userImage, landmarkResults, wikiResults, webSearchButton].forEach({ $0.isHidden = true })
+        chooseImageButton.backgroundColor = UIColor.white
+        chooseImageButton.setTitleColor(.systemBlue, for: .normal)
+        chooseImageButton.setTitle("Choose an Image", for: .normal)
     }
     
     
     /// Reinstates image and text properties
     
     func updateview() {
-        backgroundImage.isHidden = true
-        titleLabel.isHidden = true
-        textLabel.isHidden = true
-        userImage.isHidden = false
-        landmarkResults.isHidden = false
-        wikiResults.isHidden = false
-        webSearch.isHidden = false
+        [userImage, landmarkResults, wikiResults, webSearchButton].forEach({ $0.isHidden = false})
+        [backgroundImage, titleLabel, textLabel].forEach({ $0.isHidden = true })
+        chooseImageButton.backgroundColor = UIColor.systemBlue
+        chooseImageButton.setTitleColor(.white, for: .normal)
+        chooseImageButton.setTitle("Choose another Image", for: .normal)
     }
     
     /// Modal alert confirming that landmark's have been saved
@@ -221,10 +210,8 @@ class ImageSourceViewController: SharedImagePickerController {
         let alert = UIAlertController(title: "Success!", message: "Landmark saved to History", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
         
-        // change to desired number of seconds (in this case 5 seconds)
-        let when = DispatchTime.now() + 2
+        let when = DispatchTime.now() + 2.5
         DispatchQueue.main.asyncAfter(deadline: when){
-            // your code with delay
             alert.dismiss(animated: true, completion: nil)
         }
 

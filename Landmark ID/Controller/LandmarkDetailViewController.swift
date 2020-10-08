@@ -46,6 +46,7 @@ class LandmarkDetailViewController: SharedImagePickerController {
     func setTexts() {
         titleLabel.text = landmark.name
         titleLabel.font = .preferredFont(forTextStyle: .title1)
+        titleLabel.textColor = .darkGray
         
         textLabel.text = landmark.result
         textLabel.font = .systemFont(ofSize: 17, weight: .regular)
@@ -60,7 +61,7 @@ class LandmarkDetailViewController: SharedImagePickerController {
      // MARK: Actions
   
     @IBAction func deleteLandmark(sender: Any) {
-        presentDeleteLandmarkAlert()
+        presentDeleteNotebookAlert()
     }
     
     
@@ -84,7 +85,7 @@ class LandmarkDetailViewController: SharedImagePickerController {
 /// Modal alert for deleting a landmark entity
 
 extension LandmarkDetailViewController {
-    func presentDeleteLandmarkAlert() {
+    func presentDeleteNotebookAlert() {
         let alert = UIAlertController(title: "Delete Landmark", message: "Do you want to delete this landmark?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteHandler))
