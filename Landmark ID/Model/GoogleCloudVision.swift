@@ -14,7 +14,7 @@ import SwiftSpinner
 class GoogleCloudVision: SharedImagePickerController {
     
     
-    static var googleAPIKey = "AIzaSyBUClAqYnoK5ya0jN-Yoz2OlFvyl4uPpoI"
+    static var googleAPIKey = "YOUR_API_HERE"
     static var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
         
