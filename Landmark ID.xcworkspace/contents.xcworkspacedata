@@ -7,6 +7,14 @@
    <FileRef
       location = "group:Landmark ID.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:"
+      name = "Products">
+      <FileRef
+         location = "build:Landmark ID.app"
+         assignedFileDataType = "com.apple.application-bundle">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

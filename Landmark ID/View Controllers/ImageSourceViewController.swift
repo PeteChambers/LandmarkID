@@ -12,7 +12,7 @@ import SwiftyJSON
 import CoreData
 import SwiftSpinner
 
-class ImageSourceViewController: SharedImagePickerController {
+class ImageSourceViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: IBOutlets
     
@@ -27,25 +27,19 @@ class ImageSourceViewController: SharedImagePickerController {
     
     // MARK: Properties
     
-    let session = URLSession.shared
-    var dataController: DataController!
     var backgroundImage: UIImageView!
-    override open var shouldAutorotate: Bool {
-        return false
-    }
-    
+    var viewModel = LandmarkListViewModel()
 
     // MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        landmarkResults.isEnabled = false
         backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "StPauls")
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         backgroundImage.backgroundColor = UIColor.black.withAlphaComponent(1)
         self.view.insertSubview(backgroundImage, at: 0)
-        webSearchButton.isHidden = true
+        resetView()
         setTexts()
     }
     
@@ -107,7 +101,6 @@ class ImageSourceViewController: SharedImagePickerController {
     @IBAction func historyButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LandmarkListViewController") as! LandmarkListViewController
-        vc.dataController = dataController
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -133,10 +126,29 @@ class ImageSourceViewController: SharedImagePickerController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             userImage.image = pickedImage
-            SwiftSpinner.show("Analysing Image...")
             SwiftSpinner.shared.outerColor = UIColor.white;  SwiftSpinner.setTitleColor(UIColor.white)
+            SwiftSpinner.show("Analysing Image...")
+            
             if Reachability.isConnectedToNetwork() {
-                print("Internet connection available")
+                let binaryImageData = base64EncodeImage(pickedImage)
+                
+                viewModel.identifyLandmark(imageData: binaryImageData) { (success) in
+                    if !success {
+                        DispatchQueue.main.async {
+                            self.resetView()
+                            SwiftSpinner.hide()
+                            self.noLandmarksFound()
+                        }
+                    }
+                } completion: { (name, description) in
+                    self.landmarkResults.text = name
+                    self.wikiResults.text = description.isEmpty ? "No description available" : description
+                    
+                    self.updateview()
+                    SwiftSpinner.hide()
+    
+                    self.saveToHistory()
+                }
             }
             else {
                 delay(seconds: 10.0, completion: {
@@ -149,12 +161,11 @@ class ImageSourceViewController: SharedImagePickerController {
                     self.resetView()
                 })
             }
-            let binaryImageData = base64EncodeImage(pickedImage)
-            createRequest(with: binaryImageData)
+            
             dismiss(animated: true, completion: nil)
-            updateview()
+    
         }
-
+        
     }
     
     
@@ -169,18 +180,14 @@ class ImageSourceViewController: SharedImagePickerController {
     /// Save Core Data Model to view contect function
     
     func saveToHistory() {
-        addLandmarkEntity(name: landmarkResults.text!, result: wikiResults.text!, with: userImage.image!)
-        do {
-            
-            try dataController.viewContext.save()
-            saveConfirmation()
-            
-        }
-        catch {
-            print("failed to save data")
-        }
+        
+        let landmark = ImageSourceViewModel(id: UUID(), name: landmarkResults.text!, description: wikiResults.text!, image: userImage.image!)
+        self.viewModel.saveLandmark(landmark: landmark, completed: {
+            self.saveConfirmation()
+        })
         
     }
+
     
     /// Resets view to origiginal state
     
@@ -229,15 +236,26 @@ class ImageSourceViewController: SharedImagePickerController {
     }
     
     
-    /// Creates new Landmark entity, adds it into the view context and sets values for each attribute
+    func base64EncodeImage(_ image: UIImage) -> String {
+            var imagedata = image.pngData()
+            
+            // Resize the image if it exceeds the 2MB API limit
+            if ((imagedata?.count)! > 2097152) {
+                let oldSize: CGSize = image.size
+                let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
+                imagedata = resizeImage(newSize, image: image)
+            }
+            
+            return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
+        }
     
-    func addLandmarkEntity(name: String, result: String, with image: UIImage) {
-        let landmarkEntity = NSEntityDescription.insertNewObject(forEntityName: "Landmark", into: dataController.viewContext) as! Landmark
-        landmarkEntity.setValue(landmarkResults.text, forKey: "name")
-        landmarkEntity.setValue(wikiResults.text, forKey: "result")
-        let data = NSData(data: image.jpegData(compressionQuality: 0.3)!)
-        landmarkEntity.setValue(data, forKey: "photo")
-
+    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
+            UIGraphicsBeginImageContext(imageSize)
+            image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            let resizedImage = newImage!.pngData()
+            UIGraphicsEndImageContext()
+            return resizedImage!
         }
 
     
