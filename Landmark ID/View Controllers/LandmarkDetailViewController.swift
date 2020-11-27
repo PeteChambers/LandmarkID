@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class LandmarkDetailViewController: SharedImagePickerController {
+class LandmarkDetailViewController: UIViewController {
 
     // MARK: IBOutlets
     
@@ -22,33 +22,23 @@ class LandmarkDetailViewController: SharedImagePickerController {
     
     // MARK: Properties
     
-    var landmark: Landmark!
-    var dataController: DataController!
-    var fetchedResultsController:NSFetchedResultsController<Landmark>!
+    var vm : ImageSourceViewModel?
     var onDelete: (() -> Void)?
-    var saveObserverToken: Any?
-    override open var shouldAutorotate: Bool {
-        return false
-    }
-    
     
     // MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTexts()
-        if let data = landmark.photo {
-            imageView.image = UIImage(data: data)
-        }
-        
+        imageView.image = vm?.image
     }
     
     func setTexts() {
-        titleLabel.text = landmark.name
+        titleLabel.text = vm?.name
         titleLabel.font = .preferredFont(forTextStyle: .title1)
         titleLabel.textColor = .darkGray
         
-        textLabel.text = landmark.result
+        textLabel.text = vm?.description
         textLabel.font = .systemFont(ofSize: 17, weight: .regular)
         textLabel.textColor = .darkGray
         
@@ -113,26 +103,6 @@ extension LandmarkDetailViewController {
         navigationController?.setToolbarHidden(false, animated: false)
 }
 
-
-}
-
-extension LandmarkDetailViewController {
-    
-    func addSaveNotificationObserver() {
-        removeSaveNotificationObserver()
-        saveObserverToken = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: dataController?.viewContext, queue: nil, using: handleSaveNotification(notification:))
-    }
-    
-    func removeSaveNotificationObserver() {
-        if let token = saveObserverToken {
-            NotificationCenter.default.removeObserver(token)
-        }
-    }
-    
-    func handleSaveNotification(notification:Notification) {
-        DispatchQueue.main.async {
-        }
-    }
 
 }
 
