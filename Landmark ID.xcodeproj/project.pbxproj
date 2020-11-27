@@ -26,6 +26,8 @@
 		49233B5E53FDAB012FD14EA2 /* Pods_Landmark_ID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1966F5D479A1083379108F8D /* Pods_Landmark_ID.framework */; };
 		8067596725654FD600788F8F /* LandmarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067596625654FD600788F8F /* LandmarkListViewModel.swift */; };
 		8067596D256551EF00788F8F /* ImageSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067596C256551EF00788F8F /* ImageSourceViewModel.swift */; };
+		80675A0D2571235400788F8F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80675A0C2571235400788F8F /* HomeView.swift */; };
+		80675A1D25713ECE00788F8F /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80675A1C25713ECE00788F8F /* ViewRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		61EA673585BDDBA198D598EC /* Pods-Landmark ID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Landmark ID.release.xcconfig"; path = "Pods/Target Support Files/Pods-Landmark ID/Pods-Landmark ID.release.xcconfig"; sourceTree = "<group>"; };
 		8067596625654FD600788F8F /* LandmarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListViewModel.swift; sourceTree = "<group>"; };
 		8067596C256551EF00788F8F /* ImageSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSourceViewModel.swift; sourceTree = "<group>"; };
+		80675A0C2571235400788F8F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		80675A1C25713ECE00788F8F /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		806B081C25654EE5007AAEDE /* LandmarkID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LandmarkID; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				806B081A25654E05007AAEDE /* Delegates */,
+				80675A122571236100788F8F /* Views */,
 				43C628C7215D3AA5000D3CDD /* View Controllers */,
 				806B081B25654E8D007AAEDE /* View Models */,
 				43C628C5215D3A91000D3CDD /* Models */,
@@ -212,6 +217,15 @@
 				43C628C6215D3A9B000D3CDD /* Table View Cells */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		80675A122571236100788F8F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				80675A0C2571235400788F8F /* HomeView.swift */,
+				80675A1C25713ECE00788F8F /* ViewRouter.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		806B081525654A3E007AAEDE /* Supporting Files */ = {
@@ -436,7 +450,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
+				80675A1D25713ECE00788F8F /* ViewRouter.swift in Sources */,
 				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
+				80675A0D2571235400788F8F /* HomeView.swift in Sources */,
 				437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */,
 				8067596725654FD600788F8F /* LandmarkListViewModel.swift in Sources */,
 				43008D542189E23F00AE6256 /* DesignView.swift in Sources */,
