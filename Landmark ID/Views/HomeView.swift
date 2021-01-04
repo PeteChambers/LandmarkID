@@ -17,13 +17,23 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Spacer()
-                if self.viewRouter.currentView == "home" {
-                    Text("Home")
-                } else if self.viewRouter.currentView == "history" {
-                    Text("History")
+                ZStack {
+                    Image("StPauls")
+                        .resizable()
+                    VStack {
+                        Text("Landmark ID")
+                            .font(.custom("AvenirNext-Heavy", size: 20))
+                            .foregroundColor(.white)
+                            .padding(.init(top: 100, leading:0, bottom: 0, trailing: 0))
+                    Text("Start analysing your images and let Landmark ID's photo recognition software descover the landmarks within them")
+                        .font(.custom("AvenirNext-Regular", size: 18))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                        .padding(.init(top: 10, leading: 25, bottom: 0, trailing: 25))
+                        Spacer()
+                    }
+                    
                 }
-                Spacer()
                 ZStack {
                     if self.showPopUp {
                        PlusMenu()
