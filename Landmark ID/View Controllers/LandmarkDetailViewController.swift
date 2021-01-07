@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CoreData
 import UIKit
+import Network
 
 class LandmarkDetailViewController: UIViewController {
 
@@ -23,7 +23,6 @@ class LandmarkDetailViewController: UIViewController {
     // MARK: Properties
     
     var vm : ImageSourceViewModel?
-    var onDelete: (() -> Void)?
     
     // MARK: Lifecycle Methods
     
@@ -51,41 +50,24 @@ class LandmarkDetailViewController: UIViewController {
      // MARK: Actions
   
     @IBAction func deleteLandmark(sender: Any) {
-        presentDeleteNotebookAlert()
+        self.alertChoice(message: "Do you want to delete this landmark?", title: "Delete Landmark", buttonOneTitle: "Cancel", buttonTwoTitle: "Delete", handler: deleteHandler)
     }
     
     
     @IBAction func webSearchTapped(_ sender: Any) {
-        if Reachability.isConnectedToNetwork() {
+        if NetworkReachability.sharedInstance.isNetworkAvailable() {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-            vc.text = titleLabel.text!
+            vc.text = self.titleLabel.text!
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
-            let alert = UIAlertController(title: "No internet connection", message: "Please check your connection and try again.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            
-            self.present(alert, animated: true)
+            self.alert(message: "Please check your connection and try again.", title: "No internet connection", buttonTitle: "Ok")
         }
     }
     
-}
-
-/// Modal alert for deleting a landmark entity
-
-extension LandmarkDetailViewController {
-    func presentDeleteNotebookAlert() {
-        let alert = UIAlertController(title: "Delete Landmark", message: "Do you want to delete this landmark?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteHandler))
-        present(alert, animated: true, completion: nil)
-    }
-    
     func deleteHandler(alertAction: UIAlertAction) {
-        onDelete?()
+        vm?.onDelete?()
     }
-    
     
 }
 
@@ -96,7 +78,6 @@ extension LandmarkDetailViewController {
         let trash = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteLandmark(sender:)))
         return [trash]
     }
-
 
     func configureToolbarItems() {
         toolbarItems = makeToolbarItems()

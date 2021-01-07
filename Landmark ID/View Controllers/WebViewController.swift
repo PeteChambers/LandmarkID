@@ -12,9 +12,8 @@ import Foundation
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
-    
     // MARK: Properties
-    
+
     var webView: WKWebView!
     var text: String = ""
     
@@ -24,15 +23,10 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         view = webView
     }
     
-    
-      // MARK: Lifecycle Methods
+    // MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard (text as? String) != nil else {
-            print("something went wrong, text can not be cast to String")
-            return
-        }
         var appendString = String(describing: text.replacingOccurrences(of: " ", with: "_"))
         appendString = appendString.folding(options: .diacriticInsensitive, locale: NSLocale.current)
         if let url = URL(string: "https://en.wikipedia.org/wiki/\(appendString)") {
@@ -41,8 +35,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         } else {
             print("could not open url, it was nil")
         }
-        
     }
-    
-    
+
 }

@@ -9,26 +9,26 @@
 import Foundation
 import UIKit
 import CoreData
-import WikipediaKit
-import SwiftyJSON
-import SwiftSpinner
+
+protocol DataManagerProtocol : class {
+    func getLandmarks() -> [Landmark]
+    func addLandmark(id: UUID, name: String, result: String, image: UIImage)
+    func removeLandmark(id: UUID)
+    func saveLandmark(id: UUID, name: String, result: String, photo: Data, completion: @escaping (Bool) -> Void)
+}
 
 
-class DataManager {
+class DataManager : DataManagerProtocol {
     
-    var googleAPIKey = "AIzaSyBUClAqYnoK5ya0jN-Yoz2OlFvyl4uPpoI"
-    var googleURL: URL {
-        return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
-        
-    }
+    // shared instance
     
     static let shared = DataManager(moc: NSManagedObjectContext.current)
-        
         var managedContext: NSManagedObjectContext
-        
         private init(moc: NSManagedObjectContext) {
             self.managedContext = moc
         }
+    
+    // MARK: Get Landmarks
     
     func getLandmarks() -> [Landmark]{
         var landmarks = [Landmark]()
@@ -42,6 +42,8 @@ class DataManager {
         
         return landmarks
     }
+    
+    // MARK: Add Landmark
     
     func addLandmark(id: UUID, name: String, result: String, image: UIImage) {
         let landmarkEntity = NSEntityDescription.insertNewObject(forEntityName: "Landmark", into: managedContext) as! Landmark
@@ -57,6 +59,8 @@ class DataManager {
         }
     }
     
+    // MARK: Remove Landmark
+    
     func removeLandmark(id: UUID) {
             let fetchRequest: NSFetchRequest<Landmark> = Landmark.fetchRequest()
             fetchRequest.predicate = NSPredicate.init(format: "id=%@", id.uuidString)
@@ -70,6 +74,8 @@ class DataManager {
               print(error)
             }
         }
+    
+    // MARK: Save Landmarks
     
     func saveLandmark(id: UUID, name: String, result: String, photo: Data, completion: @escaping (Bool) -> Void) {
             let landmark = Landmark(context: self.managedContext)
@@ -85,96 +91,6 @@ class DataManager {
             }
         }
     
-    
-    func analyzeResults(_ dataToParse: Data, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
-        
-        // Use SwiftyJSON to parse results
-        let json = try! JSON(data: dataToParse)
-        
-        // Parse the response
-        print(json)
-        let responses: JSON = json["responses"][0]
-        
-        // get landmark results
-        
-        var landmarkResultsText:String = ""
-        
-        let landmarkAnnotations: JSON = responses["landmarkAnnotations"]
-        
-        let landmark = landmarkAnnotations[0]["description"].stringValue
-        
-        if !landmark.isEmpty {
-            success(true)
-            landmarkResultsText = landmark
-            
-            self.landmarkSearch(title: landmarkResultsText, completion: completion)
-            
-        } else {
-            success(false)
-        }
-        
-    }
-    
-    func createRequest(with imageBase64: String, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
-        // Create our request URL
-        
-        var request = URLRequest(url: googleURL)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(Bundle.main.bundleIdentifier ?? "", forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-        
-        // Build our API request
-        let jsonRequest = [
-            "requests": [
-                "image": [
-                    "content": imageBase64
-                ],
-                "features": [
-                    [
-                        "type": "LANDMARK_DETECTION",
-                        "maxResults": 10
-                    ],
-                    
-                ]
-            ]
-        ]
-        let jsonObject = JSON(jsonRequest)
-        // Serialize the JSON
-        guard let data = try? jsonObject.rawData() else {
-            return
-        }
-        
-        request.httpBody = data
-        
-        let task: URLSessionDataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            
-            self.analyzeResults(data, success: success, completion: completion)
-        }
-        
-        task.resume()
-
-    }
-    
-    
-    
-    func landmarkSearch(title: String, completion: @escaping (String, String) -> Void) {
-        
-        let language = WikipediaLanguage("en")
-        
-        let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title) { (article, error) in
-            if error == nil, let article = article {
-                completion(title, article.displayText)
-            } else {
-                completion(title, "")
-            }
-        }
-    }
-    
-    
 }
 
 extension NSManagedObjectContext {
@@ -183,3 +99,4 @@ extension NSManagedObjectContext {
         return appDelegate.persistentContainer.viewContext
     }
 }
+

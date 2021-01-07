@@ -9,8 +9,7 @@
 import Foundation
 import CoreData
 
-class LandmarkListViewModel {
-    
+class LandmarkListViewModel : BaseViewModel  {
     var landmarks = [ImageSourceViewModel]()
     
     var numberOfSections: Int {
@@ -26,7 +25,7 @@ class LandmarkListViewModel {
     }
     
     func saveLandmark(landmark: ImageSourceViewModel, completed: @escaping () -> Void) {
-        DataManager.shared.saveLandmark(id: landmark.id, name: landmark.name, result: landmark.description, photo: landmark.image.pngData()!, completion: { success in
+        dataManager.saveLandmark(id: landmark.id, name: landmark.name, result: landmark.description, photo: landmark.image.pngData()!, completion: { success in
             completed()
         })
         
@@ -34,11 +33,11 @@ class LandmarkListViewModel {
     
     func removeLandmark(at index: Int) {
         let landmark = self.landmarks[index]
-        DataManager.shared.removeLandmark(id: landmark.id)
+        dataManager.removeLandmark(id: landmark.id)
     }
     
     func identifyLandmark(imageData: String, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
-        DataManager.shared.createRequest(with: imageData, success: success, completion: completion)
+        webService.createRequest(with: imageData, success: success, completion: completion)
     }
 }
 

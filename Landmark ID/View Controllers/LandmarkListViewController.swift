@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import CoreData
 
 
 class LandmarkListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     
     // MARK: IBOutlets
     
@@ -27,7 +25,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: Properties
     
     var landmarkListViewModel = LandmarkListViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = editButtonItem
@@ -35,8 +33,8 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         getLandmarks()
         setupView()
         setTexts()
-     
-
+        
+        
     }
     
     func setTexts() {
@@ -64,7 +62,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     fileprivate func getLandmarks() {
         landmarkListViewModel.fetchAllLandmarks()
     }
-
+    
     
     /// Delete landmark entity at index path
     
@@ -78,7 +76,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         
         updateView()
     }
-
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -108,15 +106,15 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
+        
         if let vc = segue.destination as? LandmarkDetailViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 vc.vm = landmarkListViewModel.landmarks[indexPath.row]
-                vc.onDelete = { [weak self] in
+                vc.vm?.onDelete = { [weak self] in
                     if let indexPath = self?.tableView.indexPathForSelectedRow {
                         self?.deleteLandmark(at: indexPath)
                         self?.navigationController?.popViewController(animated: true)

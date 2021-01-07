@@ -8,12 +8,14 @@
 
 import UIKit
 
-struct ImageSourceViewModel {
+class ImageSourceViewModel : BaseViewModel {
     
     let id: UUID
     let name: String
     let description: String
     let image: UIImage
+    
+    var onDelete: (() -> Void)?
     
     init(landmark: Landmark) {
         self.id = landmark.id ?? UUID()
@@ -30,10 +32,9 @@ struct ImageSourceViewModel {
         }
     
     func saveLandmark(landmark: ImageSourceViewModel, completed: @escaping () -> Void) {
-        DataManager.shared.saveLandmark(id: landmark.id, name: landmark.name, result: landmark.description, photo: landmark.image.pngData()!, completion: { success in
+        dataManager.saveLandmark(id: landmark.id, name: landmark.name, result: landmark.description, photo: landmark.image.pngData()!, completion: { success in
             completed()
         })
-        
     }
     
 }

@@ -11,6 +11,7 @@ import UIKit
 import SwiftyJSON
 import CoreData
 import SwiftSpinner
+import Network
 
 class ImageSourceViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -27,6 +28,8 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: Properties
     
+    let monitor = NWPathMonitor()
+    let queue = DispatchQueue(label: "Monitor")
     var backgroundImage: UIImageView!
     var viewModel = LandmarkListViewModel()
 
@@ -106,17 +109,13 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
     
     
     @IBAction func webSearchTapped(_ sender: Any) {
-        if Reachability.isConnectedToNetwork() {
+        if NetworkReachability.sharedInstance.isNetworkAvailable() {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-            vc.text = landmarkResults.text!
+            vc.text = self.landmarkResults.text!
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
-            let alert = UIAlertController(title: "No internet connection", message: "Please check your connection and try again.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            
-            self.present(alert, animated: true)
+            self.alert(message: "Please check your connection and try again.",title: "No internet connection")
         }
     }
 
@@ -129,10 +128,9 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
             SwiftSpinner.shared.outerColor = UIColor.white;  SwiftSpinner.setTitleColor(UIColor.white)
             SwiftSpinner.show("Analysing Image...")
             
-            if Reachability.isConnectedToNetwork() {
-                let binaryImageData = base64EncodeImage(pickedImage)
-                
-                viewModel.identifyLandmark(imageData: binaryImageData) { (success) in
+            if NetworkReachability.sharedInstance.isNetworkAvailable() {
+                let binaryImageData = pickedImage.base64EncodeImage()
+                self.viewModel.identifyLandmark(imageData: binaryImageData) { (success) in
                     if !success {
                         DispatchQueue.main.async {
                             self.resetView()
@@ -146,24 +144,23 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
                     
                     self.updateview()
                     SwiftSpinner.hide()
-    
+                    
                     self.saveToHistory()
                 }
             }
             else {
-                delay(seconds: 10.0, completion: {
+                self.delay(seconds: 10.0, completion: {
                     SwiftSpinner.shared.outerColor = UIColor.red.withAlphaComponent(0.5)
                     SwiftSpinner.setTitleColor(UIColor.red)
                     SwiftSpinner.show("Failed to connect, please try again...", animated: false)
                 })
-                delay(seconds: 12.0, completion: {
+                self.delay(seconds: 12.0, completion: {
                     SwiftSpinner.hide()
                     self.resetView()
                 })
             }
-            
             dismiss(animated: true, completion: nil)
-    
+            
         }
         
     }
@@ -213,84 +210,15 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
     /// Modal alert confirming that landmark's have been saved
     
     func saveConfirmation() {
-        
-        let alert = UIAlertController(title: "Success!", message: "Landmark saved to History", preferredStyle: .alert)
-        self.present(alert, animated: true, completion: nil)
-        
-        let when = DispatchTime.now() + 2.5
-        DispatchQueue.main.asyncAfter(deadline: when){
-            alert.dismiss(animated: true, completion: nil)
-        }
-
+        self.alert(message: "Landmark saved to History", title: "Success!")
     }
     /// Modal alert warning user that no landmark has been found in user photo
     
     func noLandmarksFound() {
-        
-        let alert = UIAlertController(title: "No Landmarks Found!", message: "Please use a different image and try again", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        
-        self.present(alert, animated: true)
+        self.alert(message: "Please use a different image and try again", title: "No Landmarks Found!")
         resetView()
     }
     
     
-    func base64EncodeImage(_ image: UIImage) -> String {
-            var imagedata = image.pngData()
-            
-            // Resize the image if it exceeds the 2MB API limit
-            if ((imagedata?.count)! > 2097152) {
-                let oldSize: CGSize = image.size
-                let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
-                imagedata = resizeImage(newSize, image: image)
-            }
-            
-            return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
-        }
-    
-    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
-            UIGraphicsBeginImageContext(imageSize)
-            image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            let resizedImage = newImage!.pngData()
-            UIGraphicsEndImageContext()
-            return resizedImage!
-        }
-
-    
     }
 
-
-// MARK: Helper Functions
-
-/// Disable autorotation of viewcontroller embedded inside navigationcontroller
-
-extension UINavigationController {
-    
-    override open var shouldAutorotate: Bool {
-        get {
-            if let visibleVC = visibleViewController {
-                return visibleVC.shouldAutorotate
-            }
-            return super.shouldAutorotate
-        }
-    }
-    
-    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
-        get {
-            if let visibleVC = visibleViewController {
-                return visibleVC.preferredInterfaceOrientationForPresentation
-            }
-            return super.preferredInterfaceOrientationForPresentation
-        }
-    }
-    
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask{
-        get {
-            if let visibleVC = visibleViewController {
-                return visibleVC.supportedInterfaceOrientations
-            }
-            return super.supportedInterfaceOrientations
-        }
-    }}
