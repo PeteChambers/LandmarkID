@@ -23,6 +23,7 @@
 		43C628E2215E40B4000D3CDD /* LandmarkID.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43C628E1215E40B4000D3CDD /* LandmarkID.plist */; };
 		43D9E0A92178D45D009363CB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D9E0A82178D45D009363CB /* DataManager.swift */; };
 		49233B5E53FDAB012FD14EA2 /* Pods_Landmark_ID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1966F5D479A1083379108F8D /* Pods_Landmark_ID.framework */; };
+		802275EA25C1991F00F45F35 /* LandmarkIDSlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802275E925C1991F00F45F35 /* LandmarkIDSlowTests.swift */; };
 		8067596725654FD600788F8F /* LandmarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067596625654FD600788F8F /* LandmarkListViewModel.swift */; };
 		8067596D256551EF00788F8F /* ImageSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067596C256551EF00788F8F /* ImageSourceViewModel.swift */; };
 		809E43DE25A5F80300A92B67 /* DataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E43DD25A5F80300A92B67 /* DataResponse.swift */; };
@@ -78,6 +79,13 @@
 			remoteGlobalIDString = 27E365461E81AC6A00F39F78;
 			remoteInfo = "WikipediaKit-iOS";
 		};
+		802275EC25C1991F00F45F35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4372DF6A215D32AD00C5B469 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4372DF71215D32AD00C5B469;
+			remoteInfo = "Landmark ID";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +123,9 @@
 		43D9E0A82178D45D009363CB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		47B3125DEA13820C42A5B96C /* Pods-Landmark ID.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Landmark ID.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Landmark ID/Pods-Landmark ID.debug.xcconfig"; sourceTree = "<group>"; };
 		61EA673585BDDBA198D598EC /* Pods-Landmark ID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Landmark ID.release.xcconfig"; path = "Pods/Target Support Files/Pods-Landmark ID/Pods-Landmark ID.release.xcconfig"; sourceTree = "<group>"; };
+		802275E725C1991F00F45F35 /* LandmarkIDSlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LandmarkIDSlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		802275E925C1991F00F45F35 /* LandmarkIDSlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkIDSlowTests.swift; sourceTree = "<group>"; };
+		802275EB25C1991F00F45F35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8067596625654FD600788F8F /* LandmarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListViewModel.swift; sourceTree = "<group>"; };
 		8067596C256551EF00788F8F /* ImageSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSourceViewModel.swift; sourceTree = "<group>"; };
 		806B081C25654EE5007AAEDE /* LandmarkID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LandmarkID; sourceTree = "<group>"; };
@@ -135,6 +146,13 @@
 			files = (
 				49233B5E53FDAB012FD14EA2 /* Pods_Landmark_ID.framework in Frameworks */,
 				437AE3D02195E51B003323E1 /* WikipediaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		802275E425C1991F00F45F35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +187,7 @@
 				806B081C25654EE5007AAEDE /* LandmarkID */,
 				434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */,
 				4372DF74215D32AD00C5B469 /* Landmark ID */,
+				802275E825C1991F00F45F35 /* LandmarkIDSlowTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				4372DF72215D32AD00C5B469 /* Landmark ID.app */,
+				802275E725C1991F00F45F35 /* LandmarkIDSlowTests.xctest */,
 			);
 			name = Products;
 			path = "Supporting Files";
@@ -229,6 +249,15 @@
 				43C628C6215D3A9B000D3CDD /* Table View Cells */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		802275E825C1991F00F45F35 /* LandmarkIDSlowTests */ = {
+			isa = PBXGroup;
+			children = (
+				802275E925C1991F00F45F35 /* LandmarkIDSlowTests.swift */,
+				802275EB25C1991F00F45F35 /* Info.plist */,
+			);
+			path = LandmarkIDSlowTests;
 			sourceTree = "<group>";
 		};
 		806B081525654A3E007AAEDE /* Supporting Files */ = {
@@ -337,19 +366,41 @@
 			productReference = 4372DF72215D32AD00C5B469 /* Landmark ID.app */;
 			productType = "com.apple.product-type.application";
 		};
+		802275E625C1991F00F45F35 /* LandmarkIDSlowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 802275F425C1991F00F45F35 /* Build configuration list for PBXNativeTarget "LandmarkIDSlowTests" */;
+			buildPhases = (
+				802275E325C1991F00F45F35 /* Sources */,
+				802275E425C1991F00F45F35 /* Frameworks */,
+				802275E525C1991F00F45F35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				802275ED25C1991F00F45F35 /* PBXTargetDependency */,
+			);
+			name = LandmarkIDSlowTests;
+			productName = LandmarkIDSlowTests;
+			productReference = 802275E725C1991F00F45F35 /* LandmarkIDSlowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4372DF6A215D32AD00C5B469 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Pete Chambers";
 				TargetAttributes = {
 					4372DF71215D32AD00C5B469 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1200;
+					};
+					802275E625C1991F00F45F35 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 4372DF71215D32AD00C5B469;
 					};
 				};
 			};
@@ -373,6 +424,7 @@
 			projectRoot = "";
 			targets = (
 				4372DF71215D32AD00C5B469 /* Landmark ID */,
+				802275E625C1991F00F45F35 /* LandmarkIDSlowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -424,6 +476,13 @@
 				4372DF80215D32AD00C5B469 /* Assets.xcassets in Resources */,
 				43C628E2215E40B4000D3CDD /* LandmarkID.plist in Resources */,
 				4372DF7B215D32AD00C5B469 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		802275E525C1991F00F45F35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +553,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		802275E325C1991F00F45F35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				802275EA25C1991F00F45F35 /* LandmarkIDSlowTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -501,6 +568,11 @@
 			isa = PBXTargetDependency;
 			name = "WikipediaKit-iOS";
 			targetProxy = 437AE3D22195E51B003323E1 /* PBXContainerItemProxy */;
+		};
+		802275ED25C1991F00F45F35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4372DF71215D32AD00C5B469 /* Landmark ID */;
+			targetProxy = 802275EC25C1991F00F45F35 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -680,6 +752,50 @@
 			};
 			name = Release;
 		};
+		802275EE25C1991F00F45F35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U658349NK9;
+				INFOPLIST_FILE = LandmarkIDSlowTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pete-Chambers.MoneyboxLite.LandmarkIDSlowTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Landmark ID.app/Landmark ID";
+			};
+			name = Debug;
+		};
+		802275EF25C1991F00F45F35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U658349NK9;
+				INFOPLIST_FILE = LandmarkIDSlowTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pete-Chambers.MoneyboxLite.LandmarkIDSlowTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Landmark ID.app/Landmark ID";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -697,6 +813,15 @@
 			buildConfigurations = (
 				4372DF9E215D32AE00C5B469 /* Debug */,
 				4372DF9F215D32AE00C5B469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		802275F425C1991F00F45F35 /* Build configuration list for PBXNativeTarget "LandmarkIDSlowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				802275EE25C1991F00F45F35 /* Debug */,
+				802275EF25C1991F00F45F35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
