@@ -217,6 +217,7 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
     func noLandmarksFound() {
         self.alert(message: "Please use a different image and try again", title: "No Landmarks Found!")
         resetView()
+        debugPrint("test")
     }
     
     
