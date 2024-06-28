@@ -15,7 +15,6 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
     @ObservedObject private var viewModel: ViewModel
     
     @State private var pickerItem: PhotosPickerItem?
-    @State private var selectedImage: Image?
     
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -25,9 +24,15 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
         NavigationView {
             VStack {
                 VStack(alignment: .center, spacing: 10) {
-                    selectedImage?
-                        .resizable()
-                        .scaledToFit()
+                    if let image = viewModel.selectedImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    if let name = viewModel.landmarkName, let description = viewModel.landmarkDescription {
+                        Text(name)
+                        Text(description)
+                    }
                 }
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
@@ -45,7 +50,9 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
                 .padding()
                 .onChange(of: pickerItem) {
                     Task {
-                        selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
+                        if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
+                            viewModel.selectedImage = UIImage(data: data)
+                        }
                     }
                 }
             }
@@ -57,9 +64,11 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
                 }
             }
             .background {
-                Image("StPauls")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+                if !viewModel.showResults {
+                    Image("StPauls")
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                }
             }
             .sheet(isPresented: $viewModel.showHistory) {
                 LandmarkListView(viewModel: LandmarkListViewModel())
