@@ -13,13 +13,13 @@ import SwiftUI
 @Model
 final class Landmark {
     var id: UUID
-    var name: String
+    var title: String
     var details: String
     var image: Data?
     
-    init(id: UUID = UUID(), name: String = "", details: String = "", image: Data?) {
+    init(id: UUID = UUID(), title: String = "", details: String =  "", image: Data? = nil) {
         self.id = id
-        self.name = name
+        self.title = title
         self.details = details
         self.image = image
     }

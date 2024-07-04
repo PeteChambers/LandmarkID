@@ -24,11 +24,4 @@ class LandmarkCell: UITableViewCell {
         landmarkName.text = nil
         landmarkImage.image = nil
     }
-    
-    func configureCell(for landmark: ImageSourceViewModel) {
-//        landmarkName.text = landmark.name
-//        landmarkImage.image = landmark.image
-    }
-    
-   
 }

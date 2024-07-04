@@ -30,53 +30,44 @@ class DataManager {
     }
     
     func addLandmark(id: UUID, name: String, result: String, image: UIImage) {
-
+        
     }
     
     func removeLandmark(id: UUID) {
-
-        }
+        
+    }
     
     func saveLandmark(id: UUID, name: String, result: String, photo: Data, completion: @escaping (Bool) -> Void) {
-  
-        }
+        
+    }
     
     
-    func analyzeResults(_ dataToParse: Data, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
+    func analyzeResults(_ dataToParse: Data) async throws -> (String, String) {
         do {
-            // Use SwiftyJSON to parse results
             let json = try JSON(data: dataToParse)
             
-            // Parse the response
-            print(json)
             guard let responses = json["responses"].array?.first else {
-                success(false)
-                return
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No responses found"])
             }
             
-            // Get landmark results
             let landmarkAnnotations = responses["landmarkAnnotations"]
             if let landmark = landmarkAnnotations.array?.first?["description"].string, !landmark.isEmpty {
-                success(true)
-                landmarkSearch(title: landmark, completion: completion)
+                return try await landmarkSearch(title: landmark)
             } else {
-                success(false)
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No landmarks found"])
             }
         } catch {
             print("Error parsing JSON: \(error.localizedDescription)")
-            success(false)
+            throw error
         }
     }
-
     
-    func createRequest(with imageBase64: String, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
-        // Create our request URL
+    func createRequest(with imageBase64: String) async throws -> (String, String) {
         var request = URLRequest(url: googleURL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(Bundle.main.bundleIdentifier ?? "", forHTTPHeaderField: "X-Ios-Bundle-Identifier")
         
-        // Build our API request
         let jsonRequest: [String: Any] = [
             "requests": [
                 [
@@ -98,37 +89,30 @@ class DataManager {
             request.httpBody = jsonData
         } catch {
             print("Error serializing JSON: \(error.localizedDescription)")
-            return
+            throw error
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error with request: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-            
-            self.analyzeResults(data, success: success, completion: completion)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Request failed"])
         }
         
-        task.resume()
+        return try await analyzeResults(data)
     }
     
-    
-    
-    func landmarkSearch(title: String, completion: @escaping (String, String) -> Void) {
-        
+    func landmarkSearch(title: String) async throws -> (String, String) {
         let language = WikipediaLanguage("en")
         
-        let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title) { (article, error) in
-            if error == nil, let article = article {
-                completion(title, article.displayText)
-            } else {
-                completion(title, "")
+        return try await withCheckedThrowingContinuation { continuation in
+           let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title) { (article, error) in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let article = article {
+                    continuation.resume(returning: (title, article.displayText))
+                } else {
+                    continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No article found"]))
+                }
             }
         }
     }

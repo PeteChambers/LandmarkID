@@ -26,7 +26,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     // MARK: Properties
     
-    var landmarkListViewModel = LandmarkListViewModel()
+//    var landmarkListViewModel = LandmarkListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     /// Fetch request of data stored inside Core Data model
     
     fileprivate func getLandmarks() {
-        landmarkListViewModel.fetchAllLandmarks()
+//        landmarkListViewModel.fetchAllLandmarks()
     }
 
     
@@ -72,7 +72,7 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
         
         tableView.beginUpdates()
         tableView.deleteRows(at: [indexPath], with: .fade)
-        landmarkListViewModel.removeLandmark(at: indexPath.row)
+//        landmarkListViewModel.removeLandmark(at: indexPath.row)
         getLandmarks()
         tableView.endUpdates()
         
@@ -82,11 +82,11 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return landmarkListViewModel.numberOfSections
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        landmarkListViewModel.numberOfItemsInSection(section)
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,16 +130,16 @@ class LandmarkListViewController: UIViewController, UITableViewDataSource, UITab
     
     private func updateView() {
         
-        if landmarkListViewModel.landmarks.count == 0 {
-            tableView.isHidden = true
-            placeholderView.isHidden = false
-            placeHolderImage.alpha = 0.2
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        } else {
-            tableView.isHidden = false
-            placeholderView.isHidden = true
-            navigationItem.rightBarButtonItem?.isEnabled = true
-        }
+//        if landmarkListViewModel.landmarks.count == 0 {
+//            tableView.isHidden = true
+//            placeholderView.isHidden = false
+//            placeHolderImage.alpha = 0.2
+//            navigationItem.rightBarButtonItem?.isEnabled = false
+//        } else {
+//            tableView.isHidden = false
+//            placeholderView.isHidden = true
+//            navigationItem.rightBarButtonItem?.isEnabled = true
+//        }
     }
     
     private func setupView() {

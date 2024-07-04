@@ -6,77 +6,103 @@
 //  Copyright © 2024 Pete Chambers. All rights reserved.
 //
 
-
+import SwiftData
 import SwiftUI
 import PhotosUI
 
-struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
+struct ImageSourceView: View {
     
-    @ObservedObject private var viewModel: ViewModel
-    
+    @Environment(\.modelContext) var modelContext
+    @Query var landmarks: [Landmark]
     @State private var pickerItem: PhotosPickerItem?
-    
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
+    @State private var showResults = false
+    @State private var showHistory = false
+    @State private var showAlert = false
+    @State private var landmarkTitle: String?
+    @State private var landmarkDescription: String?
+    @State var selectedImage: UIImage?
     
     var body: some View {
         NavigationView {
             VStack {
-                VStack(alignment: .center, spacing: 10) {
-                    if let image = viewModel.selectedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
+                if showResults {
+                    VStack(alignment: .center, spacing: 10) {
+                        if let image = selectedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                        }
+                        if let name = landmarkTitle, let description = landmarkDescription {
+                            Text(name)
+                            Text(description)
+                        }
                     }
-                    if let name = viewModel.landmarkName, let description = viewModel.landmarkDescription {
-                        Text(name)
-                        Text(description)
-                    }
+                    .multilineTextAlignment(.center)
+                    .padding()
                 }
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .padding()
                 Spacer()
                 PhotosPicker(selection: $pickerItem, matching: .images) {
                     Text("Choose an Image")
                         .font(.headline)
-                        .foregroundColor(.blue)
+                        .foregroundColor(showResults ? .blue : .white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.white)
+                        .background(showResults ? .white : .blue)
                         .cornerRadius(10)
                 }
                 .padding()
                 .onChange(of: pickerItem) {
                     Task {
                         if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
-                            viewModel.selectedImage = UIImage(data: data)
+                            selectedImage = UIImage(data: data)
+                            Task {
+                                do {
+                                    (landmarkTitle, landmarkDescription) = try await DataManager().createRequest(with: data.base64EncodedString())
+                                    let landmark = Landmark(
+                                        id: UUID(),
+                                        title: landmarkTitle ?? "",
+                                        details: landmarkDescription ?? "",
+                                        image: data
+                                    )
+                                        modelContext.insert(landmark)
+
+                                } catch {
+                                    showAlert.toggle()
+                                }
+                            }
                         }
                     }
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}) {
+                    Button(action: { showHistory.toggle() } ) {
                         Image(systemName: "clock.fill")
                     }
                 }
             }
             .background {
-                if !viewModel.showResults {
+                if !showResults {
                     Image("StPauls")
                         .resizable()
                         .edgesIgnoringSafeArea(.all)
                 }
             }
-            .sheet(isPresented: $viewModel.showHistory) {
-                LandmarkListView(viewModel: LandmarkListViewModel())
+            .sheet(isPresented: $showHistory) {
+                LandmarkListView()
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("No Landmarks Found!"), message: Text("Please use a different image and try again"), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    func updateLandmark(title: String, description: String) async {
+        landmarkTitle = title
+        landmarkDescription = description
     }
 }
 
 #Preview {
-    ImageSourceView(viewModel: ImageSourceViewModel())
+    ImageSourceView()
 }

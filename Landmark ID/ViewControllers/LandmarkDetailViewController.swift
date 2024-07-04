@@ -21,8 +21,7 @@ class LandmarkDetailViewController: UIViewController {
     
     
     // MARK: Properties
-    
-    var vm : ImageSourceViewModel?
+
     var onDelete: (() -> Void)?
     
     // MARK: Lifecycle Methods

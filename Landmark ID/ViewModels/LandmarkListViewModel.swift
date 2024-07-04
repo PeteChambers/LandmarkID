@@ -11,14 +11,16 @@ import SwiftData
 import SwiftUI
 
 protocol LandmarkListViewModelObservable: ObservableObject {
-    var landmarks: [Landmark] { get }
     func requestFetchLandmarks()
 }
 
 class LandmarkListViewModel: LandmarkListViewModelObservable {
     
-    @Environment(\.modelContext) private var modelContext
-    @Query var landmarks: [Landmark]
+    var modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
     
     var numberOfSections: Int {
         return 1
@@ -29,15 +31,11 @@ class LandmarkListViewModel: LandmarkListViewModelObservable {
     }
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        return self.landmarks.count
+        return 0
     }
     
     func fetchAllLandmarks() {
         
-    }
-    
-    func saveLandmark(landmark: ImageSourceViewModel, completed: @escaping () -> Void) {
-//        let newLandmark = Item(timestamp: Date())
     }
     
     func removeLandmark(at index: Int) {

@@ -28,7 +28,7 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: Properties
     
     var backgroundImage: UIImageView!
-    var viewModel = LandmarkListViewModel()
+//    var viewModel = LandmarkListViewModel()
 
     // MARK: Lifecycle Methods
     
@@ -131,24 +131,24 @@ class ImageSourceViewController: UIViewController, UIImagePickerControllerDelega
             
             if Reachability.isConnectedToNetwork() {
                 let binaryImageData = base64EncodeImage(pickedImage)
-                
-                viewModel.identifyLandmark(imageData: binaryImageData) { (success) in
-                    if !success {
-                        DispatchQueue.main.async {
-                            self.resetView()
-                            SwiftSpinner.hide()
-                            self.noLandmarksFound()
-                        }
-                    }
-                } completion: { (name, description) in
-                    self.landmarkResults.text = name
-                    self.wikiResults.text = description.isEmpty ? "No description available" : description
-                    
-                    self.updateview()
-                    SwiftSpinner.hide()
-    
-                    self.saveToHistory()
-                }
+//                
+//                viewModel.identifyLandmark(imageData: binaryImageData) { (success) in
+//                    if !success {
+//                        DispatchQueue.main.async {
+//                            self.resetView()
+//                            SwiftSpinner.hide()
+//                            self.noLandmarksFound()
+//                        }
+//                    }
+//                } completion: { (name, description) in
+//                    self.landmarkResults.text = name
+//                    self.wikiResults.text = description.isEmpty ? "No description available" : description
+//                    
+//                    self.updateview()
+//                    SwiftSpinner.hide()
+//    
+//                    self.saveToHistory()
+//                }
             }
             else {
                 delay(seconds: 10.0, completion: {

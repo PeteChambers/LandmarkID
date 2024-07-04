@@ -6,34 +6,33 @@
 //  Copyright © 2024 Pete Chambers. All rights reserved.
 //
 
+import SwiftData
 import SwiftUI
 
-struct LandmarkListView<ViewModel: LandmarkListViewModelObservable>: View {
+struct LandmarkListView: View {
+        
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
-    @ObservedObject private var viewModel: ViewModel
-    
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
+    @Query var landmarks: [Landmark]
     
     var body: some View {
-        List {
-            ForEach(viewModel.landmarks) { landmark in
-                HStack {
-                    if let imageData = landmark.image {
-                        Image(uiImage: UIImage(data: imageData)!)
+        NavigationStack {
+            List {
+                ForEach(landmarks) { landmark in
+                    HStack {
+                        if let imageData = landmark.image {
+                            Image(uiImage: UIImage(data: imageData)!)
+                        }
+                        Text(landmark.title)
                     }
-                    Text(landmark.name)
                 }
             }
-        }
-        .navigationTitle("History")
-        .onAppear {
-            viewModel.requestFetchLandmarks()
+            .navigationTitle("History")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: Button("Dismiss") {
+                dismiss()
+            })
         }
     }
-}
-
-#Preview {
-    LandmarkListView(viewModel: LandmarkListViewModel())
 }
