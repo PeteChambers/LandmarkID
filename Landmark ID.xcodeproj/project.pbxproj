@@ -28,6 +28,7 @@
 		C1254EC52C2DD11000252892 /* LandmarkID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC42C2DD11000252892 /* LandmarkID.swift */; };
 		C1254EC72C2DD9E600252892 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC62C2DD9E600252892 /* Landmark.swift */; };
 		C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC82C2DDB7900252892 /* ContentView.swift */; };
+		C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		C1254EC42C2DD11000252892 /* LandmarkID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkID.swift; sourceTree = "<group>"; };
 		C1254EC62C2DD9E600252892 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		C1254EC82C2DDB7900252892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,8 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				C1254EC82C2DDB7900252892 /* ContentView.swift */,
-				C1254EA32C2C8B1400252892 /* LandmarkListView.swift */,
 				C1254EA52C2C8E7900252892 /* ImageSourceView.swift */,
+				C1254EA32C2C8B1400252892 /* LandmarkListView.swift */,
+				C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				43008D542189E23F00AE6256 /* DesignView.swift in Sources */,
 				C1254EA62C2C8E7900252892 /* ImageSourceView.swift in Sources */,
 				43D9E0A92178D45D009363CB /* DataManager.swift in Sources */,
+				C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */,
 				C1254EC52C2DD11000252892 /* LandmarkID.swift in Sources */,
 				43C628DA215E2D58000D3CDD /* LandmarkListViewController.swift in Sources */,
 				C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */,
