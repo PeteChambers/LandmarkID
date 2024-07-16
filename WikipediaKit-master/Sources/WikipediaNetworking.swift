@@ -31,7 +31,7 @@ import Foundation
 
 public class WikipediaNetworking {
     
-    public static var appAuthorEmailForAPI = ""
+    public static var appAuthorEmailForAPI = "pcbchambers@gmail.com"
     
     public static let shared: WikipediaNetworking = {
         return WikipediaNetworking()

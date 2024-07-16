@@ -12,7 +12,6 @@ import SwiftUI
 struct LandmarkListView: View {
         
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.dismiss) private var dismiss
     
     @State private var isEditing = false
     @State private var showDeleteAlert = false
@@ -45,10 +44,24 @@ struct LandmarkListView: View {
                                     HStack {
                                         if let imageData = landmark.image {
                                             Image(uiImage: UIImage(data: imageData)!)
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
+                                                .landmarkImageModifier()
+                                        } else {
+                                            Image(systemName: "photo")
+                                                .landmarkImageModifier()
                                         }
-                                        Text(landmark.title)
+                                        VStack(alignment: .leading, spacing: 5) {
+                                            Text(landmark.title)
+                                                .lineLimit(2)
+                                                .font(.title2)
+                                                .fontWeight(.bold)
+                                            Text(landmark.details)
+                                                .lineLimit(2)
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        .transaction { transaction in
+                                            transaction.animation = nil
+                                        }
                                     }
                                 }
                             }
@@ -58,9 +71,6 @@ struct LandmarkListView: View {
             }
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(leading: Button("Done") {
-                dismiss()
-            })
             .navigationBarItems(trailing: Button(action: {
                 withAnimation {
                     isEditing.toggle()
@@ -92,4 +102,17 @@ struct LandmarkListView: View {
             }
         }
     }
+}
+
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Landmark.self, configurations: config)
+
+    for i in 1..<10 {
+        let user = Landmark(id: UUID(), title: "title", details: "details")
+        container.mainContext.insert(user)
+    }
+
+    return ContentView()
+        .modelContainer(container)
 }

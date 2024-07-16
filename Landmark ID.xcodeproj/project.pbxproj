@@ -11,8 +11,6 @@
 		4372DF7B215D32AD00C5B469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF79215D32AD00C5B469 /* Main.storyboard */; };
 		4372DF80215D32AD00C5B469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF7F215D32AD00C5B469 /* Assets.xcassets */; };
 		4372DF83215D32AD00C5B469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372DF81215D32AD00C5B469 /* LaunchScreen.storyboard */; };
-		437AE3D02195E51B003323E1 /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434B98F321936D1E00313D26 /* WikipediaKit.framework */; };
-		437AE3D12195E51B003323E1 /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 434B98F321936D1E00313D26 /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D6301217A0E2C00AB0A9A /* LandmarkCell.swift */; };
 		437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D6354217CAF5400AB0A9A /* WebViewController.swift */; };
 		43C628D4215E2CD8000D3CDD /* ImageSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C628D3215E2CD8000D3CDD /* ImageSourceViewController.swift */; };
@@ -23,58 +21,16 @@
 		43EE51A12193074D00D9DAFA /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EE51A02193074D00D9DAFA /* Reachability.swift */; };
 		49233B5E53FDAB012FD14EA2 /* Pods_Landmark_ID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1966F5D479A1083379108F8D /* Pods_Landmark_ID.framework */; };
 		8067596725654FD600788F8F /* LandmarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067596625654FD600788F8F /* LandmarkListViewModel.swift */; };
+		C11F291F2C3EE9AF0035BFC3 /* CameraAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F291E2C3EE9AF0035BFC3 /* CameraAccessView.swift */; };
+		C11F29262C3EEE1D0035BFC3 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F29252C3EEE1D0035BFC3 /* CameraCoordinator.swift */; };
 		C1254EA42C2C8B1400252892 /* LandmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EA32C2C8B1400252892 /* LandmarkListView.swift */; };
 		C1254EA62C2C8E7900252892 /* ImageSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EA52C2C8E7900252892 /* ImageSourceView.swift */; };
 		C1254EC52C2DD11000252892 /* LandmarkID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC42C2DD11000252892 /* LandmarkID.swift */; };
 		C1254EC72C2DD9E600252892 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC62C2DD9E600252892 /* Landmark.swift */; };
 		C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC82C2DDB7900252892 /* ContentView.swift */; };
 		C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */; };
+		C1D815622C47164F00352867 /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D815612C47164F00352867 /* Image+Extensions.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		434B98F021936D1E00313D26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27E365081E81757500F39F78;
-			remoteInfo = "WikipediaKit-macOS";
-		};
-		434B98F221936D1E00313D26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27E365471E81AC6A00F39F78;
-			remoteInfo = "WikipediaKit-iOS";
-		};
-		434B98F421936D1E00313D26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27E3658A1E81C95D00F39F78;
-			remoteInfo = "WikipediaKit-watchOS";
-		};
-		434B98F621936D1E00313D26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27E365AC1E81C9E300F39F78;
-			remoteInfo = "WikipediaKit-tvOS";
-		};
-		434B98F821936D1E00313D26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 274EFCDD1EB899E90047428B;
-			remoteInfo = WikipediaKitTests;
-		};
-		437AE3D22195E51B003323E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 27E365461E81AC6A00F39F78;
-			remoteInfo = "WikipediaKit-iOS";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		437AE3D42195E51C003323E1 /* Embed Frameworks */ = {
@@ -83,7 +39,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				437AE3D12195E51B003323E1 /* WikipediaKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,7 +48,6 @@
 /* Begin PBXFileReference section */
 		1966F5D479A1083379108F8D /* Pods_Landmark_ID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Landmark_ID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43008D532189E23F00AE6256 /* DesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
-		434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WikipediaKit.xcodeproj; path = "WikipediaKit-master/WikipediaKit.xcodeproj"; sourceTree = "<group>"; };
 		434B9909219377C900313D26 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "Supporting Files/README.md"; sourceTree = SOURCE_ROOT; };
 		4372DF72215D32AD00C5B469 /* Landmark ID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Landmark ID.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4372DF7A215D32AD00C5B469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -111,13 +65,15 @@
 		47B3125DEA13820C42A5B96C /* Pods-Landmark ID.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Landmark ID.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Landmark ID/Pods-Landmark ID.debug.xcconfig"; sourceTree = "<group>"; };
 		61EA673585BDDBA198D598EC /* Pods-Landmark ID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Landmark ID.release.xcconfig"; path = "Pods/Target Support Files/Pods-Landmark ID/Pods-Landmark ID.release.xcconfig"; sourceTree = "<group>"; };
 		8067596625654FD600788F8F /* LandmarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListViewModel.swift; sourceTree = "<group>"; };
-		806B081C25654EE5007AAEDE /* LandmarkID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LandmarkID; sourceTree = "<group>"; };
+		C11F291E2C3EE9AF0035BFC3 /* CameraAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAccessView.swift; sourceTree = "<group>"; };
+		C11F29252C3EEE1D0035BFC3 /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
 		C1254EA32C2C8B1400252892 /* LandmarkListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListView.swift; sourceTree = "<group>"; };
 		C1254EA52C2C8E7900252892 /* ImageSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSourceView.swift; sourceTree = "<group>"; };
 		C1254EC42C2DD11000252892 /* LandmarkID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkID.swift; sourceTree = "<group>"; };
 		C1254EC62C2DD9E600252892 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		C1254EC82C2DDB7900252892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListDetailView.swift; sourceTree = "<group>"; };
+		C1D815612C47164F00352867 /* Image+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49233B5E53FDAB012FD14EA2 /* Pods_Landmark_ID.framework in Frameworks */,
-				437AE3D02195E51B003323E1 /* WikipediaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,23 +98,9 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		434B98E921936D1E00313D26 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				434B98F121936D1E00313D26 /* WikipediaKit.framework */,
-				434B98F321936D1E00313D26 /* WikipediaKit.framework */,
-				434B98F521936D1E00313D26 /* WikipediaKit.framework */,
-				434B98F721936D1E00313D26 /* WikipediaKit.framework */,
-				434B98F921936D1E00313D26 /* WikipediaKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4372DF69215D32AD00C5B469 = {
 			isa = PBXGroup;
 			children = (
-				806B081C25654EE5007AAEDE /* LandmarkID */,
-				434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */,
 				4372DF74215D32AD00C5B469 /* Landmark ID */,
 			);
 			sourceTree = "<group>";
@@ -177,11 +118,12 @@
 			isa = PBXGroup;
 			children = (
 				C1254EC42C2DD11000252892 /* LandmarkID.swift */,
+				C1D8155D2C47151C00352867 /* Extensions */,
+				C1D8155C2C47150E00352867 /* Utilities */,
 				43C628C7215D3AA5000D3CDD /* ViewControllers */,
 				C1254E9E2C2C8AC900252892 /* Views */,
 				806B081B25654E8D007AAEDE /* ViewModels */,
 				43C628C5215D3A91000D3CDD /* Models */,
-				C1A2636C2C3747A2002CE405 /* DataSource */,
 				806B081825654B25007AAEDE /* Managers */,
 				806B081725654AE3007AAEDE /* Storyboards */,
 				806B081625654A63007AAEDE /* Resources */,
@@ -275,9 +217,19 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		C11F29242C3EEA400035BFC3 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				C11F291E2C3EE9AF0035BFC3 /* CameraAccessView.swift */,
+				C11F29252C3EEE1D0035BFC3 /* CameraCoordinator.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		C1254E9E2C2C8AC900252892 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C11F29242C3EEA400035BFC3 /* Camera */,
 				C1254EC82C2DDB7900252892 /* ContentView.swift */,
 				C1254EA52C2C8E7900252892 /* ImageSourceView.swift */,
 				C1254EA32C2C8B1400252892 /* LandmarkListView.swift */,
@@ -286,11 +238,20 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		C1A2636C2C3747A2002CE405 /* DataSource */ = {
+		C1D8155C2C47150E00352867 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = DataSource;
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C1D8155D2C47151C00352867 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C1D815612C47164F00352867 /* Image+Extensions.swift */,
+			);
+			name = Extensions;
+			path = Utilities/Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,7 +271,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				437AE3D32195E51B003323E1 /* PBXTargetDependency */,
 			);
 			name = "Landmark ID";
 			productName = "WhatLandmark?";
@@ -344,56 +304,12 @@
 			mainGroup = 4372DF69215D32AD00C5B469;
 			productRefGroup = 4372DF73215D32AD00C5B469 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 434B98E921936D1E00313D26 /* Products */;
-					ProjectRef = 434B98E821936D1E00313D26 /* WikipediaKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				4372DF71215D32AD00C5B469 /* Landmark ID */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		434B98F121936D1E00313D26 /* WikipediaKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = WikipediaKit.framework;
-			remoteRef = 434B98F021936D1E00313D26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		434B98F321936D1E00313D26 /* WikipediaKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = WikipediaKit.framework;
-			remoteRef = 434B98F221936D1E00313D26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		434B98F521936D1E00313D26 /* WikipediaKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = WikipediaKit.framework;
-			remoteRef = 434B98F421936D1E00313D26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		434B98F721936D1E00313D26 /* WikipediaKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = WikipediaKit.framework;
-			remoteRef = 434B98F621936D1E00313D26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		434B98F921936D1E00313D26 /* WikipediaKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = WikipediaKitTests.xctest;
-			remoteRef = 434B98F821936D1E00313D26 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4372DF70215D32AD00C5B469 /* Resources */ = {
@@ -455,6 +371,8 @@
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
 				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
 				437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */,
+				C11F29262C3EEE1D0035BFC3 /* CameraCoordinator.swift in Sources */,
+				C1D815622C47164F00352867 /* Image+Extensions.swift in Sources */,
 				C1254EC72C2DD9E600252892 /* Landmark.swift in Sources */,
 				8067596725654FD600788F8F /* LandmarkListViewModel.swift in Sources */,
 				C1254EA42C2C8B1400252892 /* LandmarkListView.swift in Sources */,
@@ -467,18 +385,11 @@
 				C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */,
 				43C628D4215E2CD8000D3CDD /* ImageSourceViewController.swift in Sources */,
 				43EE51A12193074D00D9DAFA /* Reachability.swift in Sources */,
+				C11F291F2C3EE9AF0035BFC3 /* CameraAccessView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		437AE3D32195E51B003323E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "WikipediaKit-iOS";
-			targetProxy = 437AE3D22195E51B003323E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4372DF79215D32AD00C5B469 /* Main.storyboard */ = {
@@ -504,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -565,6 +477,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

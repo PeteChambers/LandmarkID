@@ -8,112 +8,99 @@
 
 import Foundation
 import UIKit
-import CoreData
-import WikipediaKit
 import SwiftyJSON
-import SwiftSpinner
 
+enum WikipediaError: Error {
+    case invalidURL
+    case noData
+    case invalidResponse
+}
+
+enum LandmarkError: Error {
+    case noLandmarkDetected
+}
 
 class DataManager {
     
-    var googleAPIKey = "AIzaSyBUClAqYnoK5ya0jN-Yoz2OlFvyl4uPpoI"
-    var googleURL: URL {
-        return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
-        
+    private let searchBaseURL = "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch="
+    private let summaryBaseURL = "https://en.wikipedia.org/api/rest_v1/page/summary/"
+    private let googleAPIKey = "AIzaSyBUClAqYnoK5ya0jN-Yoz2OlFvyl4uPpoI"
+    
+    private var googleURL: URL {
+        URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
     
-    
-    func getLandmarks() -> [Landmark]{
-        var landmarks = [Landmark]()
-        
-        return landmarks
-    }
-    
-    func addLandmark(id: UUID, name: String, result: String, image: UIImage) {
-        
-    }
-    
-    func removeLandmark(id: UUID) {
-        
-    }
-    
-    func saveLandmark(id: UUID, name: String, result: String, photo: Data, completion: @escaping (Bool) -> Void) {
-        
-    }
-    
-    
-    func analyzeResults(_ dataToParse: Data) async throws -> (String, String) {
-        do {
-            let json = try JSON(data: dataToParse)
-            
-            guard let responses = json["responses"].array?.first else {
-                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No responses found"])
-            }
-            
-            let landmarkAnnotations = responses["landmarkAnnotations"]
-            if let landmark = landmarkAnnotations.array?.first?["description"].string, !landmark.isEmpty {
-                return try await landmarkSearch(title: landmark)
-            } else {
-                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No landmarks found"])
-            }
-        } catch {
-            print("Error parsing JSON: \(error.localizedDescription)")
-            throw error
-        }
-    }
-    
-    func createRequest(with imageBase64: String) async throws -> (String, String) {
-        var request = URLRequest(url: googleURL)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(Bundle.main.bundleIdentifier ?? "", forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-        
-        let jsonRequest: [String: Any] = [
+    func detectLandmark(imageData: Data) async throws -> (String?, String?) {
+        let requestPayload: [String: Any] = [
             "requests": [
                 [
-                    "image": [
-                        "content": imageBase64
-                    ],
-                    "features": [
-                        [
-                            "type": "LANDMARK_DETECTION",
-                            "maxResults": 10
-                        ]
-                    ]
+                    "image": ["content": imageData.base64EncodedString()],
+                    "features": [["type": "LANDMARK_DETECTION", "maxResults": 1]]
                 ]
             ]
         ]
         
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: jsonRequest)
-            request.httpBody = jsonData
-        } catch {
-            print("Error serializing JSON: \(error.localizedDescription)")
-            throw error
+        var request = URLRequest(url: googleURL)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONSerialization.data(withJSONObject: requestPayload, options: [])
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let json = try JSON(data: data)
+        
+        if let landmark = json["responses"][0]["landmarkAnnotations"][0]["description"].string {
+            let summary = try await fetchSummaryWithFallback(for: landmark)
+            return (landmark, summary)
         }
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Request failed"])
-        }
-        
-        return try await analyzeResults(data)
+        throw LandmarkError.noLandmarkDetected
     }
     
-    func landmarkSearch(title: String) async throws -> (String, String) {
-        let language = WikipediaLanguage("en")
+    private func fetchWikipediaSummary(for article: String) async throws -> String {
+        let urlString = summaryBaseURL + article.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
         
-        return try await withCheckedThrowingContinuation { continuation in
-           let _ = Wikipedia.shared.requestArticleSummary(language: language, title: title) { (article, error) in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else if let article = article {
-                    continuation.resume(returning: (title, article.displayText))
-                } else {
-                    continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No article found"]))
-                }
-            }
+        guard let url = URL(string: urlString) else {
+            throw WikipediaError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
+        
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 404 {
+            throw WikipediaError.noData
+        }
+        
+        let json = try JSON(data: data)
+        
+        if let extract = json["extract"].string {
+            return extract
+        } else {
+            throw WikipediaError.invalidResponse
+        }
+    }
+
+    private func searchWikipedia(for query: String) async throws -> String {
+        let urlString = searchBaseURL + query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+        guard let url = URL(string: urlString) else {
+            throw WikipediaError.invalidURL
+        }
+        
+        let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+        let json = try JSON(data: data)
+        
+        if let title = json["query"]["search"].array?.first?["title"].string {
+            return title
+        } else {
+            throw WikipediaError.noData
+        }
+    }
+
+    private func fetchSummaryWithFallback(for query: String) async throws -> String {
+        do {
+            return try await fetchWikipediaSummary(for: query)
+        } catch WikipediaError.noData {
+            let title = try await searchWikipedia(for: query)
+            return try await fetchWikipediaSummary(for: title)
         }
     }
 }

@@ -12,24 +12,40 @@ struct LandmarkDetailView: View {
     var landmark: Landmark
     
     var body: some View {
-        VStack {
-            if let imageData = landmark.image {
-                Image(uiImage: UIImage(data: imageData)!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: 300)
-                    .padding()
+        NavigationStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center, spacing: 20) {
+                    if let imageData = landmark.image {
+                        Image(uiImage: UIImage(data: imageData)!)
+                            .resizable()
+                            .scaledToFit()
+                            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.15), radius: 8, x: 6, y: 8)
+                    }
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text(landmark.title)
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
+                        Text(landmark.details)
+                            .font(.headline)
+                            .multilineTextAlignment(.leading)
+                        Link(destination: URL(string: "https://en.wikipedia.org/wiki/\(landmark.title.replacingOccurrences(of: " ", with: "_"))")!) {
+                            Text("Learn more about \(landmark.title)".uppercased())
+                                .multilineTextAlignment(.leading)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                }
             }
-            Text(landmark.title)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding()
-            Text(landmark.details)
-                .padding()
-            Link("More...", destination: URL(string: "https://en.wikipedia.org/wiki/\(landmark.title.replacingOccurrences(of: " ", with: "_"))")!)
-            Spacer()
+            .ignoresSafeArea(edges: .top)
         }
-        .navigationTitle(landmark.title)
-        .navigationBarTitleDisplayMode(.inline)
     }
+}
+
+#Preview {
+        let landmark = Landmark(
+            id: UUID(),
+            title: "London Bridge",
+            details: "jfewjf wjg wrjg rwgj ergjh eorwjg rejg wrj g fewih fohr grhoh goerh geitjg oiertjget goetjo"
+        )
+        return LandmarkDetailView(landmark: landmark)
 }
