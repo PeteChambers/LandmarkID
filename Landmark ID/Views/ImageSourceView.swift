@@ -16,6 +16,7 @@ struct ImageSourceView: View {
     @Query var landmarks: [Landmark]
     
     @State private var pickerItem: PhotosPickerItem?
+    @State private var cameraImage: UIImage?
     @State private var selectedImage: UIImage?
     
     @State private var showResults = false
@@ -25,11 +26,10 @@ struct ImageSourceView: View {
     @State private var showSuccessAlert = false
     @State private var showErrorAlert = false
     
-    @State private var landmarkTitle: String?
-    @State private var landmarkDescription: String?
+    @State private var currentLandmark: Landmark?
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             content
                 .navigationBarItems(trailing: historyButton())
                 .background {
@@ -45,44 +45,29 @@ struct ImageSourceView: View {
                 }
                 .photosPicker(isPresented: $showPhotosPicker, selection: $pickerItem, matching: .images)
                 .fullScreenCover(isPresented: $showCamera) {
-                    CameraAccessView(selectedImage: $selectedImage)
+                    CameraAccessView(selectedImage: $cameraImage)
                         .ignoresSafeArea(.all)
                 }
                 .onChange(of: pickerItem) {
                     handlePickerItemChange()
                 }
-                .onChange(of: selectedImage) {
-                    handleSelectedImageChange()
+                .onChange(of: cameraImage) {
+                    handleCameraImageChange()
                 }
+        }
+        .onAppear {
+            showResults = false
         }
     }
     
     private var content: some View {
         VStack {
-            if showResults, let image = selectedImage {
-                resultView(image: image)
+            if showResults, let landmark = currentLandmark {
+                LandmarkDetailView(landmark: landmark)
             }
             Spacer()
             selectImageButton()
         }
-    }
-    
-    private func resultView(image: UIImage) -> some View {
-        VStack(alignment: .center, spacing: 10) {
-            Image(uiImage: image)
-                .resizable()
-                .frame(height: UIScreen.main.bounds.height / 2 )
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea(.all)
-            
-            if let name = landmarkTitle, let description = landmarkDescription {
-                Text(name).bold()
-                Text(description)
-                Link("More...", destination: URL(string: "https://en.wikipedia.org/wiki/\(name.replacingOccurrences(of: " ", with: "_"))")!)
-            }
-        }
-        .multilineTextAlignment(.center)
-        .padding()
     }
     
     private func selectImageButton() -> some View {
@@ -137,12 +122,13 @@ struct ImageSourceView: View {
         }
     }
     
-    private func handleSelectedImageChange() {
+    private func handleCameraImageChange() {
         Task {
             await MainActor.run {
                 showSpinner()
             }
-            if let data = selectedImage?.jpegData(compressionQuality: 1.0) {
+            if let data = cameraImage?.jpegData(compressionQuality: 1.0) {
+                selectedImage = cameraImage
                 await analyseImage(data: data)
             }
             await MainActor.run {
@@ -155,10 +141,9 @@ struct ImageSourceView: View {
         do {
             let (title, description) = try await DataManager().detectLandmark(imageData: data)
             await MainActor.run {
-                landmarkTitle = title
-                landmarkDescription = description
-                if let title = landmarkTitle, let description = landmarkDescription {
+                if let title = title, let description = description {
                     let landmark = Landmark(id: UUID(), title: title, details: description, image: data)
+                    currentLandmark = landmark
                     modelContext.insert(landmark)
                     showResults = true
                     showSuccessAlert = true
