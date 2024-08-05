@@ -23,8 +23,10 @@ struct ImageSourceView: View {
     @State private var showOptions = false
     @State private var showCamera = false
     @State private var showPhotosPicker = false
-    @State private var showSuccessAlert = false
-    @State private var showErrorAlert = false
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     @State private var currentLandmark: Landmark?
 
@@ -37,11 +39,8 @@ struct ImageSourceView: View {
                         backgroundImage()
                     }
                 }
-                .alert(isPresented: $showSuccessAlert) {
-                    Alert(title: Text("Success!"), message: Text("Landmark saved to History"), dismissButton: .default(Text("OK")))
-                }
-                .alert(isPresented: $showErrorAlert) {
-                    Alert(title: Text("No Landmarks Found!"), message: Text("Please use a different image and try again"), dismissButton: .default(Text("OK")))
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
                 .photosPicker(isPresented: $showPhotosPicker, selection: $pickerItem, matching: .images)
                 .fullScreenCover(isPresented: $showCamera) {
@@ -55,16 +54,17 @@ struct ImageSourceView: View {
                     handleCameraImageChange()
                 }
         }
-        .onAppear {
-            showResults = false
-        }
     }
     
+    @ViewBuilder
     private var content: some View {
-        VStack {
-            if showResults, let landmark = currentLandmark {
+        if showResults, let landmark = currentLandmark {
+            VStack {
                 LandmarkDetailView(landmark: landmark)
             }
+            Spacer()
+            optionsButtons()
+        } else {
             Spacer()
             selectImageButton()
         }
@@ -87,6 +87,36 @@ struct ImageSourceView: View {
             Button("Take a photo") { showCamera = true }
             Button("Upload image from library") { showPhotosPicker = true }
         }
+    }
+    
+    private func optionsButtons() -> some View {
+        HStack {
+            Button {
+                showResults = false
+            } label: {
+                Text("Reset")
+                    .font(.headline)
+                    .foregroundColor(showResults ? .white : .blue)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(showResults ? .blue : .white)
+                    .cornerRadius(10)
+            }
+            Button {
+                Task {
+                    await saveLandmark()
+                }
+            } label: {
+                Text("Save")
+                    .font(.headline)
+                    .foregroundColor(showResults ? .white : .blue)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(showResults ? .blue : .white)
+                    .cornerRadius(10)
+            }
+        }
+        .padding(.horizontal)
     }
     
     private func historyButton() -> some View {
@@ -144,15 +174,26 @@ struct ImageSourceView: View {
                 if let title = title, let description = description {
                     let landmark = Landmark(id: UUID(), title: title, details: description, image: data)
                     currentLandmark = landmark
-                    modelContext.insert(landmark)
                     showResults = true
-                    showSuccessAlert = true
                 }
             }
         } catch {
             await MainActor.run {
                 showResults = false
-                showErrorAlert = true
+                showAlert = true
+                alertTitle = "No Landmarks Found!"
+                alertMessage = "Please use a different image and try again"
+            }
+        }
+    }
+    
+    private func saveLandmark() async {
+        await MainActor.run {
+            if let landmark = currentLandmark {
+                modelContext.insert(landmark)
+                showAlert = true
+                alertTitle = "Success!"
+                alertMessage = "Landmark saved to History"
             }
         }
     }
