@@ -7,6 +7,7 @@
 //
 
 import PhotosUI
+import Network
 import SwiftData
 import SwiftSpinner
 import SwiftUI
@@ -136,6 +137,9 @@ struct ImageSourceView: View {
     
     private func handlePickerItemChange() {
         Task {
+            
+            guard await checkNetworkConnection() else { return }
+            
             await MainActor.run {
                 showSpinner()
             }
@@ -154,6 +158,9 @@ struct ImageSourceView: View {
     
     private func handleCameraImageChange() {
         Task {
+            
+            guard await checkNetworkConnection() else { return }
+            
             await MainActor.run {
                 showSpinner()
             }
@@ -206,6 +213,38 @@ struct ImageSourceView: View {
     
     private func hideSpinner() {
         SwiftSpinner.hide()
+    }
+    
+    private func isNetworkAvailable() async -> Bool {
+        return await withCheckedContinuation { continuation in
+            let monitor = NWPathMonitor()
+            let queue = DispatchQueue.global(qos: .background)
+            
+            monitor.pathUpdateHandler = { path in
+                if path.status == .satisfied {
+                    continuation.resume(returning: true)
+                } else {
+                    continuation.resume(returning: false)
+                }
+                monitor.cancel()
+            }
+            
+            monitor.start(queue: queue)
+        }
+    }
+    
+    private func checkNetworkConnection() async -> Bool {
+        let networkAvailable = await isNetworkAvailable()
+        
+        if !networkAvailable {
+            await MainActor.run {
+                showAlert = true
+                alertTitle = "No Network Connection!"
+                alertMessage = "Please check your internet connection and try again."
+            }
+        }
+        
+        return networkAvailable
     }
 }
 
