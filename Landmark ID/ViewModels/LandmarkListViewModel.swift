@@ -6,45 +6,31 @@
 //  Copyright © 2020 Pete Chambers. All rights reserved.
 //
 
-import Foundation
-import SwiftData
 import SwiftUI
 
 protocol LandmarkListViewModelObservable: ObservableObject {
-    func requestFetchLandmarks()
+    var landmarks: [Landmark] { get set }
+    func fetchLandmarks()
+    func deleteLandmark(_ landmark: Landmark)
 }
 
 class LandmarkListViewModel: LandmarkListViewModelObservable {
+    @Published var landmarks: [Landmark] = []
     
-    var modelContext: ModelContext
+    private let dataSource: SwiftDataService
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
+    init(dataSource: SwiftDataService) {
+        self.dataSource = dataSource
+        fetchLandmarks()
+    }
+
+    func fetchLandmarks() {
+        landmarks = dataSource.fetchLandmarks()
     }
     
-    var numberOfSections: Int {
-        return 1
-    }
-    
-    func requestFetchLandmarks() {
-        fetchAllLandmarks()
-    }
-    
-    func numberOfItemsInSection(_ section: Int) -> Int {
-        return 0
-    }
-    
-    func fetchAllLandmarks() {
-        
-    }
-    
-    func removeLandmark(at index: Int) {
-//        let landmark = self.landmarks[index]
-//        DataManager.shared.removeLandmark(id: landmark.id)
-    }
-    
-    func identifyLandmark(imageData: String, success: @escaping (Bool) -> Void, completion: @escaping (String, String) -> Void) {
-//        DataManager.shared.createRequest(with: imageData, success: success, completion: completion)
+    func deleteLandmark(_ landmark: Landmark) {
+        dataSource.deleteLandmark(landmark)
+        fetchLandmarks()
     }
 }
 

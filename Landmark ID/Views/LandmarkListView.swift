@@ -9,26 +9,24 @@
 import SwiftData
 import SwiftUI
 
-struct LandmarkListView: View {
-        
-    @Environment(\.modelContext) private var modelContext
+struct LandmarkListView<ViewModel: LandmarkListViewModelObservable>: View {
+    
+    @StateObject var viewModel: ViewModel
     
     @State private var isEditing = false
     @State private var showDeleteAlert = false
     @State private var itemToDelete: Landmark?
     
-    @Query var landmarks: [Landmark]
-    
     var body: some View {
         Group {
-            if landmarks.isEmpty {
+            if viewModel.landmarks.isEmpty {
                 ContentUnavailableView(
                     "No saved landmarks",
                     systemImage: "photo",
                     description: Text("All your tagged landmarks will be automatically saved here"))
             } else {
                 List {
-                    ForEach(landmarks) { landmark in
+                    ForEach(viewModel.landmarks) { landmark in
                         HStack {
                             if isEditing {
                                 Button(action: {
@@ -77,7 +75,7 @@ struct LandmarkListView: View {
         }) {
             Text(isEditing ? "Done" : "Edit")
         }
-        .disabled(landmarks.isEmpty))
+        .disabled(viewModel.landmarks.isEmpty))
         .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive))
         .alert(isPresented: $showDeleteAlert) {
             Alert(
@@ -94,9 +92,10 @@ struct LandmarkListView: View {
     }
     
     private func deleteLandmark(landmark: Landmark) {
-        if let index = landmarks.firstIndex(of: landmark) {
+        if let index = viewModel.landmarks.firstIndex(of: landmark) {
             withAnimation {
-                modelContext.delete(landmarks[index])
+                let landmark = viewModel.landmarks[index]
+                viewModel.deleteLandmark(landmark)
             }
         }
     }

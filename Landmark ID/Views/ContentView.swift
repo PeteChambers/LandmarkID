@@ -7,15 +7,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    
     var body: some View {
         NavigationStack {
-            ImageSourceView()
+            ImageSourceView(viewModel: ImageSourceViewModel(dataSource: .shared))
         }
-        .modelContext(modelContext)
     }
 }

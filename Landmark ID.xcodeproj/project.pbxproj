@@ -30,6 +30,8 @@
 		C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1254EC82C2DDB7900252892 /* ContentView.swift */; };
 		C14FA0F82C4EF35E00521D69 /* SelectImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14FA0F72C4EF35E00521D69 /* SelectImageButton.swift */; };
 		C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */; };
+		C19E7F012CE29A6800BDA239 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E7F002CE29A6800BDA239 /* SwiftDataService.swift */; };
+		C19E7F052CE29D5B00BDA239 /* ImageSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E7F042CE29D5B00BDA239 /* ImageSourceViewModel.swift */; };
 		C1D815622C47164F00352867 /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D815612C47164F00352867 /* Image+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 		C1254EC82C2DDB7900252892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C14FA0F72C4EF35E00521D69 /* SelectImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageButton.swift; sourceTree = "<group>"; };
 		C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListDetailView.swift; sourceTree = "<group>"; };
+		C19E7F002CE29A6800BDA239 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
+		C19E7F042CE29D5B00BDA239 /* ImageSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSourceViewModel.swift; sourceTree = "<group>"; };
 		C1D815612C47164F00352867 /* Image+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				C1254EC62C2DD9E600252892 /* Landmark.swift */,
+				C19E7F002CE29A6800BDA239 /* SwiftDataService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 		806B081B25654E8D007AAEDE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C19E7F042CE29D5B00BDA239 /* ImageSourceViewModel.swift */,
 				8067596625654FD600788F8F /* LandmarkListViewModel.swift */,
 			);
 			path = ViewModels;
@@ -380,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C628DC215E2D85000D3CDD /* LandmarkDetailViewController.swift in Sources */,
+				C19E7F012CE29A6800BDA239 /* SwiftDataService.swift in Sources */,
 				437D6302217A0E2C00AB0A9A /* LandmarkCell.swift in Sources */,
 				437D6355217CAF5400AB0A9A /* WebViewController.swift in Sources */,
 				C11F29262C3EEE1D0035BFC3 /* CameraCoordinator.swift in Sources */,
@@ -390,6 +397,7 @@
 				43008D542189E23F00AE6256 /* DesignView.swift in Sources */,
 				C1254EA62C2C8E7900252892 /* ImageSourceView.swift in Sources */,
 				C14FA0F82C4EF35E00521D69 /* SelectImageButton.swift in Sources */,
+				C19E7F052CE29D5B00BDA239 /* ImageSourceViewModel.swift in Sources */,
 				43D9E0A92178D45D009363CB /* DataManager.swift in Sources */,
 				C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */,
 				C1254EC52C2DD11000252892 /* LandmarkID.swift in Sources */,

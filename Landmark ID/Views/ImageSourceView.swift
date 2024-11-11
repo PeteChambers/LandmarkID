@@ -12,39 +12,28 @@ import SwiftData
 import SwiftSpinner
 import SwiftUI
 
-struct ImageSourceView: View {
-    @Environment(\.modelContext) var modelContext
-    @Query var landmarks: [Landmark]
+struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
+    
+    @StateObject var viewModel: ViewModel
     
     @State private var pickerItem: PhotosPickerItem?
     @State private var cameraImage: UIImage?
     @State private var selectedImage: UIImage?
-    
-    @State private var showResults = false
-    @State private var showOptions = false
-    @State private var showCamera = false
-    @State private var showPhotosPicker = false
-    
-    @State private var showAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
-    
-    @State private var currentLandmark: Landmark?
 
     var body: some View {
         NavigationStack {
             content
                 .navigationBarItems(trailing: historyButton())
                 .background {
-                    if !showResults {
+                    if !viewModel.showResults {
                         backgroundImage()
                     }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                .alert(isPresented: $viewModel.showAlert) {
+                    Alert(title: Text(viewModel.alertTitle), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
                 }
-                .photosPicker(isPresented: $showPhotosPicker, selection: $pickerItem, matching: .images)
-                .fullScreenCover(isPresented: $showCamera) {
+                .photosPicker(isPresented: $viewModel.showPhotosPicker, selection: $pickerItem, matching: .images)
+                .fullScreenCover(isPresented: $viewModel.showCamera) {
                     CameraAccessView(selectedImage: $cameraImage)
                         .ignoresSafeArea(.all)
                 }
@@ -59,7 +48,7 @@ struct ImageSourceView: View {
     
     @ViewBuilder
     private var content: some View {
-        if showResults, let landmark = currentLandmark {
+        if viewModel.showResults, let landmark = viewModel.currentLandmark {
             VStack {
                 LandmarkDetailView(landmark: landmark)
             }
@@ -73,47 +62,45 @@ struct ImageSourceView: View {
     
     private func selectImageButton() -> some View {
         Button {
-            showOptions = true
+            viewModel.showOptions = true
         } label: {
             Text("Choose an image")
                 .font(.headline)
-                .foregroundColor(showResults ? .white : .blue)
+                .foregroundColor(viewModel.foregroundColor)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(showResults ? .blue : .white)
+                .background(viewModel.backgroundColor)
                 .cornerRadius(10)
         }
         .padding()
-        .confirmationDialog("Choose an image", isPresented: $showOptions, titleVisibility: .visible) {
-            Button("Take a photo") { showCamera = true }
-            Button("Upload image from library") { showPhotosPicker = true }
+        .confirmationDialog("Choose an image", isPresented: $viewModel.showOptions, titleVisibility: .visible) {
+            Button("Take a photo") { viewModel.showCamera = true }
+            Button("Upload image from library") { viewModel.showPhotosPicker = true }
         }
     }
     
     private func optionsButtons() -> some View {
         HStack {
             Button {
-                showResults = false
+                viewModel.showResults = false
             } label: {
                 Text("Reset")
                     .font(.headline)
-                    .foregroundColor(showResults ? .white : .blue)
+                    .foregroundColor(viewModel.foregroundColor)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(showResults ? .blue : .white)
+                    .background(viewModel.backgroundColor)
                     .cornerRadius(10)
             }
             Button {
-                Task {
-                    await saveLandmark()
-                }
+                viewModel.saveLandmark()
             } label: {
                 Text("Save")
                     .font(.headline)
-                    .foregroundColor(showResults ? .white : .blue)
+                    .foregroundColor(viewModel.foregroundColor)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(showResults ? .blue : .white)
+                    .background(viewModel.backgroundColor)
                     .cornerRadius(10)
             }
         }
@@ -122,10 +109,10 @@ struct ImageSourceView: View {
     
     private func historyButton() -> some View {
         NavigationLink {
-            LandmarkListView()
+            LandmarkListView(viewModel: LandmarkListViewModel(dataSource: .shared))
         } label: {
             Image(systemName: "clock.fill")
-                .foregroundColor(showResults ? .blue : .white)
+                .foregroundColor(viewModel.foregroundColor)
         }
     }
     
@@ -180,27 +167,16 @@ struct ImageSourceView: View {
             await MainActor.run {
                 if let title = title, let description = description {
                     let landmark = Landmark(id: UUID(), title: title, details: description, image: data)
-                    currentLandmark = landmark
-                    showResults = true
+                    viewModel.currentLandmark = landmark
+                    viewModel.showResults = true
                 }
             }
         } catch {
             await MainActor.run {
-                showResults = false
-                showAlert = true
-                alertTitle = "No Landmarks Found!"
-                alertMessage = "Please use a different image and try again"
-            }
-        }
-    }
-    
-    private func saveLandmark() async {
-        await MainActor.run {
-            if let landmark = currentLandmark {
-                modelContext.insert(landmark)
-                showAlert = true
-                alertTitle = "Success!"
-                alertMessage = "Landmark saved to History"
+                viewModel.showResults = false
+                viewModel.showAlert = true
+                viewModel.alertTitle = "No Landmarks Found!"
+                viewModel.alertMessage = "Please use a different image and try again"
             }
         }
     }
@@ -238,9 +214,9 @@ struct ImageSourceView: View {
         
         if !networkAvailable {
             await MainActor.run {
-                showAlert = true
-                alertTitle = "No Network Connection!"
-                alertMessage = "Please check your internet connection and try again."
+                viewModel.showAlert = true
+                viewModel.alertTitle = "No Network Connection!"
+                viewModel.alertMessage = "Please check your internet connection and try again."
             }
         }
         
@@ -249,5 +225,5 @@ struct ImageSourceView: View {
 }
 
 #Preview {
-    ImageSourceView()
+    ImageSourceView(viewModel: ImageSourceViewModel(dataSource: .shared))
 }
