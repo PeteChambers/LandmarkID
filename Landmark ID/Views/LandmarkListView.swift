@@ -13,25 +13,20 @@ struct LandmarkListView<ViewModel: LandmarkListViewModelObservable>: View {
     
     @StateObject var viewModel: ViewModel
     
-    @State private var isEditing = false
-    @State private var showDeleteAlert = false
-    @State private var itemToDelete: Landmark?
-    
     var body: some View {
         Group {
             if viewModel.landmarks.isEmpty {
                 ContentUnavailableView(
-                    "No saved landmarks",
+                    LocalizedStrings.Alerts.noSavedLandmarks,
                     systemImage: "photo",
-                    description: Text("All your tagged landmarks will be automatically saved here"))
+                    description: Text(LocalizedStrings.Alerts.noSavedLandmarksDescription))
             } else {
                 List {
                     ForEach(viewModel.landmarks) { landmark in
                         HStack {
-                            if isEditing {
+                            if viewModel.isEditing {
                                 Button(action: {
-                                    itemToDelete = landmark
-                                    showDeleteAlert = true
+                                    viewModel.setItemToDelete(landmark)
                                 }) {
                                     Image(systemName: "minus.circle.fill")
                                         .foregroundColor(.red)
@@ -66,27 +61,29 @@ struct LandmarkListView<ViewModel: LandmarkListViewModelObservable>: View {
                 }
             }
         }
-        .navigationTitle("History")
+        .navigationTitle(LocalizedStrings.General.history)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: Button(action: {
             withAnimation {
-                isEditing.toggle()
+                viewModel.isEditing.toggle()
             }
         }) {
-            Text(isEditing ? "Done" : "Edit")
+            Text(viewModel.isEditing ? LocalizedStrings.Buttons.done : LocalizedStrings.Buttons.edit)
         }
         .disabled(viewModel.landmarks.isEmpty))
-        .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive))
-        .alert(isPresented: $showDeleteAlert) {
+        .environment(\.editMode, viewModel.isEditing ? .constant(.active) : .constant(.inactive))
+        .alert(isPresented: $viewModel.showDeleteAlert) {
             Alert(
-                title: Text("Delete Landmark"),
-                message: Text("Do you want to delete this landmark?"),
-                primaryButton: .destructive(Text("Delete")) {
-                    if let landmarkToDelete = itemToDelete {
-                        deleteLandmark(landmark: landmarkToDelete)
+                title: Text(LocalizedStrings.Alerts.deleteLandmarkTitle),
+                message: Text(LocalizedStrings.Alerts.deleteLandmarkDescription),
+                primaryButton: .destructive(Text(LocalizedStrings.Buttons.delete)) {
+                    if let landmarkToDelete = viewModel.landmarkToDelete {
+                        viewModel.deleteLandmark(landmarkToDelete)
                     }
                 },
-                secondaryButton: .cancel()
+                secondaryButton: .cancel {
+                    viewModel.setItemToDelete(nil)
+                }
             )
         }
     }

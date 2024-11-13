@@ -6,19 +6,11 @@
 //  Copyright © 2024 Pete Chambers. All rights reserved.
 //
 
-import PhotosUI
-import Network
-import SwiftData
-import SwiftSpinner
 import SwiftUI
 
 struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
     
     @StateObject var viewModel: ViewModel
-    
-    @State private var pickerItem: PhotosPickerItem?
-    @State private var cameraImage: UIImage?
-    @State private var selectedImage: UIImage?
 
     var body: some View {
         NavigationStack {
@@ -30,18 +22,22 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
                     }
                 }
                 .alert(isPresented: $viewModel.showAlert) {
-                    Alert(title: Text(viewModel.alertTitle), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+                    Alert(title: Text(viewModel.alertTitle), message: Text(viewModel.alertMessage), dismissButton: .default(Text(LocalizedStrings.Buttons.ok)))
                 }
-                .photosPicker(isPresented: $viewModel.showPhotosPicker, selection: $pickerItem, matching: .images)
+                .photosPicker(isPresented: $viewModel.showPhotosPicker, selection: $viewModel.pickerItem, matching: .images)
                 .fullScreenCover(isPresented: $viewModel.showCamera) {
-                    CameraAccessView(selectedImage: $cameraImage)
+                    CameraAccessView(selectedImage: $viewModel.cameraImage)
                         .ignoresSafeArea(.all)
                 }
-                .onChange(of: pickerItem) {
-                    handlePickerItemChange()
+                .onChange(of: viewModel.pickerItem) {
+                    Task {
+                        await viewModel.handlePickerItemChange()
+                    }
                 }
-                .onChange(of: cameraImage) {
-                    handleCameraImageChange()
+                .onChange(of: viewModel.cameraImage) {
+                    Task {
+                        await viewModel.handleCameraImageChange()
+                    }
                 }
         }
     }
@@ -64,7 +60,7 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
         Button {
             viewModel.showOptions = true
         } label: {
-            Text("Choose an image")
+            Text(LocalizedStrings.General.chooseAnImage)
                 .font(.headline)
                 .foregroundColor(viewModel.foregroundColor)
                 .padding()
@@ -73,9 +69,9 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
                 .cornerRadius(10)
         }
         .padding()
-        .confirmationDialog("Choose an image", isPresented: $viewModel.showOptions, titleVisibility: .visible) {
-            Button("Take a photo") { viewModel.showCamera = true }
-            Button("Upload image from library") { viewModel.showPhotosPicker = true }
+        .confirmationDialog(LocalizedStrings.General.chooseAnImage, isPresented: $viewModel.showOptions, titleVisibility: .visible) {
+            Button(LocalizedStrings.General.takeAPhoto) { viewModel.showCamera = true }
+            Button(LocalizedStrings.General.uploadImageFromLibrary) { viewModel.showPhotosPicker = true }
         }
     }
     
@@ -84,7 +80,7 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
             Button {
                 viewModel.showResults = false
             } label: {
-                Text("Reset")
+                Text(LocalizedStrings.Buttons.reset)
                     .font(.headline)
                     .foregroundColor(viewModel.foregroundColor)
                     .padding()
@@ -95,7 +91,7 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
             Button {
                 viewModel.saveLandmark()
             } label: {
-                Text("Save")
+                Text(LocalizedStrings.Buttons.save)
                     .font(.headline)
                     .foregroundColor(viewModel.foregroundColor)
                     .padding()
@@ -120,107 +116,6 @@ struct ImageSourceView<ViewModel: ImageSourceViewModelObservable>: View {
         Image("StPauls")
             .resizable()
             .edgesIgnoringSafeArea(.all)
-    }
-    
-    private func handlePickerItemChange() {
-        Task {
-            
-            guard await checkNetworkConnection() else { return }
-            
-            await MainActor.run {
-                showSpinner()
-            }
-            if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
-                await MainActor.run {
-                    selectedImage = UIImage(data: data)
-                }
-                await analyseImage(data: data)
-            }
-            await MainActor.run {
-                hideSpinner()
-            }
-            pickerItem = nil
-        }
-    }
-    
-    private func handleCameraImageChange() {
-        Task {
-            
-            guard await checkNetworkConnection() else { return }
-            
-            await MainActor.run {
-                showSpinner()
-            }
-            if let data = cameraImage?.jpegData(compressionQuality: 1.0) {
-                selectedImage = cameraImage
-                await analyseImage(data: data)
-            }
-            await MainActor.run {
-                hideSpinner()
-            }
-        }
-    }
-    
-    private func analyseImage(data: Data) async {
-        do {
-            let (title, description) = try await DataManager().detectLandmark(imageData: data)
-            await MainActor.run {
-                if let title = title, let description = description {
-                    let landmark = Landmark(id: UUID(), title: title, details: description, image: data)
-                    viewModel.currentLandmark = landmark
-                    viewModel.showResults = true
-                }
-            }
-        } catch {
-            await MainActor.run {
-                viewModel.showResults = false
-                viewModel.showAlert = true
-                viewModel.alertTitle = "No Landmarks Found!"
-                viewModel.alertMessage = "Please use a different image and try again"
-            }
-        }
-    }
-    
-    private func showSpinner() {
-        SwiftSpinner.shared.outerColor = UIColor.white
-        SwiftSpinner.setTitleColor(UIColor.white)
-        SwiftSpinner.show("Analysing Image...")
-    }
-    
-    private func hideSpinner() {
-        SwiftSpinner.hide()
-    }
-    
-    private func isNetworkAvailable() async -> Bool {
-        return await withCheckedContinuation { continuation in
-            let monitor = NWPathMonitor()
-            let queue = DispatchQueue.global(qos: .background)
-            
-            monitor.pathUpdateHandler = { path in
-                if path.status == .satisfied {
-                    continuation.resume(returning: true)
-                } else {
-                    continuation.resume(returning: false)
-                }
-                monitor.cancel()
-            }
-            
-            monitor.start(queue: queue)
-        }
-    }
-    
-    private func checkNetworkConnection() async -> Bool {
-        let networkAvailable = await isNetworkAvailable()
-        
-        if !networkAvailable {
-            await MainActor.run {
-                viewModel.showAlert = true
-                viewModel.alertTitle = "No Network Connection!"
-                viewModel.alertMessage = "Please check your internet connection and try again."
-            }
-        }
-        
-        return networkAvailable
     }
 }
 

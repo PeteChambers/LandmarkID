@@ -32,6 +32,8 @@
 		C1898DBC2C3C72F4004807EE /* LandmarkListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */; };
 		C19E7F012CE29A6800BDA239 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E7F002CE29A6800BDA239 /* SwiftDataService.swift */; };
 		C19E7F052CE29D5B00BDA239 /* ImageSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E7F042CE29D5B00BDA239 /* ImageSourceViewModel.swift */; };
+		C1C82D202CE55A19003F7E33 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C1C82D1F2CE55A19003F7E33 /* Localizable.xcstrings */; };
+		C1C82D242CE55BA0003F7E33 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C82D232CE55BA0003F7E33 /* LocalizedStrings.swift */; };
 		C1D815622C47164F00352867 /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D815612C47164F00352867 /* Image+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,8 @@
 		C1898DBB2C3C72F4004807EE /* LandmarkListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkListDetailView.swift; sourceTree = "<group>"; };
 		C19E7F002CE29A6800BDA239 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
 		C19E7F042CE29D5B00BDA239 /* ImageSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSourceViewModel.swift; sourceTree = "<group>"; };
+		C1C82D1F2CE55A19003F7E33 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		C1C82D232CE55BA0003F7E33 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		C1D815612C47164F00352867 /* Image+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				4372DF7F215D32AD00C5B469 /* Assets.xcassets */,
+				C1C82D1F2CE55A19003F7E33 /* Localizable.xcstrings */,
+				C1C82D232CE55BA0003F7E33 /* LocalizedStrings.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -334,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4372DF83215D32AD00C5B469 /* LaunchScreen.storyboard in Resources */,
+				C1C82D202CE55A19003F7E33 /* Localizable.xcstrings in Resources */,
 				4372DF80215D32AD00C5B469 /* Assets.xcassets in Resources */,
 				43C628E2215E40B4000D3CDD /* LandmarkID.plist in Resources */,
 				4372DF7B215D32AD00C5B469 /* Main.storyboard in Resources */,
@@ -405,6 +412,7 @@
 				C1254EC92C2DDB7900252892 /* ContentView.swift in Sources */,
 				43C628D4215E2CD8000D3CDD /* ImageSourceViewController.swift in Sources */,
 				43EE51A12193074D00D9DAFA /* Reachability.swift in Sources */,
+				C1C82D242CE55BA0003F7E33 /* LocalizedStrings.swift in Sources */,
 				C11F291F2C3EE9AF0035BFC3 /* CameraAccessView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +497,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -544,6 +553,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
